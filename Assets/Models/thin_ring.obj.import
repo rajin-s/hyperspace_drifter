@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/thin_ring.obj-cb16727830991b79f2184d6aac87bc21.mesh"
+
+[deps]
+
+files=[ "res://.import/thin_ring.obj-cb16727830991b79f2184d6aac87bc21.mesh" ]
+
+source_file="res://Assets/Models/thin_ring.obj"
+dest_files=[ "res://.import/thin_ring.obj-cb16727830991b79f2184d6aac87bc21.mesh", "res://.import/thin_ring.obj-cb16727830991b79f2184d6aac87bc21.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true

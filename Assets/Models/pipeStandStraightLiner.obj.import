@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/pipeStandStraightLiner.obj-2793dce811c1493e0019216dbdd45fda.mesh"
+
+[deps]
+
+files=[ "res://.import/pipeStandStraightLiner.obj-2793dce811c1493e0019216dbdd45fda.mesh" ]
+
+source_file="res://Assets/Models/pipeStandStraightLiner.obj"
+dest_files=[ "res://.import/pipeStandStraightLiner.obj-2793dce811c1493e0019216dbdd45fda.mesh", "res://.import/pipeStandStraightLiner.obj-2793dce811c1493e0019216dbdd45fda.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

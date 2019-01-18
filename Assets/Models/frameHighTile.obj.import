@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/frameHighTile.obj-5928bb69dac398685e79c9a09f3588ad.mesh"
+
+[deps]
+
+files=[ "res://.import/frameHighTile.obj-5928bb69dac398685e79c9a09f3588ad.mesh" ]
+
+source_file="res://Assets/Models/frameHighTile.obj"
+dest_files=[ "res://.import/frameHighTile.obj-5928bb69dac398685e79c9a09f3588ad.mesh", "res://.import/frameHighTile.obj-5928bb69dac398685e79c9a09f3588ad.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

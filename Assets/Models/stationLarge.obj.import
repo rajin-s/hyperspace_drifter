@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/stationLarge.obj-40aec09ee1bd5fe526f3b6f58aebb031.mesh"
+
+[deps]
+
+files=[ "res://.import/stationLarge.obj-40aec09ee1bd5fe526f3b6f58aebb031.mesh" ]
+
+source_file="res://Assets/Models/stationLarge.obj"
+dest_files=[ "res://.import/stationLarge.obj-40aec09ee1bd5fe526f3b6f58aebb031.mesh", "res://.import/stationLarge.obj-40aec09ee1bd5fe526f3b6f58aebb031.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

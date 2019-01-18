@@ -1,0 +1,26 @@
+# Made using Asset Forge (www.assetforge.io) version 1.0 
+
+mtllib metalTileConnectCenter.mtl 
+
+g metalTileConnectCenter
+
+v 0 0.4 0 
+v 0 0.4 10 
+v -10 0.4 0 
+v -10 0.4 10 
+
+vn -0.003921539 0.9999924 0
+vn -0.003921539 -0.9999924 0
+
+vt 0.464644 1.464645
+vt 0.464644 4.535356
+vt 3.535355 1.464645
+vt 3.535355 4.535356
+
+usemtl net
+usemap net
+
+f 2/2/1 1/1/1 3/3/1
+f 3/3/1 4/4/1 2/2/1
+f 2/2/2 3/3/2 1/1/2
+f 3/3/2 2/2/2 4/4/2

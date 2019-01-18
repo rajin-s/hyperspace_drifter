@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/pipeStand.obj-b698f0a563913f6f92ebae7da30bd698.mesh"
+
+[deps]
+
+files=[ "res://.import/pipeStand.obj-b698f0a563913f6f92ebae7da30bd698.mesh" ]
+
+source_file="res://Assets/Models/pipeStand.obj"
+dest_files=[ "res://.import/pipeStand.obj-b698f0a563913f6f92ebae7da30bd698.mesh", "res://.import/pipeStand.obj-b698f0a563913f6f92ebae7da30bd698.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

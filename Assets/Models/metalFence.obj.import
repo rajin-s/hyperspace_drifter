@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/metalFence.obj-0f1e4f0e6616bba4619f8f62cf85a109.mesh"
+
+[deps]
+
+files=[ "res://.import/metalFence.obj-0f1e4f0e6616bba4619f8f62cf85a109.mesh" ]
+
+source_file="res://Assets/Models/metalFence.obj"
+dest_files=[ "res://.import/metalFence.obj-0f1e4f0e6616bba4619f8f62cf85a109.mesh", "res://.import/metalFence.obj-0f1e4f0e6616bba4619f8f62cf85a109.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

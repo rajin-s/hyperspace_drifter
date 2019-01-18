@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/portal.obj-a3bdea324fd665a9ca6f2ee863d6e0eb.mesh"
+
+[deps]
+
+files=[ "res://.import/portal.obj-a3bdea324fd665a9ca6f2ee863d6e0eb.mesh" ]
+
+source_file="res://Assets/Models/portal.obj"
+dest_files=[ "res://.import/portal.obj-a3bdea324fd665a9ca6f2ee863d6e0eb.mesh", "res://.import/portal.obj-a3bdea324fd665a9ca6f2ee863d6e0eb.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

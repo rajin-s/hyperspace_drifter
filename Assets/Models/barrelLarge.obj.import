@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/barrelLarge.obj-245ea44f6d552bcd21a076c75358ae7a.mesh"
+
+[deps]
+
+files=[ "res://.import/barrelLarge.obj-245ea44f6d552bcd21a076c75358ae7a.mesh" ]
+
+source_file="res://Assets/Models/barrelLarge.obj"
+dest_files=[ "res://.import/barrelLarge.obj-245ea44f6d552bcd21a076c75358ae7a.mesh", "res://.import/barrelLarge.obj-245ea44f6d552bcd21a076c75358ae7a.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

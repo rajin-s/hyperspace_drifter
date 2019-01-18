@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/groundTileRough.obj-63e9c0fbbb1d64780451872431063a06.mesh"
+
+[deps]
+
+files=[ "res://.import/groundTileRough.obj-63e9c0fbbb1d64780451872431063a06.mesh" ]
+
+source_file="res://Assets/Models/groundTileRough.obj"
+dest_files=[ "res://.import/groundTileRough.obj-63e9c0fbbb1d64780451872431063a06.mesh", "res://.import/groundTileRough.obj-63e9c0fbbb1d64780451872431063a06.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

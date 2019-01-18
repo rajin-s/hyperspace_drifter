@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/astronaut.obj-d529e4351166a51a4f11958e8ace54cf.mesh"
+
+[deps]
+
+files=[ "res://.import/astronaut.obj-d529e4351166a51a4f11958e8ace54cf.mesh" ]
+
+source_file="res://Assets/Models/astronaut.obj"
+dest_files=[ "res://.import/astronaut.obj-d529e4351166a51a4f11958e8ace54cf.mesh", "res://.import/astronaut.obj-d529e4351166a51a4f11958e8ace54cf.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

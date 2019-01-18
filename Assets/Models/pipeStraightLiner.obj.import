@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/pipeStraightLiner.obj-3b9fa5fb885b765c16e9bedb19066012.mesh"
+
+[deps]
+
+files=[ "res://.import/pipeStraightLiner.obj-3b9fa5fb885b765c16e9bedb19066012.mesh" ]
+
+source_file="res://Assets/Models/pipeStraightLiner.obj"
+dest_files=[ "res://.import/pipeStraightLiner.obj-3b9fa5fb885b765c16e9bedb19066012.mesh", "res://.import/pipeStraightLiner.obj-3b9fa5fb885b765c16e9bedb19066012.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

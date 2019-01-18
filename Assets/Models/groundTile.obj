@@ -1,0 +1,23 @@
+# Made using Asset Forge (www.assetforge.io) version 1.0 
+
+mtllib groundTile.mtl 
+
+g groundTile
+
+v 0 0 0 
+v 0 0 10 
+v -10 0 0 
+v -10 0 10 
+
+vn 0 1 0
+
+vt 0 0
+vt 0 39.37008
+vt 39.37008 0
+vt 39.37008 39.37008
+
+usemtl rock
+usemap rock
+
+f 2/2/1 1/1/1 3/3/1
+f 3/3/1 4/4/1 2/2/1

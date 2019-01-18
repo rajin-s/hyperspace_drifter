@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/console.obj-2640369915b6ff83cbb3414b8e13d35b.mesh"
+
+[deps]
+
+files=[ "res://.import/console.obj-2640369915b6ff83cbb3414b8e13d35b.mesh" ]
+
+source_file="res://Assets/Models/console.obj"
+dest_files=[ "res://.import/console.obj-2640369915b6ff83cbb3414b8e13d35b.mesh", "res://.import/console.obj-2640369915b6ff83cbb3414b8e13d35b.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

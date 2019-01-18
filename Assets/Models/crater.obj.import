@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/crater.obj-3f8a33088f4ffdcafbf69fee3e0f2425.mesh"
+
+[deps]
+
+files=[ "res://.import/crater.obj-3f8a33088f4ffdcafbf69fee3e0f2425.mesh" ]
+
+source_file="res://Assets/Models/crater.obj"
+dest_files=[ "res://.import/crater.obj-3f8a33088f4ffdcafbf69fee3e0f2425.mesh", "res://.import/crater.obj-3f8a33088f4ffdcafbf69fee3e0f2425.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

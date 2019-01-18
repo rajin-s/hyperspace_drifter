@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/meteorFull.obj-1f654fa14ce977532d76cb2eed94832c.mesh"
+
+[deps]
+
+files=[ "res://.import/meteorFull.obj-1f654fa14ce977532d76cb2eed94832c.mesh" ]
+
+source_file="res://Assets/Models/meteorFull.obj"
+dest_files=[ "res://.import/meteorFull.obj-1f654fa14ce977532d76cb2eed94832c.mesh", "res://.import/meteorFull.obj-1f654fa14ce977532d76cb2eed94832c.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

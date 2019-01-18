@@ -1,0 +1,38 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "Component",
+"language": "GDScript",
+"path": "res://Scripts/c_component.gd"
+} ]
+_global_script_class_icons={
+"Component": ""
+}
+
+[application]
+
+config/name="C220_Project1"
+run/main_scene="res://Main.tscn"
+boot_splash/image="res://Icon-1.png"
+boot_splash/fullsize=false
+boot_splash/bg_color=Color( 0.921569, 0.921569, 0.921569, 1 )
+config/icon="res://icon.png"
+
+[display]
+
+window/size/width=480
+window/size/height=800
+
+[rendering]
+
+quality/filters/msaa=2
+environment/default_environment="res://default_env.tres"

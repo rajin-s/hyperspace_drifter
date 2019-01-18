@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/meteorFullRound.obj-b667486a3895f715e4777c5e0aedad42.mesh"
+
+[deps]
+
+files=[ "res://.import/meteorFullRound.obj-b667486a3895f715e4777c5e0aedad42.mesh" ]
+
+source_file="res://Assets/Models/meteorFullRound.obj"
+dest_files=[ "res://.import/meteorFullRound.obj-b667486a3895f715e4777c5e0aedad42.mesh", "res://.import/meteorFullRound.obj-b667486a3895f715e4777c5e0aedad42.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

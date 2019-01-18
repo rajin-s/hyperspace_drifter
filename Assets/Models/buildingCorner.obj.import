@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/buildingCorner.obj-b0cfc282db80968fabb8e5d1dfa1d058.mesh"
+
+[deps]
+
+files=[ "res://.import/buildingCorner.obj-b0cfc282db80968fabb8e5d1dfa1d058.mesh" ]
+
+source_file="res://Assets/Models/buildingCorner.obj"
+dest_files=[ "res://.import/buildingCorner.obj-b0cfc282db80968fabb8e5d1dfa1d058.mesh", "res://.import/buildingCorner.obj-b0cfc282db80968fabb8e5d1dfa1d058.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 0.1, 0.1, 0.1 )
+optimize_mesh=true

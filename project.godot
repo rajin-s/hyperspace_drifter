@@ -20,12 +20,12 @@ _global_script_class_icons={
 
 [application]
 
-config/name="C220_Project1"
+config/name="Rajin Shankar's SHMUP"
 run/main_scene="res://Main.tscn"
 boot_splash/image="res://Icon-1.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.921569, 0.921569, 0.921569, 1 )
-config/icon="res://icon.png"
+config/icon="res://Icon-1.png"
 
 [display]
 

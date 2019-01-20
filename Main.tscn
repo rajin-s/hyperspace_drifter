@@ -1,13 +1,13 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Assets/Models/spaceCraft1.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Assets/Models/spaceCraft2.obj" type="ArrayMesh" id=2]
 [ext_resource path="res://Assets/Models/spaceCraft5.obj" type="ArrayMesh" id=3]
 [ext_resource path="res://Assets/Models/spaceCraft6.obj" type="ArrayMesh" id=4]
-[ext_resource path="res://Assets/Models/spaceCraft4.obj" type="ArrayMesh" id=5]
-[ext_resource path="res://Assets/Materials/MAT_Red.tres" type="Material" id=6]
+[ext_resource path="res://Assets/Materials/MAT_Red.tres" type="Material" id=5]
+[ext_resource path="res://Assets/Materials/MAT_Steel.tres" type="Material" id=6]
 [ext_resource path="res://Assets/Materials/MAT_Dark.tres" type="Material" id=7]
-[ext_resource path="res://Assets/Materials/MAT_Steel.tres" type="Material" id=8]
+[ext_resource path="res://Assets/Models/spaceCraft4.obj" type="ArrayMesh" id=8]
 [ext_resource path="res://Assets/Models/spaceCraft3.obj" type="ArrayMesh" id=9]
 [ext_resource path="res://Assets/Materials/PMAT_Smoke.tres" type="Material" id=10]
 [ext_resource path="res://Assets/Materials/MAT_Smoke.tres" type="Material" id=11]
@@ -23,6 +23,7 @@
 [ext_resource path="res://Scripts/lerp_follow.gd" type="Script" id=21]
 [ext_resource path="res://default_env.tres" type="Environment" id=22]
 [ext_resource path="res://debug_pause.gd" type="Script" id=23]
+[ext_resource path="res://Scripts/s_level_generator.gd" type="Script" id=24]
 
 [sub_resource type="SphereMesh" id=1]
 
@@ -77,6 +78,8 @@ hue_variation_random = 1.0
 [sub_resource type="SphereMesh" id=8]
 
 material = ExtResource( 17 )
+radial_segments = 16
+rings = 8
 
 [node name="Main" type="Node"]
 pause_mode = 1
@@ -116,11 +119,21 @@ material/1 = null
 material/2 = null
 material/3 = null
 
+[node name="MeshInstance" type="MeshInstance" parent="Ship Sample"]
+transform = Transform( -1, 8.02716e-008, -4.11397e-008, 8.02716e-008, 1, -5.22437e-008, 4.11397e-008, -5.22437e-008, -1, 3.5061e-008, -7.12259e-007, -13.6334 )
+visible = false
+mesh = ExtResource( 4 )
+material/0 = ExtResource( 5 )
+material/1 = ExtResource( 6 )
+material/2 = ExtResource( 5 )
+material/3 = ExtResource( 7 )
+
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.879383, -0.453875, 0.143815, 0.382518, 0.85336, 0.354198, -0.283488, -0.256464, 0.924046, 0, 0, 3.20519 )
 light_energy = 0.5
 
 [node name="Player Ship" type="Spatial" parent="."]
+editor/display_folded = true
 
 [node name="Model" type="Spatial" parent="Player Ship"]
 editor/display_folded = true
@@ -128,23 +141,23 @@ editor/display_folded = true
 [node name="Mesh Large" type="MeshInstance" parent="Player Ship/Model"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, 0 )
 visible = false
-mesh = ExtResource( 5 )
-material/0 = ExtResource( 6 )
+mesh = ExtResource( 8 )
+material/0 = ExtResource( 5 )
 material/1 = ExtResource( 7 )
-material/2 = ExtResource( 8 )
+material/2 = ExtResource( 6 )
 material/3 = ExtResource( 7 )
 
 [node name="Mesh Small" type="MeshInstance" parent="Player Ship/Model"]
 transform = Transform( 1, 7.15116e-009, 2.5717e-009, 2.5717e-009, -5.22437e-008, -1, -7.15116e-009, 1, -5.22437e-008, 0, 0, 0 )
 mesh = ExtResource( 9 )
 material/0 = null
-material/1 = ExtResource( 6 )
+material/1 = ExtResource( 5 )
 material/2 = ExtResource( 7 )
 material/3 = ExtResource( 7 )
 
 [node name="Trail Particles" type="Particles" parent="Player Ship/Model"]
 transform = Transform( -1, -3.82137e-015, -8.74228e-008, -8.74228e-008, 4.37114e-008, 1, 0, 1, -4.37114e-008, 0, -0.487426, 0.115834 )
-amount = 1000
+amount = 500
 lifetime = 1.4
 speed_scale = 2.4
 visibility_aabb = AABB( -4, -3.84619, -4, 8, 8, 8 )
@@ -171,11 +184,13 @@ process_material = ExtResource( 12 )
 draw_pass_1 = SubResource( 2 )
 
 [node name="Background Asteroids" type="Particles" parent="Player Ship"]
+editor/display_folded = true
 transform = Transform( 1, 2.64491e-008, 2.30406e-009, -2.64491e-008, 1, 2.21004e-008, -2.30406e-009, -2.21004e-008, 1, -0.424244, 3.8147e-006, 2.41713 )
 visible = false
 material_override = ExtResource( 14 )
 amount = 100
 preprocess = 100.0
+visibility_aabb = AABB( -25.4971, -4, -22.2549, 50.9941, 8, 44.5098 )
 local_coords = false
 draw_order = 2
 process_material = SubResource( 4 )
@@ -217,6 +232,7 @@ min_speed_y = 4.0
 max_speed_y = 12.0
 
 [node name="Camera Rig" type="Spatial" parent="."]
+editor/display_folded = true
 script = ExtResource( 21 )
 speed = Vector2( 2, 3 )
 target_path = NodePath("../Player Ship")
@@ -226,15 +242,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.056, 13 )
 environment = ExtResource( 22 )
 fov = 60.0
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( -1, 8.74228e-008, -4.37114e-008, -4.37114e-008, 1.91069e-015, 1, 8.74228e-008, 1, 1.91069e-015, 0, 13.6334, 0 )
-mesh = ExtResource( 4 )
-material/0 = ExtResource( 6 )
-material/1 = ExtResource( 8 )
-material/2 = ExtResource( 6 )
-material/3 = ExtResource( 7 )
-
-[node name="Node" type="Node" parent="."]
+[node name="Debug Pause" type="Node" parent="."]
 pause_mode = 2
 script = ExtResource( 23 )
+
+[node name="Level Creator" type="Node" parent="."]
+script = ExtResource( 24 )
 

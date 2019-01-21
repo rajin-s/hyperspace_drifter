@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Assets/Materials/MAT_Solid.tres" type="Material" id=1]
+[ext_resource path="res://Assets/unit_cube.tres" type="CubeMesh" id=2]
+
+[node name="Path Marker" type="Spatial"]
+
+[node name="Indicator" type="Spatial" parent="."]
+visible = false
+
+[node name="Model" type="MeshInstance" parent="Indicator"]
+transform = Transform( 1, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0 )
+material_override = ExtResource( 1 )
+mesh = ExtResource( 2 )
+material/0 = null
+

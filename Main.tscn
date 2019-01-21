@@ -133,10 +133,8 @@ transform = Transform( 0.879383, -0.453875, 0.143815, 0.382518, 0.85336, 0.35419
 light_energy = 0.5
 
 [node name="Player Ship" type="Spatial" parent="."]
-editor/display_folded = true
 
 [node name="Model" type="Spatial" parent="Player Ship"]
-editor/display_folded = true
 
 [node name="Mesh Large" type="MeshInstance" parent="Player Ship/Model"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, 0 )
@@ -148,7 +146,7 @@ material/2 = ExtResource( 6 )
 material/3 = ExtResource( 7 )
 
 [node name="Mesh Small" type="MeshInstance" parent="Player Ship/Model"]
-transform = Transform( 1, 7.15116e-009, 2.5717e-009, 2.5717e-009, -5.22437e-008, -1, -7.15116e-009, 1, -5.22437e-008, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, 0 )
 mesh = ExtResource( 9 )
 material/0 = null
 material/1 = ExtResource( 5 )
@@ -166,7 +164,7 @@ process_material = ExtResource( 10 )
 draw_pass_1 = SubResource( 1 )
 
 [node name="Burn Particles L" type="Particles" parent="Player Ship/Model"]
-transform = Transform( 1, 0, 0, 0, 6.70552e-008, -1, 0, 1, 6.70552e-008, -0.288, -0.498, 0.302509 )
+transform = Transform( 1, 0, 0, 0, 0.0107473, -0.999942, 0, 0.999942, 0.0107473, -0.288, -0.559438, 0.260305 )
 amount = 70
 lifetime = 0.19
 visibility_aabb = AABB( -4, -3.84619, -4, 8, 8, 8 )
@@ -175,7 +173,7 @@ process_material = ExtResource( 12 )
 draw_pass_1 = SubResource( 2 )
 
 [node name="Burn Particles R" type="Particles" parent="Player Ship/Model"]
-transform = Transform( 1, 0, 0, 0, 6.70552e-008, -1, 0, 1, 6.70552e-008, 0.288377, -0.498495, 0.302148 )
+transform = Transform( 1, 0, 0, 0, 0.0107473, -0.999942, 0, 0.999942, 0.0107473, 0.288377, -0.559937, 0.25995 )
 amount = 70
 lifetime = 0.19
 visibility_aabb = AABB( -4, -3.84619, -4, 8, 8, 8 )
@@ -202,10 +200,11 @@ mesh = ExtResource( 16 )
 material/0 = null
 
 [node name="Background Particles" type="Particles" parent="Player Ship"]
-transform = Transform( -0.749958, 0, 0, 0, -0.749958, 0, 0, 0, -0.749958, 0, 0, 0 )
+transform = Transform( -0.749958, 0, 0, 0, -0.749958, 0, 0, 0, -0.749958, 0, 15, 0 )
 amount = 128
 lifetime = 5.0
 preprocess = 100.0
+visibility_aabb = AABB( -4, -4, -4, 8, 20, 8 )
 local_coords = false
 process_material = SubResource( 7 )
 draw_pass_1 = SubResource( 8 )
@@ -221,24 +220,30 @@ script = ExtResource( 18 )
 
 [node name="Angle" type="Node" parent="Player Ship"]
 script = ExtResource( 19 )
-roll_speed = 2.0
-max_roll = 25.0
+roll_speed = 1.0
+max_roll = 20.0
+yaw_speed = 0.5
+max_yaw = 12.0
+pitch_speed = 2.0
+max_pitch = -30.0
+min_pitch = 15.0
 max_speed_x = 6.0
+max_speed_y = 12.0
+min_speed_y = 4.0
 
 [node name="Input" type="Node" parent="Player Ship"]
 script = ExtResource( 20 )
-max_speed_x = 4.0
+max_speed_x = 6.0
 min_speed_y = 4.0
 max_speed_y = 12.0
 
 [node name="Camera Rig" type="Spatial" parent="."]
-editor/display_folded = true
 script = ExtResource( 21 )
 speed = Vector2( 2, 3 )
 target_path = NodePath("../Player Ship")
 
 [node name="Main Camera" type="Camera" parent="Camera Rig"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.056, 13 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 16 )
 environment = ExtResource( 22 )
 fov = 60.0
 
@@ -248,4 +253,12 @@ script = ExtResource( 23 )
 
 [node name="Level Creator" type="Node" parent="."]
 script = ExtResource( 24 )
+path_length_min = 15.0
+path_length_max = 25.0
+path_width_min = 8.0
+path_width_max = 16.0
+path_width_segments = 5
+path_range_x = 10.0
+max_active_path_segments = 5
+player_node_path = NodePath("../Player Ship")
 

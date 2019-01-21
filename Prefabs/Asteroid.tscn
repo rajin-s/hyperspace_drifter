@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/c_randomize_transform.gd" type="Script" id=1]
+
+[sub_resource type="CubeMesh" id=1]
+
+
+[node name="Asteroid" type="Spatial"]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource( 1 )
+rotation_max = 360.0
+scale_min = 1.0
+scale_max = 2.0
+translation_min = -1.0
+translation_max = 1.0
+rotate_x = true
+rotate_y = true
+rotate_z = true
+scale_x = true
+scale_y = true
+scale_z = true
+translate_x = false
+translate_y = true
+translate_z = false
+

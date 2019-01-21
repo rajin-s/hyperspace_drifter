@@ -41,3 +41,7 @@ func get_component(component_name : String, fail_hard : bool = true) -> Node:
 		
 	# Return null if no matches are found
 	return null
+	
+# Set up signal handlers
+func use_on_ready() -> void:
+	object.connect("ready", self, "on_ready")

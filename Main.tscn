@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Assets/Models/spaceCraft1.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Assets/Models/spaceCraft2.obj" type="ArrayMesh" id=2]
@@ -7,79 +7,11 @@
 [ext_resource path="res://Assets/Materials/MAT_Red.tres" type="Material" id=5]
 [ext_resource path="res://Assets/Materials/MAT_Steel.tres" type="Material" id=6]
 [ext_resource path="res://Assets/Materials/MAT_Dark.tres" type="Material" id=7]
-[ext_resource path="res://Assets/Models/spaceCraft4.obj" type="ArrayMesh" id=8]
-[ext_resource path="res://Assets/Models/spaceCraft3.obj" type="ArrayMesh" id=9]
-[ext_resource path="res://Assets/Materials/PMAT_Smoke.tres" type="Material" id=10]
-[ext_resource path="res://Assets/Materials/MAT_Smoke.tres" type="Material" id=11]
-[ext_resource path="res://Assets/Materials/PMAT_Burn.tres" type="Material" id=12]
-[ext_resource path="res://Assets/Materials/MAT_Burn.tres" type="Material" id=13]
-[ext_resource path="res://Assets/Materials/MAT_Asteroid.tres" type="Material" id=14]
-[ext_resource path="res://Assets/Models/asteroid.obj" type="ArrayMesh" id=15]
-[ext_resource path="res://Assets/Models/thin_ring.obj" type="ArrayMesh" id=16]
-[ext_resource path="res://Assets/Materials/MAT_Star.tres" type="Material" id=17]
-[ext_resource path="res://Scripts/c_movement_base.gd" type="Script" id=18]
-[ext_resource path="res://Scripts/c_velocity_angle.gd" type="Script" id=19]
-[ext_resource path="res://Scripts/Player/c_player_input.gd" type="Script" id=20]
-[ext_resource path="res://Scripts/lerp_follow.gd" type="Script" id=21]
-[ext_resource path="res://default_env.tres" type="Environment" id=22]
-[ext_resource path="res://debug_pause.gd" type="Script" id=23]
-[ext_resource path="res://Scripts/s_level_generator.gd" type="Script" id=24]
-
-[sub_resource type="SphereMesh" id=1]
-
-material = ExtResource( 11 )
-radius = 0.5
-height = 1.0
-
-[sub_resource type="SphereMesh" id=2]
-
-material = ExtResource( 13 )
-radius = 0.5
-height = 1.0
-
-[sub_resource type="ImageTexture" id=3]
-
-flags = 4
-flags = 4
-size = Vector2( 2048, 1 )
-
-[sub_resource type="ParticlesMaterial" id=4]
-
-emission_shape = 3
-emission_point_texture = SubResource( 3 )
-emission_point_count = 512
-gravity = Vector3( 0, 0, 0 )
-angular_velocity = 11.0
-
-[sub_resource type="Gradient" id=5]
-
-offsets = PoolRealArray( 0, 0.492823, 1 )
-colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
-
-[sub_resource type="GradientTexture" id=6]
-
-gradient = SubResource( 5 )
-
-[sub_resource type="ParticlesMaterial" id=7]
-
-emission_shape = 2
-emission_box_extents = Vector3( 15, 20, 20 )
-spread = 113.03
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 0.2
-angular_velocity = 1.82169e-043
-angle_random = 1.0
-scale = 0.1
-scale_random = 0.05
-color_ramp = SubResource( 6 )
-hue_variation = 1.0
-hue_variation_random = 1.0
-
-[sub_resource type="SphereMesh" id=8]
-
-material = ExtResource( 17 )
-radial_segments = 16
-rings = 8
+[ext_resource path="res://Prefabs/PlayerShip.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/s_lerp_follow.gd" type="Script" id=9]
+[ext_resource path="res://default_env.tres" type="Environment" id=10]
+[ext_resource path="res://debug_pause.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/s_level_generator.gd" type="Script" id=12]
 
 [node name="Main" type="Node"]
 pause_mode = 1
@@ -132,131 +64,29 @@ material/3 = ExtResource( 7 )
 transform = Transform( 0.879383, -0.453875, 0.143815, 0.382518, 0.85336, 0.354198, -0.283488, -0.256464, 0.924046, 0, 0, 3.20519 )
 light_energy = 0.5
 
-[node name="Player Ship" type="Spatial" parent="."]
-
-[node name="Model" type="Spatial" parent="Player Ship"]
-
-[node name="Mesh Large" type="MeshInstance" parent="Player Ship/Model"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, 0 )
-visible = false
-mesh = ExtResource( 8 )
-material/0 = ExtResource( 5 )
-material/1 = ExtResource( 7 )
-material/2 = ExtResource( 6 )
-material/3 = ExtResource( 7 )
-
-[node name="Mesh Small" type="MeshInstance" parent="Player Ship/Model"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, 0 )
-mesh = ExtResource( 9 )
-material/0 = null
-material/1 = ExtResource( 5 )
-material/2 = ExtResource( 7 )
-material/3 = ExtResource( 7 )
-
-[node name="Trail Particles" type="Particles" parent="Player Ship/Model"]
-transform = Transform( -1, -3.82137e-015, -8.74228e-008, -8.74228e-008, 4.37114e-008, 1, 0, 1, -4.37114e-008, 0, -0.487426, 0.115834 )
-amount = 500
-lifetime = 1.4
-speed_scale = 2.4
-visibility_aabb = AABB( -4, -3.84619, -4, 8, 8, 8 )
-local_coords = false
-process_material = ExtResource( 10 )
-draw_pass_1 = SubResource( 1 )
-
-[node name="Burn Particles L" type="Particles" parent="Player Ship/Model"]
-transform = Transform( 1, 0, 0, 0, 0.0107473, -0.999942, 0, 0.999942, 0.0107473, -0.288, -0.559438, 0.260305 )
-amount = 70
-lifetime = 0.19
-visibility_aabb = AABB( -4, -3.84619, -4, 8, 8, 8 )
-draw_order = 2
-process_material = ExtResource( 12 )
-draw_pass_1 = SubResource( 2 )
-
-[node name="Burn Particles R" type="Particles" parent="Player Ship/Model"]
-transform = Transform( 1, 0, 0, 0, 0.0107473, -0.999942, 0, 0.999942, 0.0107473, 0.288377, -0.559937, 0.25995 )
-amount = 70
-lifetime = 0.19
-visibility_aabb = AABB( -4, -3.84619, -4, 8, 8, 8 )
-draw_order = 2
-process_material = ExtResource( 12 )
-draw_pass_1 = SubResource( 2 )
-
-[node name="Background Asteroids" type="Particles" parent="Player Ship"]
-editor/display_folded = true
-transform = Transform( 1, 2.64491e-008, 2.30406e-009, -2.64491e-008, 1, 2.21004e-008, -2.30406e-009, -2.21004e-008, 1, -0.424244, 3.8147e-006, 2.41713 )
-visible = false
-material_override = ExtResource( 14 )
-amount = 100
-preprocess = 100.0
-visibility_aabb = AABB( -25.4971, -4, -22.2549, 50.9941, 8, 44.5098 )
-local_coords = false
-draw_order = 2
-process_material = SubResource( 4 )
-draw_pass_1 = ExtResource( 15 )
-
-[node name="Particle Mesh" type="MeshInstance" parent="Player Ship/Background Asteroids"]
-transform = Transform( 8.71517, 4.86785e-016, 0, 4.43782e-016, 5.49885, -2.20239e-007, 0, -8.97461e-008, 8.71517, 0, 0, 0 )
-mesh = ExtResource( 16 )
-material/0 = null
-
-[node name="Background Particles" type="Particles" parent="Player Ship"]
-transform = Transform( -0.749958, 0, 0, 0, -0.749958, 0, 0, 0, -0.749958, 0, 15, 0 )
-amount = 128
-lifetime = 5.0
-preprocess = 100.0
-visibility_aabb = AABB( -4, -4, -4, 8, 20, 8 )
-local_coords = false
-process_material = SubResource( 7 )
-draw_pass_1 = SubResource( 8 )
-
-[node name="Player Light" type="OmniLight" parent="Player Ship"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.74819 )
-visible = false
-light_energy = 0.5
-omni_range = 7.0
-
-[node name="Movement" type="Node" parent="Player Ship"]
-script = ExtResource( 18 )
-
-[node name="Angle" type="Node" parent="Player Ship"]
-script = ExtResource( 19 )
-roll_speed = 1.0
-max_roll = 20.0
-yaw_speed = 0.5
-max_yaw = 12.0
-pitch_speed = 2.0
-max_pitch = -30.0
-min_pitch = 15.0
-max_speed_x = 6.0
-max_speed_y = 12.0
-min_speed_y = 4.0
-
-[node name="Input" type="Node" parent="Player Ship"]
-script = ExtResource( 20 )
-max_speed_x = 6.0
-min_speed_y = 4.0
-max_speed_y = 12.0
+[node name="Player Ship" parent="." instance=ExtResource( 8 )]
 
 [node name="Camera Rig" type="Spatial" parent="."]
-script = ExtResource( 21 )
+editor/display_folded = true
+script = ExtResource( 9 )
 speed = Vector2( 2, 3 )
 target_path = NodePath("../Player Ship")
 
 [node name="Main Camera" type="Camera" parent="Camera Rig"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 16 )
-environment = ExtResource( 22 )
+environment = ExtResource( 10 )
 fov = 60.0
 
 [node name="Debug Pause" type="Node" parent="."]
 pause_mode = 2
-script = ExtResource( 23 )
+script = ExtResource( 11 )
 
 [node name="Level Creator" type="Node" parent="."]
-script = ExtResource( 24 )
+script = ExtResource( 12 )
 path_length_min = 15.0
 path_length_max = 25.0
 path_width_min = 8.0
-path_width_max = 16.0
+path_width_max = 24.0
 path_width_segments = 5
 path_range_x = 10.0
 max_active_path_segments = 5

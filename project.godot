@@ -12,10 +12,16 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Component",
 "language": "GDScript",
-"path": "res://Scripts/c_component.gd"
+"path": "res://Scripts/Components/c_component.gd"
+}, {
+"base": "Reference",
+"class": "object_pool",
+"language": "GDScript",
+"path": "res://Scripts/object_pool.gd"
 } ]
 _global_script_class_icons={
-"Component": ""
+"Component": "",
+"object_pool": ""
 }
 
 [application]
@@ -26,6 +32,10 @@ boot_splash/image="res://Icon-1.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.921569, 0.921569, 0.921569, 1 )
 config/icon="res://Icon-1.png"
+
+[autoload]
+
+m_effects="*res://Scripts/m_effects.gd"
 
 [display]
 

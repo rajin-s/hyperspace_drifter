@@ -1,0 +1,169 @@
+[gd_scene load_steps=23 format=2]
+
+[ext_resource path="res://Assets/Models/spaceCraft3.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Assets/Materials/MAT_Red.tres" type="Material" id=2]
+[ext_resource path="res://Assets/Materials/MAT_Dark.tres" type="Material" id=3]
+[ext_resource path="res://Assets/Materials/PMAT_Smoke.tres" type="Material" id=4]
+[ext_resource path="res://Assets/Materials/MAT_Smoke.tres" type="Material" id=5]
+[ext_resource path="res://Assets/Materials/PMAT_Burn.tres" type="Material" id=6]
+[ext_resource path="res://Assets/Materials/MAT_Burn.tres" type="Material" id=7]
+[ext_resource path="res://Assets/Materials/MAT_Asteroid.tres" type="Material" id=8]
+[ext_resource path="res://Assets/Models/asteroid.obj" type="ArrayMesh" id=9]
+[ext_resource path="res://Assets/Models/thin_ring.obj" type="ArrayMesh" id=10]
+[ext_resource path="res://Assets/Materials/MAT_Star.tres" type="Material" id=11]
+[ext_resource path="res://Scripts/Components/c_movement_base.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/Components/c_velocity_angle.gd" type="Script" id=13]
+[ext_resource path="res://Scripts/Player/c_player_input.gd" type="Script" id=14]
+
+[sub_resource type="SphereMesh" id=1]
+
+material = ExtResource( 5 )
+radius = 0.5
+height = 1.0
+
+[sub_resource type="SphereMesh" id=2]
+
+material = ExtResource( 7 )
+radius = 0.5
+height = 1.0
+
+[sub_resource type="ImageTexture" id=3]
+
+flags = 4
+flags = 4
+size = Vector2( 2048, 1 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+
+emission_shape = 3
+emission_point_texture = SubResource( 3 )
+emission_point_count = 512
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 11.0
+
+[sub_resource type="Gradient" id=5]
+
+offsets = PoolRealArray( 0, 0.492823, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=6]
+
+gradient = SubResource( 5 )
+
+[sub_resource type="ParticlesMaterial" id=7]
+
+emission_shape = 2
+emission_box_extents = Vector3( 15, 20, 20 )
+spread = 113.03
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 0.2
+angular_velocity = 1.82169e-043
+angle_random = 1.0
+scale = 0.1
+scale_random = 0.05
+color_ramp = SubResource( 6 )
+hue_variation = 1.0
+hue_variation_random = 1.0
+
+[sub_resource type="SphereMesh" id=8]
+
+material = ExtResource( 11 )
+radial_segments = 16
+rings = 8
+
+[node name="Player Ship" type="Spatial"]
+
+[node name="Model" type="Spatial" parent="."]
+
+[node name="Mesh Small" type="MeshInstance" parent="Model"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, 0 )
+mesh = ExtResource( 1 )
+material/0 = null
+material/1 = ExtResource( 2 )
+material/2 = ExtResource( 3 )
+material/3 = ExtResource( 3 )
+
+[node name="Trail Particles" type="Particles" parent="Model"]
+transform = Transform( -1, -3.82137e-015, -8.74228e-008, -8.74228e-008, 4.37114e-008, 1, 0, 1, -4.37114e-008, 0, -0.487426, 0.115834 )
+amount = 500
+lifetime = 1.4
+speed_scale = 2.4
+visibility_aabb = AABB( -4, -3.84619, -4, 8, 8, 8 )
+local_coords = false
+process_material = ExtResource( 4 )
+draw_pass_1 = SubResource( 1 )
+
+[node name="Burn Particles L" type="Particles" parent="Model"]
+transform = Transform( 1, 0, 0, 0, 0.0107473, -0.999942, 0, 0.999942, 0.0107473, -0.288, -0.559438, 0.260305 )
+amount = 70
+lifetime = 0.19
+visibility_aabb = AABB( -4, -3.84619, -4, 8, 8, 8 )
+draw_order = 2
+process_material = ExtResource( 6 )
+draw_pass_1 = SubResource( 2 )
+
+[node name="Burn Particles R" type="Particles" parent="Model"]
+transform = Transform( 1, 0, 0, 0, 0.0107473, -0.999942, 0, 0.999942, 0.0107473, 0.288377, -0.559937, 0.25995 )
+amount = 70
+lifetime = 0.19
+visibility_aabb = AABB( -4, -3.84619, -4, 8, 8, 8 )
+draw_order = 2
+process_material = ExtResource( 6 )
+draw_pass_1 = SubResource( 2 )
+
+[node name="Background Asteroids" type="Particles" parent="."]
+editor/display_folded = true
+transform = Transform( 1, 2.64491e-008, 2.30406e-009, -2.64491e-008, 1, 2.21004e-008, -2.30406e-009, -2.21004e-008, 1, -0.424244, 3.8147e-006, 2.41713 )
+visible = false
+material_override = ExtResource( 8 )
+amount = 100
+preprocess = 100.0
+visibility_aabb = AABB( -25.4971, -4, -22.2549, 50.9941, 8, 44.5098 )
+local_coords = false
+draw_order = 2
+process_material = SubResource( 4 )
+draw_pass_1 = ExtResource( 9 )
+
+[node name="Particle Mesh" type="MeshInstance" parent="Background Asteroids"]
+transform = Transform( 8.71517, 4.86785e-016, 0, 4.43782e-016, 5.49885, -2.20239e-007, 0, -8.97461e-008, 8.71517, 0, 0, 0 )
+mesh = ExtResource( 10 )
+material/0 = null
+
+[node name="Background Particles" type="Particles" parent="."]
+transform = Transform( -0.749958, 0, 0, 0, -0.749958, 0, 0, 0, -0.749958, 0, 15, 0 )
+amount = 128
+lifetime = 5.0
+preprocess = 100.0
+visibility_aabb = AABB( -4, -4, -4, 8, 20, 8 )
+local_coords = false
+process_material = SubResource( 7 )
+draw_pass_1 = SubResource( 8 )
+
+[node name="Player Light" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.74819 )
+visible = false
+light_energy = 0.5
+omni_range = 7.0
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource( 12 )
+
+[node name="Angle" type="Node" parent="."]
+script = ExtResource( 13 )
+roll_speed = 1.0
+max_roll = 20.0
+yaw_speed = 0.5
+max_yaw = 12.0
+pitch_speed = 2.0
+max_pitch = -30.0
+min_pitch = 15.0
+max_speed_x = 6.0
+max_speed_y = 12.0
+min_speed_y = 4.0
+
+[node name="Input" type="Node" parent="."]
+script = ExtResource( 14 )
+max_speed_x = 8.0
+min_speed_y = 6.0
+max_speed_y = 16.0
+

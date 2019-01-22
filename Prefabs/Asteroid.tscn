@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Scripts/c_randomize_transform.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Components/c_randomize_transform.gd" type="Script" id=1]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -16,8 +16,8 @@ script = ExtResource( 1 )
 rotation_max = 360.0
 scale_min = 1.0
 scale_max = 2.0
-translation_min = -1.0
-translation_max = 1.0
+translation_min = -2.0
+translation_max = 2.0
 rotate_x = true
 rotate_y = true
 rotate_z = true

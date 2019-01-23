@@ -48,5 +48,5 @@ func spawn_next_piece() -> void:
 	path_node.spawn_obstacles()
 	path_node.spawn_enemies()
 	
-	print("Spawn path from %s to %s" % [ last_path_point, next_path_point ])
+	# print("Spawn path from %s to %s" % [ last_path_point, next_path_point ])
 	last_path_point = next_path_point

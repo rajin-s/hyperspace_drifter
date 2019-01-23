@@ -2,8 +2,7 @@
 
 [resource]
 
-flags_transparent = true
 flags_unshaded = true
 vertex_color_use_as_albedo = true
-albedo_color = Color( 0.203922, 0.411765, 0.807843, 0.0352941 )
+albedo_color = Color( 0.8, 0.8, 0.8, 1 )
 

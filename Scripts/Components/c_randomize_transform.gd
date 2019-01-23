@@ -25,7 +25,7 @@ func on_ready():
 	if !object is Spatial:
 		print("c_randomize_transform -> parent is not Spatial!")
 	else:
-		print("randomize %s transform" % name)
+		# print("randomize %s transform" % name)
 		if scale_x: object.scale.x = rand_range(scale_min, scale_max)
 		if scale_y: object.scale.y = rand_range(scale_min, scale_max)
 		if scale_z: object.scale.z = rand_range(scale_min, scale_max)

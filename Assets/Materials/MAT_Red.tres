@@ -3,5 +3,5 @@
 [resource]
 
 vertex_color_use_as_albedo = true
-albedo_color = Color( 1, 0.121569, 0.329412, 1 )
+albedo_color = Color( 1, 0, 0.513726, 1 )
 

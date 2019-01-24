@@ -90,7 +90,6 @@ rings = 8
 [node name="Player Ship" type="Spatial"]
 
 [node name="Model" type="Spatial" parent="."]
-editor/display_folded = true
 
 [node name="Mesh" type="MeshInstance" parent="Model"]
 transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, -0.0542133 )
@@ -115,7 +114,7 @@ lifetime = 0.5
 width_base = 0.8
 width_curve = SubResource( 2 )
 color_gradient = ExtResource( 8 )
-noise_size = 1.0
+noise_size = 2.0
 width_noise_scale = 0.0
 offset_noise_scale = 1.0
 noise_seed = 100
@@ -128,7 +127,7 @@ lifetime = 0.5
 width_base = 1.2
 width_curve = SubResource( 4 )
 color_gradient = ExtResource( 9 )
-noise_size = 1.0
+noise_size = 1.5
 width_noise_scale = 0.0
 offset_noise_scale = 0.25
 noise_seed = 10002
@@ -150,7 +149,7 @@ lifetime = 0.25
 width_base = 1.0
 width_curve = SubResource( 5 )
 color_gradient = ExtResource( 11 )
-noise_size = 1.0
+noise_size = 1.5
 width_noise_scale = 0.0
 offset_noise_scale = 0.25
 noise_seed = 10002
@@ -165,6 +164,7 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, -0
 
 [node name="TrailEngine" parent="Model/Engine Emitter" instance=ExtResource( 12 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.135251, 0 )
+noise_size = 1.5
 
 [node name="Background Asteroids" type="Particles" parent="."]
 editor/display_folded = true

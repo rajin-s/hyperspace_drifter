@@ -38,7 +38,7 @@ width_curve = SubResource( 2 )
 color_gradient = SubResource( 4 )
 noise_size = 3.0
 width_noise_scale = 0.1
-offset_noise_scale = 0.2
+offset_noise_scale = 0.5
 random_seed = true
 
 [node name="Velocity" type="Node" parent="."]

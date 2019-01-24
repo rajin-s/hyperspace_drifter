@@ -73,7 +73,7 @@ speed = Vector2( 2, 3 )
 target_path = NodePath("../Player Ship")
 
 [node name="Main Camera" type="Camera" parent="Camera Rig"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 16 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 20 )
 environment = ExtResource( 10 )
 fov = 60.0
 

@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Assets/Materials/MAT_Trail.tres" type="Material" id=1]
+[ext_resource path="res://Scripts/s_trail.gd" type="Script" id=2]
+[ext_resource path="res://Assets/HSD_Logo.png" type="Texture" id=3]
+
+[sub_resource type="Curve" id=1]
+
+bake_resolution = 512
+_data = [ Vector2( 0, 0 ), 0.0, 2.90735, 0, 0, Vector2( 0.219766, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.616919, 0 ), -0.0894163, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+
+curve = SubResource( 1 )
+
+[sub_resource type="Gradient" id=3]
+
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+
+gradient = SubResource( 3 )
+
+[node name="TrailEngine" type="ImmediateGeometry"]
+editor/display_folded = true
+material_override = ExtResource( 1 )
+script = ExtResource( 2 )
+lifetime = 0.2
+width_base = 0.5
+width_curve = SubResource( 5 )
+color_gradient = SubResource( 4 )
+noise_size = 1.0
+width_noise_scale = 0.1
+offset_noise_scale = 0.1
+noise_seed = 52
+
+[node name="HSD_Logo" type="Sprite" parent="."]
+visible = false
+position = Vector2( 239.002, 374.507 )
+texture = ExtResource( 3 )
+

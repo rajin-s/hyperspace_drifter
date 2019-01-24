@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/s_level_generator.gd" type="Script" id=1]
+
+[node name="Level Creator" type="Node"]
+script = ExtResource( 1 )
+path_length_min = 15.0
+path_length_max = 25.0
+path_width_min = 8.0
+path_width_max = 24.0
+path_width_segments = 5
+path_range_x = 10.0
+max_active_path_segments = 5
+player_node_path = NodePath("../Player Ship")
+

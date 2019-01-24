@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/Models/spaceCraft1.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Assets/Models/spaceCraft2.obj" type="ArrayMesh" id=2]
@@ -11,7 +11,8 @@
 [ext_resource path="res://Scripts/s_lerp_follow.gd" type="Script" id=9]
 [ext_resource path="res://default_env.tres" type="Environment" id=10]
 [ext_resource path="res://debug_pause.gd" type="Script" id=11]
-[ext_resource path="res://Scripts/s_level_generator.gd" type="Script" id=12]
+[ext_resource path="res://Prefabs/LevelCreator.tscn" type="PackedScene" id=12]
+[ext_resource path="res://debug_orbitals.gd" type="Script" id=13]
 
 [node name="Main" type="Node"]
 pause_mode = 1
@@ -67,7 +68,6 @@ light_energy = 0.5
 [node name="Player Ship" parent="." instance=ExtResource( 8 )]
 
 [node name="Camera Rig" type="Spatial" parent="."]
-editor/display_folded = true
 script = ExtResource( 9 )
 speed = Vector2( 2, 3 )
 target_path = NodePath("../Player Ship")
@@ -81,14 +81,9 @@ fov = 60.0
 pause_mode = 2
 script = ExtResource( 11 )
 
-[node name="Level Creator" type="Node" parent="."]
-script = ExtResource( 12 )
-path_length_min = 15.0
-path_length_max = 25.0
-path_width_min = 8.0
-path_width_max = 24.0
-path_width_segments = 5
-path_range_x = 10.0
-max_active_path_segments = 5
-player_node_path = NodePath("../Player Ship")
+[node name="Level Creator" parent="." instance=ExtResource( 12 )]
+
+[node name="Test Orbitals" type="Node" parent="."]
+script = ExtResource( 13 )
+orbital_parent_path = "../Player Ship/Orbital Container"
 

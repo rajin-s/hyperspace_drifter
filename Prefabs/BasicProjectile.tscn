@@ -1,0 +1,47 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/Components/c_object_pool_info.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Materials/MAT_Trail.tres" type="Material" id=2]
+[ext_resource path="res://Scripts/s_trail.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Components/c_movement_base.gd" type="Script" id=4]
+
+[sub_resource type="Curve" id=1]
+
+_data = [ Vector2( 0, 0 ), 0.0, 5.61562, 0, 0, Vector2( 1, 0 ), -1.48919, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=2]
+
+curve = SubResource( 1 )
+
+[sub_resource type="Gradient" id=3]
+
+colors = PoolColorArray( 1, 0.609375, 0, 1, 1, 0, 0.375, 1 )
+
+[sub_resource type="GradientTexture" id=4]
+
+gradient = SubResource( 3 )
+
+[node name="Basic Projectile" type="Spatial"]
+
+[node name="ObjectPoolInfo" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="ObjectPoolInfo"]
+one_shot = true
+
+[node name="Trail" type="ImmediateGeometry" parent="."]
+material_override = ExtResource( 2 )
+script = ExtResource( 3 )
+lifetime = 0.25
+width_base = 0.2
+width_curve = SubResource( 2 )
+color_gradient = SubResource( 4 )
+noise_size = 3.0
+width_noise_scale = 0.1
+offset_noise_scale = 0.2
+random_seed = true
+
+[node name="Velocity" type="Node" parent="."]
+script = ExtResource( 4 )
+internal_velocity = Vector2( 0, 40 )
+

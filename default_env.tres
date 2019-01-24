@@ -7,7 +7,7 @@
 
 background_mode = 1
 background_sky = SubResource( 1 )
-background_color = Color( 0.2, 0.160784, 0.27451, 1 )
+background_color = Color( 0.14902, 0.12549, 0.192157, 1 )
 ambient_light_color = Color( 0.196078, 0.117647, 0.439216, 1 )
 ambient_light_energy = 1.82
 tonemap_mode = 3
@@ -28,6 +28,7 @@ glow_blend_mode = 0
 glow_hdr_threshold = 0.07
 glow_hdr_scale = 1.0
 glow_bicubic_upscale = true
-adjustment_contrast = 0.4
-adjustment_saturation = 1.1
+adjustment_enabled = true
+adjustment_brightness = 1.1
+adjustment_saturation = 2.4
 

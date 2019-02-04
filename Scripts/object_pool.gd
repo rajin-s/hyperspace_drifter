@@ -19,7 +19,7 @@ func get_new_instance() -> Node:
 		var new_instance = scene.instance()
 		return new_instance
 
-func get_instance():
+func get_instance() -> Node:
 	# Search for available instances that have already been created
 	for instance in instances:
 		var info_node : Node = instance.get_node(object_pool_info_path)
@@ -35,3 +35,9 @@ func get_instance():
 	info_node.set_pool_unavailable()
 	
 	return new_instance
+
+func get_instance_as_child_of(parent) -> Node:
+	var instance = get_instance()
+	if instance.get_parent() == null:
+		parent.add_child(instance)
+	return instance

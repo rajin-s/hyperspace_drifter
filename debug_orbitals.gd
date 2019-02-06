@@ -17,3 +17,7 @@ func _process(delta):
 		var new_enemy : Node = enemy_prefab.instance()
 		enemy_parent.add_child(new_enemy)
 		new_enemy.global_transform.origin = Vector3(m_globals.player.enemy_target.x, m_globals.player.enemy_target.y, 0) + Vector3.UP * 18
+	elif Input.is_action_just_pressed("ui_right"):
+		m_screen.shake("test", 1000)
+	elif Input.is_action_just_pressed("ui_left"):
+		m_screen.shake("test", 500)

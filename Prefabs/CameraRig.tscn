@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/s_lerp_follow.gd" type="Script" id=1]
 [ext_resource path="res://default_env.tres" type="Environment" id=2]
+[ext_resource path="res://Scripts/Components/c_screen_shake_target.gd" type="Script" id=3]
 
 [node name="Camera Rig" type="Spatial"]
 script = ExtResource( 1 )
@@ -11,6 +12,9 @@ target_path = NodePath("../Player Ship")
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.14525, 20 )
 environment = ExtResource( 2 )
 fov = 60.0
+
+[node name="Shake Target" type="Node" parent="Main Camera"]
+script = ExtResource( 3 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.879383, -0.453875, 0.143815, 0.382518, 0.85336, 0.354198, -0.283488, -0.256464, 0.924046, 0, 0, 3.20519 )

@@ -43,6 +43,7 @@ config/icon="res://Icon-1.png"
 
 m_effects="*res://Scripts/Managers/m_effects.gd"
 m_globals="*res://Scripts/Managers/m_globals.gd"
+m_screen="*res://Scripts/Managers/m_screen.gd"
 
 [debug]
 

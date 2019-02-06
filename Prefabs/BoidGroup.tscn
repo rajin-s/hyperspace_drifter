@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Enemies/s_boid_group.gd" type="Script" id=1]
+
+[node name="Boid Group" type="Spatial"]
+script = ExtResource( 1 )
+max_separation_distance = 6.0
+max_separation_value = 10.0
+
+[node name="Update Timer" type="Timer" parent="."]
+wait_time = 0.25
+autostart = true
+
+[connection signal="timeout" from="Update Timer" to="." method="calculate_average_position"]
+[connection signal="timeout" from="Update Timer" to="." method="calculate_average_direction"]
+[connection signal="timeout" from="Update Timer" to="." method="calculate_separation_vectors"]

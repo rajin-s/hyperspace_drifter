@@ -1,25 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Components/c_object_pool_info.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Materials/MAT_Trail.tres" type="Material" id=2]
 [ext_resource path="res://Scripts/s_trail.gd" type="Script" id=3]
-[ext_resource path="res://Scripts/Components/c_movement_base.gd" type="Script" id=4]
-
-[sub_resource type="Curve" id=1]
-
-_data = [ Vector2( 0, 0 ), 0.0, 5.61562, 0, 0, Vector2( 1, 0 ), -1.48919, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=2]
-
-curve = SubResource( 1 )
-
-[sub_resource type="Gradient" id=3]
-
-colors = PoolColorArray( 1, 0.609375, 0, 1, 1, 0, 0.375, 1 )
-
-[sub_resource type="GradientTexture" id=4]
-
-gradient = SubResource( 3 )
+[ext_resource path="res://Assets/Curves/v_trail.tres" type="Curve" id=4]
+[ext_resource path="res://Assets/Curves/g_player_trail.tres" type="Gradient" id=5]
+[ext_resource path="res://Scripts/Components/c_movement_base.gd" type="Script" id=6]
 
 [node name="Basic Projectile" type="Spatial"]
 
@@ -34,14 +20,15 @@ material_override = ExtResource( 2 )
 script = ExtResource( 3 )
 lifetime = 0.25
 width_base = 0.2
-width_curve = SubResource( 2 )
-color_gradient = SubResource( 4 )
+shape = ExtResource( 4 )
+gradient = ExtResource( 5 )
+velocity = Vector3( 0, 0, 0 )
 noise_size = 3.0
 width_noise_scale = 0.1
-offset_noise_scale = 0.5
 random_seed = true
 
 [node name="Velocity" type="Node" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 6 )
 internal_velocity = Vector2( 0, 40 )
 
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Trail" method="reset_trail"]

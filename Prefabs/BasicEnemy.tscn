@@ -1,0 +1,104 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://Assets/Models/ship8.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Assets/Materials/MAT_Enemy.tres" type="Material" id=2]
+[ext_resource path="res://Assets/Materials/MAT_Enemy3.tres" type="Material" id=3]
+[ext_resource path="res://Assets/Materials/MAT_Dark.tres" type="Material" id=4]
+[ext_resource path="res://Assets/Materials/MAT_SolidDark.tres" type="Material" id=5]
+[ext_resource path="res://Scripts/s_trail.gd" type="Script" id=6]
+[ext_resource path="res://Assets/Curves/v_trail.tres" type="Curve" id=7]
+[ext_resource path="res://Assets/Curves/g_dark.tres" type="Gradient" id=8]
+[ext_resource path="res://Assets/Materials/MAT_SolidMedium.tres" type="Material" id=9]
+[ext_resource path="res://Assets/Curves/g_medium.tres" type="Gradient" id=10]
+[ext_resource path="res://Scripts/Components/c_movement_base.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/Enemies/c_boid.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/Enemies/c_aim_at_player.gd" type="Script" id=13]
+[ext_resource path="res://Scripts/Components/c_object_pool_info.gd" type="Script" id=14]
+[ext_resource path="res://Scripts/Components/c_velocity_angle.gd" type="Script" id=15]
+[ext_resource path="res://Scripts/Enemies/c_projectile_fire.gd" type="Script" id=16]
+
+[sub_resource type="SphereShape" id=1]
+
+radius = 7.0
+
+[node name="Enemy" type="Spatial"]
+
+[node name="Model" type="Spatial" parent="."]
+
+[node name="Mesh" type="MeshInstance" parent="Model"]
+transform = Transform( -2, -3.01992e-007, -1.32005e-014, 0, -8.74228e-008, 2, -3.01992e-007, 2, 8.74228e-008, 0, 0, 0 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+material/1 = ExtResource( 3 )
+material/2 = ExtResource( 4 )
+material/3 = ExtResource( 2 )
+
+[node name="Trail" type="ImmediateGeometry" parent="Model"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.259362 )
+material_override = ExtResource( 5 )
+script = ExtResource( 6 )
+lifetime = 0.6
+width_base = 0.5
+shape = ExtResource( 7 )
+gradient = ExtResource( 8 )
+noise_size = 3.0
+width_noise_scale = 0.5
+offset_noise_scale = 0.4
+noise_seed = 942
+
+[node name="Burn" type="ImmediateGeometry" parent="Model"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.259362 )
+material_override = ExtResource( 9 )
+script = ExtResource( 6 )
+lifetime = 0.2
+shape = ExtResource( 7 )
+gradient = ExtResource( 10 )
+noise_size = 3.0
+width_noise_scale = 0.7
+offset_noise_scale = 0.4
+noise_seed = 942
+
+[node name="Obstacle Detection" type="Area" parent="."]
+editor/display_folded = true
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Obstacle Detection"]
+shape = SubResource( 1 )
+
+[node name="Movement" type="Node" parent="."]
+script = ExtResource( 11 )
+
+[node name="Boid" type="Node" parent="."]
+script = ExtResource( 12 )
+speed = 8.0
+acceleration = 1.5
+separation_influence = 10.0
+cohesion_influence = 2.0
+target_influence = 1.5
+avoidance_speed = 8.0
+avoidance_acceleration = 2.0
+
+[node name="Aiming" type="Node" parent="."]
+script = ExtResource( 13 )
+rotation_speed = 1.0
+
+[node name="ObjectPoolInfo" type="Node" parent="."]
+script = ExtResource( 14 )
+
+[node name="Rotation Effects" type="Node" parent="."]
+script = ExtResource( 15 )
+max_roll = -28.0
+do_pitch = false
+
+[node name="Projectiles" type="Node" parent="."]
+script = ExtResource( 16 )
+spawn_reference_path = NodePath("../Model")
+
+[node name="Timer" type="Timer" parent="Projectiles"]
+wait_time = 0.5
+autostart = true
+
+[connection signal="area_entered" from="Obstacle Detection" to="Boid" method="on_detect_collision"]
+[connection signal="area_exited" from="Obstacle Detection" to="Boid" method="on_clear_collision"]
+[connection signal="timeout" from="Projectiles/Timer" to="Projectiles" method="fire_projectile"]

@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Components/c_component.gd"
 }, {
+"base": "ImmediateGeometry",
+"class": "Trail",
+"language": "GDScript",
+"path": "res://Scripts/s_trail.gd"
+}, {
 "base": "Reference",
 "class": "object_pool",
 "language": "GDScript",
@@ -21,6 +26,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Component": "",
+"Trail": "",
 "object_pool": ""
 }
 
@@ -35,7 +41,14 @@ config/icon="res://Icon-1.png"
 
 [autoload]
 
-m_effects="*res://Scripts/m_effects.gd"
+m_effects="*res://Scripts/Managers/m_effects.gd"
+m_globals="*res://Scripts/Managers/m_globals.gd"
+
+[debug]
+
+gdscript/warnings/unused_class_variable=false
+gdscript/warnings/unused_argument=false
+gdscript/warnings/return_value_discarded=false
 
 [display]
 
@@ -49,6 +62,14 @@ player_fire_primary={
 "events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="Default"
+3d_physics/layer_2="Terrain"
+3d_physics/layer_3="Objects"
+3d_physics/layer_4="Projectiles"
+3d_physics/layer_6="Utility Overlap Areas"
 
 [rendering]
 

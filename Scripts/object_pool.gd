@@ -25,6 +25,7 @@ func get_instance() -> Node:
 		var info_node : Node = instance.get_node(object_pool_info_path)
 		if info_node.is_available():
 			info_node.set_pool_unavailable()
+			info_node.emit_signal("pool_instantiate")
 			return instance
 	
 	# Create a new instance if one doesn't already exist

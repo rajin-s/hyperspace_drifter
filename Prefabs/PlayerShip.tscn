@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Assets/Models/spaceCraft1.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Assets/Materials/MAT_Red.tres" type="Material" id=2]
@@ -7,66 +7,32 @@
 [ext_resource path="res://Scripts/s_auto_rotate.gd" type="Script" id=5]
 [ext_resource path="res://Assets/Materials/MAT_Trail.tres" type="Material" id=6]
 [ext_resource path="res://Scripts/s_trail.gd" type="Script" id=7]
-[ext_resource path="res://Assets/Textures/G_Dark.tres" type="Texture" id=8]
-[ext_resource path="res://Assets/Textures/G_Trail.tres" type="Texture" id=9]
-[ext_resource path="res://Assets/HSD_Logo.png" type="Texture" id=10]
-[ext_resource path="res://Assets/Textures/G_Light.tres" type="Texture" id=11]
-[ext_resource path="res://Prefabs/TrailEngine.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Assets/Materials/MAT_Asteroid.tres" type="Material" id=13]
-[ext_resource path="res://Assets/Models/asteroid.obj" type="ArrayMesh" id=14]
-[ext_resource path="res://Assets/Models/thin_ring.obj" type="ArrayMesh" id=15]
-[ext_resource path="res://Assets/Materials/MAT_Star.tres" type="Material" id=16]
+[ext_resource path="res://Assets/Curves/v_trail_thin.tres" type="Curve" id=8]
+[ext_resource path="res://Assets/Curves/g_medium.tres" type="Gradient" id=9]
+[ext_resource path="res://Assets/Curves/v_trail.tres" type="Curve" id=10]
+[ext_resource path="res://Assets/Curves/g_player_trail.tres" type="Gradient" id=11]
+[ext_resource path="res://Assets/Curves/g_player_burn.tres" type="Gradient" id=12]
+[ext_resource path="res://Prefabs/TrailEngine.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Assets/Curves/g_white.tres" type="Gradient" id=14]
+[ext_resource path="res://Assets/Materials/MAT_Star.tres" type="Material" id=15]
+[ext_resource path="res://Scripts/Player/c_player_globals.gd" type="Script" id=16]
 [ext_resource path="res://Scripts/Components/c_movement_base.gd" type="Script" id=17]
-[ext_resource path="res://Scripts/Components/c_velocity_angle.gd" type="Script" id=18]
-[ext_resource path="res://Scripts/Player/c_player_input.gd" type="Script" id=19]
-[ext_resource path="res://Scripts/Player/c_player_combat.gd" type="Script" id=20]
-[ext_resource path="res://Scripts/Player/s_orbital_container.gd" type="Script" id=21]
+[ext_resource path="res://Scripts/Player/c_player_input.gd" type="Script" id=18]
+[ext_resource path="res://Scripts/Player/c_player_combat.gd" type="Script" id=19]
+[ext_resource path="res://Scripts/Components/c_velocity_angle.gd" type="Script" id=20]
+[ext_resource path="res://Scripts/Player/c_player_trail_controller.gd" type="Script" id=21]
+[ext_resource path="res://Scripts/Player/s_orbital_container.gd" type="Script" id=22]
 
-[sub_resource type="Curve" id=1]
-
-_data = [ Vector2( 0, 0 ), 0.0, -0.0058883, 0, 0, Vector2( 0.275442, 0.3328 ), 2.44736, 2.44736, 0, 0, Vector2( 0.535261, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=2]
-
-curve = SubResource( 1 )
-
-[sub_resource type="Curve" id=3]
-
-bake_resolution = 512
-_data = [ Vector2( 0, 0 ), 0.0, 2.14886, 0, 0, Vector2( 0.37937, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -0.0268639, 0.0, 0, 0 ]
-
-[sub_resource type="CurveTexture" id=4]
-
-curve = SubResource( 3 )
-
-[sub_resource type="CurveTexture" id=5]
-
-curve = SubResource( 3 )
-
-[sub_resource type="ImageTexture" id=6]
-
-flags = 4
-flags = 4
-size = Vector2( 2048, 1 )
-
-[sub_resource type="ParticlesMaterial" id=7]
-
-emission_shape = 3
-emission_point_texture = SubResource( 6 )
-emission_point_count = 512
-gravity = Vector3( 0, 0, 0 )
-angular_velocity = 11.0
-
-[sub_resource type="Gradient" id=8]
+[sub_resource type="Gradient" id=1]
 
 offsets = PoolRealArray( 0, 0.492823, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=9]
+[sub_resource type="GradientTexture" id=2]
 
-gradient = SubResource( 8 )
+gradient = SubResource( 1 )
 
-[sub_resource type="ParticlesMaterial" id=10]
+[sub_resource type="ParticlesMaterial" id=3]
 
 emission_shape = 2
 emission_box_extents = Vector3( 15, 20, 20 )
@@ -77,13 +43,13 @@ angular_velocity = 1.82169e-043
 angle_random = 1.0
 scale = 0.1
 scale_random = 0.05
-color_ramp = SubResource( 9 )
+color_ramp = SubResource( 2 )
 hue_variation = 0.17
 hue_variation_random = 1.0
 
-[sub_resource type="SphereMesh" id=11]
+[sub_resource type="SphereMesh" id=4]
 
-material = ExtResource( 16 )
+material = ExtResource( 15 )
 radial_segments = 16
 rings = 8
 
@@ -101,88 +67,51 @@ material/2 = ExtResource( 4 )
 [node name="Rotator" type="Spatial" parent="Model"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.607316, -0.151454 )
 script = ExtResource( 5 )
-speed = Vector3( 0, 500, 0 )
+speed = Vector3( 0, 720, 0 )
 
-[node name="Smoke Emitter" type="Spatial" parent="Model/Rotator"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.10027 )
-
-[node name="TrailSmoke" type="ImmediateGeometry" parent="Model/Rotator/Smoke Emitter"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.100874 )
+[node name="TrailSmoke" type="ImmediateGeometry" parent="Model/Rotator"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.289922 )
 material_override = ExtResource( 6 )
 script = ExtResource( 7 )
-lifetime = 0.5
-width_base = 0.8
-width_curve = SubResource( 2 )
-color_gradient = ExtResource( 8 )
-noise_size = 2.0
-width_noise_scale = 0.0
+lifetime = 0.6
+width_base = 0.6
+shape = ExtResource( 8 )
+gradient = ExtResource( 9 )
+velocity = Vector3( 0, 0, 6 )
+noise_size = 3.0
+width_noise_scale = 0.2
 offset_noise_scale = 1.0
 noise_seed = 100
 
-[node name="TrailMain" type="ImmediateGeometry" parent="Model/Rotator"]
-editor/display_folded = true
+[node name="TrailMain" type="ImmediateGeometry" parent="Model"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.607316, -0.0636064 )
 material_override = ExtResource( 6 )
 script = ExtResource( 7 )
-lifetime = 0.5
+lifetime = 0.7
 width_base = 1.2
-width_curve = SubResource( 4 )
-color_gradient = ExtResource( 9 )
-noise_size = 1.5
+shape = ExtResource( 10 )
+gradient = ExtResource( 11 )
+noise_size = 2.2
 width_noise_scale = 0.0
-offset_noise_scale = 0.25
-noise_seed = 10002
 
-[node name="HSD_Logo" type="Sprite" parent="Model/Rotator/TrailMain"]
-visible = false
-position = Vector2( 239.002, 374.507 )
-texture = ExtResource( 10 )
-
-[node name="Burn Emitter" type="Spatial" parent="Model"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.679162, 0.065096 )
-
-[node name="TrailBurn" type="ImmediateGeometry" parent="Model/Burn Emitter"]
-editor/display_folded = true
+[node name="TrailBurn" type="ImmediateGeometry" parent="Model"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.679162, 0.252483 )
 material_override = ExtResource( 6 )
 cast_shadow = 0
 script = ExtResource( 7 )
-lifetime = 0.25
-width_base = 1.0
-width_curve = SubResource( 5 )
-color_gradient = ExtResource( 11 )
-noise_size = 1.5
+lifetime = 0.4
+shape = ExtResource( 10 )
+gradient = ExtResource( 12 )
+noise_size = 2.2
 width_noise_scale = 0.0
-offset_noise_scale = 0.25
-noise_seed = 10002
 
-[node name="HSD_Logo" type="Sprite" parent="Model/Burn Emitter/TrailBurn"]
-visible = false
-position = Vector2( 239.002, 374.507 )
-texture = ExtResource( 10 )
-
-[node name="Engine Emitter" type="Spatial" parent="Model"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, -0.676773, 0.217955 )
-
-[node name="TrailEngine" parent="Model/Engine Emitter" instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.135251, 0 )
-noise_size = 1.5
-
-[node name="Background Asteroids" type="Particles" parent="."]
-editor/display_folded = true
-transform = Transform( 1, 2.64491e-008, 2.30406e-009, -2.64491e-008, 1, 2.21004e-008, -2.30406e-009, -2.21004e-008, 1, -0.424244, 3.8147e-006, 2.41713 )
-visible = false
-material_override = ExtResource( 13 )
-amount = 100
-preprocess = 100.0
-visibility_aabb = AABB( -25.4971, -4, -22.2549, 50.9941, 8, 44.5098 )
-local_coords = false
-draw_order = 2
-process_material = SubResource( 7 )
-draw_pass_1 = ExtResource( 14 )
-
-[node name="Particle Mesh" type="MeshInstance" parent="Background Asteroids"]
-transform = Transform( 8.71517, 4.86785e-016, 0, 4.43782e-016, 5.49885, -2.20239e-007, 0, -8.97461e-008, 8.71517, 0, 0, 0 )
-mesh = ExtResource( 15 )
-material/0 = null
+[node name="TrailEngine" parent="Model" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, -0.676773, 0.326279 )
+shape = ExtResource( 10 )
+gradient = ExtResource( 14 )
+noise_size = 2.2
+width_noise_scale = 0.3
+offset_noise_scale = 0.15
 
 [node name="Background Particles" type="Particles" parent="."]
 transform = Transform( -0.749958, 0, 0, 0, -0.749958, 0, 0, 0, -0.749958, 0, 15, 0 )
@@ -191,20 +120,26 @@ lifetime = 5.0
 preprocess = 100.0
 visibility_aabb = AABB( -4, -4, -4, 8, 20, 8 )
 local_coords = false
-process_material = SubResource( 10 )
-draw_pass_1 = SubResource( 11 )
+process_material = SubResource( 3 )
+draw_pass_1 = SubResource( 4 )
 
-[node name="Player Light" type="OmniLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.74819 )
-visible = false
-light_energy = 0.5
-omni_range = 7.0
+[node name="Global Info" type="Node" parent="."]
+script = ExtResource( 16 )
 
 [node name="Movement" type="Node" parent="."]
 script = ExtResource( 17 )
 
-[node name="Angle" type="Node" parent="."]
+[node name="Input" type="Node" parent="."]
 script = ExtResource( 18 )
+max_speed_x = 8.0
+min_speed_y = 6.0
+max_speed_y = 16.0
+
+[node name="Combat Input" type="Node" parent="."]
+script = ExtResource( 19 )
+
+[node name="Angle" type="Node" parent="."]
+script = ExtResource( 20 )
 roll_speed = 1.0
 max_roll = 20.0
 yaw_speed = 0.5
@@ -213,21 +148,22 @@ pitch_speed = 2.0
 max_pitch = -30.0
 min_pitch = 15.0
 max_speed_x = 6.0
-max_speed_y = 12.0
-min_speed_y = 4.0
 
-[node name="Input" type="Node" parent="."]
-script = ExtResource( 19 )
-max_speed_x = 8.0
-min_speed_y = 6.0
-max_speed_y = 16.0
-
-[node name="Input2" type="Node" parent="."]
-script = ExtResource( 20 )
+[node name="Smoke Trail Controller" type="Node" parent="."]
+script = ExtResource( 21 )
+rotator_path = NodePath("../Model/Rotator")
+trail_path = NodePath("../Model/Rotator/TrailSmoke")
+min_rotation_speed = 200.0
+min_emission_speed = 3.0
+max_emission_speed = 6.0
+min_speed = 6.0
+max_speed = 16.0
 
 [node name="Orbital Container" type="Spatial" parent="."]
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 radius = 2.5
 speed = 180.0
-lerp_speed = 3.0
+
+[node name="Enemy Target" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0846, 0 )
 

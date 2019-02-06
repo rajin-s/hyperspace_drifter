@@ -15,6 +15,10 @@ export var max_speed_x : float = 3
 export var max_speed_y : float = 12
 export var min_speed_y : float = 4
 
+export var do_roll  : bool = true
+export var do_yaw   : bool = true
+export var do_pitch : bool = true
+
 onready var c_movement := get_component("movement_base")
 onready var model_node : Node = $"../Model"
 
@@ -24,24 +28,26 @@ func _process(delta) -> void:
 	var normalized_x : float = sign(velocity.x) * min(abs(velocity.x) / max_speed_x, 1)
 	var normalized_y : float = sign(velocity.y) * min(max(0, (abs(velocity.y) - min_speed_y)) / (max_speed_y - min_speed_y), 1)
 	
-	var target_roll : float = max_roll * normalized_x
-	var current_roll : float = model_node.rotation_degrees.y
-	if current_roll > 180:
-		current_roll = current_roll - 360
-	var final_roll : float = lerp(current_roll, target_roll, delta * roll_speed)
+	if do_roll:
+		var target_roll : float = max_roll * normalized_x
+		var current_roll : float = model_node.rotation_degrees.y
+		if current_roll > 180:
+			current_roll = current_roll - 360
+		var final_roll : float = lerp(current_roll, target_roll, delta * roll_speed)
+		model_node.rotation_degrees.y = final_roll
 	
-	var target_yaw : float = max_yaw * normalized_x
-	var current_yaw : float = model_node.rotation_degrees.z
-	if current_yaw > 180:
-		current_yaw = current_yaw - 360
-	var final_yaw : float = lerp(current_yaw, target_yaw, delta * yaw_speed)
+	if do_yaw:
+		var target_yaw : float = max_yaw * normalized_x
+		var current_yaw : float = model_node.rotation_degrees.z
+		if current_yaw > 180:
+			current_yaw = current_yaw - 360
+		var final_yaw : float = lerp(current_yaw, target_yaw, delta * yaw_speed)
+		model_node.rotation_degrees.z = final_yaw
 	
-	var target_pitch : float = lerp(min_pitch, max_pitch, normalized_y)
-	var current_pitch : float = model_node.rotation_degrees.x
-	if current_pitch > 180:
-		current_pitch = current_pitch - 360
-	var final_pitch : float = lerp(current_pitch, target_pitch, delta * pitch_speed)
-	
-	model_node.rotation_degrees.y = final_roll
-	model_node.rotation_degrees.z = final_yaw
-	model_node.rotation_degrees.x = final_pitch
+	if do_pitch:
+		var target_pitch : float = lerp(min_pitch, max_pitch, normalized_y)
+		var current_pitch : float = model_node.rotation_degrees.x
+		if current_pitch > 180:
+			current_pitch = current_pitch - 360
+		var final_pitch : float = lerp(current_pitch, target_pitch, delta * pitch_speed)
+		model_node.rotation_degrees.x = final_pitch

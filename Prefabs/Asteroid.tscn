@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Assets/Materials/MAT_Asteroid.tres" type="Material" id=1]
 [ext_resource path="res://Scripts/s_random_color.gd" type="Script" id=2]
@@ -11,6 +11,9 @@
 
 colors = PoolColorArray( 0.342751, 0.219727, 0.585938, 1, 0.625, 0.258789, 0.473366, 1 )
 
+[sub_resource type="BoxShape" id=3]
+
+
 [node name="Asteroid" type="Spatial"]
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
@@ -19,20 +22,18 @@ material/0 = ExtResource( 1 )
 script = ExtResource( 2 )
 gradient = SubResource( 2 )
 
+[node name="Area" type="Area" parent="MeshInstance"]
+collision_layer = 3
+collision_mask = 13
+
+[node name="CollisionShape" type="CollisionShape" parent="MeshInstance/Area"]
+shape = SubResource( 3 )
+
 [node name="Randomizer" type="Node" parent="."]
 script = ExtResource( 3 )
-rotation_max = 360.0
-scale_min = 1.0
 scale_max = 2.0
 translation_min = -2.0
 translation_max = 2.0
-rotate_x = true
-rotate_y = true
-rotate_z = true
-scale_x = true
-scale_y = true
-scale_z = true
 translate_x = false
-translate_y = true
 translate_z = false
 

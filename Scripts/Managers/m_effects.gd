@@ -43,8 +43,7 @@ func register_effect(name : String, scene : PackedScene) -> void:
 
 func play(name : String, position : Vector3) -> void:
 	if _all_effects.has(name):
-		var effect_instance : Node = _all_effects[name].get_instance()
-		add_child(effect_instance)
-		effect_instance.play_at(position)
+		var effect_instance : Node = _all_effects[name].get_instance_as_child_at(self, position)
+		effect_instance.play()
 	else:
 		print("Effect named %s not registered with m_effects!" % name)

@@ -9,8 +9,8 @@ var shake_offset : Vector3 = Vector3.ZERO
 
 const shake_speed : float = 18.0
 const shake_scale : float = 1000.0
-const shake_decay : float = 1000.0
-const shake_exponent : float = 2.0
+const shake_decay : float = 800.0
+const shake_exponent : float = 1.4
 
 func register_shake_target(target : Node) -> void:
 	shake_targets.append(target)

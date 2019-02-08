@@ -94,6 +94,7 @@ do_pitch = false
 [node name="Projectiles" type="Node" parent="."]
 script = ExtResource( 16 )
 spawn_reference_path = NodePath("../Model")
+projectile_scene_name = "EnemyBasicProjectile"
 
 [node name="Timer" type="Timer" parent="Projectiles"]
 wait_time = 0.5

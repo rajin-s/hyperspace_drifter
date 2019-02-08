@@ -51,33 +51,6 @@ var current_index : int = 0    # Index at which the next point will be added
 var points        : Array = [] # Array of point_info items
 
 var noise   := OpenSimplexNoise.new()
-var emitter : Spatial
-
-var _is_ready : bool = false
-func _set_ready() -> void: _is_ready = true
-
-func _create_emitter() -> void:
-	emitter = Spatial.new()
-	emitter.name = "%s (Trail Emitter)" % self.name
-	
-	var parent : Node = get_parent()
-	var current_origin : Vector3 = self.transform.origin
-	
-	parent.call_deferred("add_child", emitter)
-	parent.call_deferred("remove_child", self)
-	var children : Array = self.get_children()
-	
-	for child in children:
-		self.call_deferred("remove_child", child)
-		
-	emitter.call_deferred("add_child", self)
-	
-	for child in children:
-		emitter.call_deferred("add_child", child)
-	
-	emitter.call_deferred("set", "translation", current_origin)
-	self.call_deferred("set", "translation", Vector3.ZERO)
-	self.call_deferred("_set_ready")
 
 func _create_noise() -> void:
 	if random_seed:
@@ -93,7 +66,6 @@ func _create_points() -> void:
 		points.append(point_info.new())
 
 func _ready() -> void:
-	_create_emitter()
 	_create_noise()
 	_create_points()
 
@@ -105,13 +77,12 @@ func reset_trail() -> void:
 func _process(delta : float) -> void:
 	add_point()
 	update_trail(delta)
-	if _is_ready:
-		draw_trail()
+	draw_trail()
 
 func add_point() -> void:
 	var last_point : point_info = points[current_index - 1]
 	
-	var current_position : Vector3 = emitter.global_transform.origin
+	var current_position : Vector3 = self.global_transform.origin
 	var current_normal   : Vector3 = Vector3.RIGHT
 	
 	# Get current normal based on motion or last point
@@ -125,7 +96,7 @@ func add_point() -> void:
 			
 	points[current_index].position    = current_position
 	points[current_index].normal      = current_normal
-	points[current_index].velocity    = emitter.global_transform.basis.xform(velocity)
+	points[current_index].velocity    = self.global_transform.basis.xform(velocity)
 	points[current_index].base_width  = width_base + noise.get_noise_2d(current_position.x, current_position.y) * width_noise_scale
 	points[current_index].base_offset = noise.get_noise_2d(current_position.y, current_position.x) * offset_noise_scale
 	points[current_index].width       = 0.0
@@ -155,8 +126,7 @@ func update_trail(delta : float) -> void:
 
 func draw_trail() -> void:
 	# Force identity object->world transform
-	global_transform.origin = Vector3.ZERO
-	global_transform.basis = identity_basis
+	# global_transform.basis = identity_basis
 	
 	clear()
 	begin(Mesh.PRIMITIVE_TRIANGLE_STRIP)
@@ -170,7 +140,7 @@ func draw_trail() -> void:
 			continue # Skip 0 or negative widths (produces artifacts)
 		
 		set_color(points[index].color)
-		add_vertex(points[index].position + points[index].normal * (points[index].width / 2.0 + points[index].offset))
-		add_vertex(points[index].position - points[index].normal * (points[index].width / 2.0 - points[index].offset))
+		add_vertex(self.global_transform.xform_inv(points[index].position + points[index].normal * (points[index].width / 2.0 + points[index].offset)))
+		add_vertex(self.global_transform.xform_inv(points[index].position - points[index].normal * (points[index].width / 2.0 - points[index].offset)))
 	
 	end()	

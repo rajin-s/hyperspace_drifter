@@ -8,6 +8,7 @@ var reset_timer : Timer
 signal pool_instantiate
 
 func _ready() -> void:
+	reset_timer = get_node(reset_timer_path)
 	if reset_timer != null:
 		# print("%s has timer" % object.name)
 		reset_timer.connect("timeout", self, "set_pool_available")
@@ -22,7 +23,6 @@ func set_pool_available() -> void:
 func set_pool_unavailable() -> void:
 	# print("Call set_pool_unavailable on %s" % (object.name if object != null else name))
 	_pool_available = false
-	reset_timer = get_node(reset_timer_path)
 	if reset_timer != null:
 		# print("Start timer on %s" % (object.name if object != null else name))
 		reset_timer.start()

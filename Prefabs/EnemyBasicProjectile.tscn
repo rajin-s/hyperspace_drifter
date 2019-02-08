@@ -31,11 +31,10 @@ random_seed = true
 
 [node name="Velocity" type="Node" parent="."]
 script = ExtResource( 6 )
-internal_velocity = Vector2( 0, 40 )
 
 [node name="Shoot Effect" type="Node" parent="."]
 script = ExtResource( 7 )
 effect_name = "Player Fire Basic"
 
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Shoot Effect" method="play"]
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Trail" method="reset_trail"]
-[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Shoot Effect" method="play" flags=3]

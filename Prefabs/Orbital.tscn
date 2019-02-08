@@ -5,15 +5,9 @@
 [ext_resource path="res://Assets/Materials/MAT_Steel.tres" type="Material" id=3]
 [ext_resource path="res://Assets/Materials/MAT_Red.tres" type="Material" id=4]
 [ext_resource path="res://Prefabs/TrailEngine.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scripts/Player/c_player_combat.gd" type="Script" id=6]
-
-[sub_resource type="Gradient" id=1]
-
-colors = PoolColorArray( 0.156928, 0.0859833, 0.449219, 1, 0.019043, 0, 0.152344, 1 )
-
-[sub_resource type="GradientTexture" id=2]
-
-gradient = SubResource( 1 )
+[ext_resource path="res://Assets/Curves/v_trail.tres" type="Curve" id=6]
+[ext_resource path="res://Assets/Curves/g_medium.tres" type="Gradient" id=7]
+[ext_resource path="res://Scripts/Player/c_player_combat.gd" type="Script" id=8]
 
 [node name="Orbital" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
@@ -39,9 +33,14 @@ mesh = ExtResource( 1 )
 material/0 = ExtResource( 3 )
 
 [node name="TrailEngine" parent="." instance=ExtResource( 5 )]
-lifetime = 1.0
-color_gradient = SubResource( 2 )
+lifetime = 0.5
+width_base = 0.4
+shape = ExtResource( 6 )
+gradient = ExtResource( 7 )
+noise_size = 3.0
+offset_noise_scale = 0.35
+random_seed = true
 
 [node name="Test Combat" type="Node" parent="."]
-script = ExtResource( 6 )
+script = ExtResource( 8 )
 

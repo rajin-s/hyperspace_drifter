@@ -19,26 +19,49 @@ func get_new_instance() -> Node:
 		var new_instance = scene.instance()
 		return new_instance
 
-func get_instance() -> Node:
+func _get_instance() -> Array:
+	var has_available : bool = false
+	var instance  : Node
+	var info_node : Node
+	
 	# Search for available instances that have already been created
-	for instance in instances:
-		var info_node : Node = instance.get_node(object_pool_info_path)
+	for existing_instance in instances:
+		info_node = existing_instance.get_node(object_pool_info_path)
 		if info_node.is_available():
-			info_node.set_pool_unavailable()
-			info_node.emit_signal("pool_instantiate")
-			return instance
+			instance = existing_instance
+			has_available = true
+			break
+			
+	# Create a new instance if none are available
+	if not has_available:
+		var new_instance : Node = get_new_instance()
+		instances.append(new_instance)
+		info_node = new_instance.get_node(object_pool_info_path)
+		instance = new_instance
 	
-	# Create a new instance if one doesn't already exist
-	var new_instance : Node = get_new_instance()
-	instances.append(new_instance)
-	
-	var info_node : Node = new_instance.get_node(object_pool_info_path)
+	# Return the appropriate instance and pooled object info node
 	info_node.set_pool_unavailable()
-	
-	return new_instance
+	return [instance, info_node]
 
-func get_instance_as_child_of(parent) -> Node:
-	var instance = get_instance()
-	if instance.get_parent() == null:
-		parent.add_child(instance)
-	return instance
+func get_instance() -> Node:
+	var instance_info : Array = _get_instance()
+	
+	instance_info[1].emit_signal("pool_instantiate")
+	return instance_info[0]
+
+func get_instance_as_child_of(parent : Node) -> Node:
+	var instance_info : Array = _get_instance()
+	if instance_info[0].get_parent() != parent:
+		parent.add_child(instance_info[0])
+	
+	instance_info[1].emit_signal("pool_instantiate")
+	return instance_info[0]
+
+func get_instance_as_child_at(parent : Node, position : Vector3) -> Node:
+	var instance_info : Array = _get_instance()
+	if instance_info[0].get_parent() != parent:
+		parent.add_child(instance_info[0])
+		
+	instance_info[0].global_transform.origin = position
+	instance_info[1].emit_signal("pool_instantiate")
+	return instance_info[0]

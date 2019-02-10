@@ -13,6 +13,8 @@ curve = SubResource( 1 )
 
 [sub_resource type="ParticlesMaterial" id=3]
 
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 10.0
 initial_velocity_random = 1.0
@@ -37,9 +39,7 @@ script = ExtResource( 2 )
 one_shot = true
 
 [node name="Particles" type="Particles" parent="."]
-emitting = false
 amount = 10
-one_shot = true
 explosiveness = 1.0
 local_coords = false
 process_material = SubResource( 3 )

@@ -9,15 +9,12 @@ onready var sfx : AudioStreamPlayer = get_node(_sfx_path)
 export var screen_shake : float = 200
 
 func play() -> void:
-	print("Playing effect %s" % name)
-	
+	#print("Playing effect %s" % name)
 	if particles != null:
 		particles.emitting = true
 		particles.restart()
-		
 	if sfx != null:
 		sfx.play()
-		
 	if screen_shake > 0:
 		m_screen.shake(self.name, screen_shake)
 

@@ -11,6 +11,4 @@ max_separation_value = 10.0
 wait_time = 0.25
 autostart = true
 
-[connection signal="timeout" from="Update Timer" to="." method="calculate_average_position"]
-[connection signal="timeout" from="Update Timer" to="." method="calculate_average_direction"]
-[connection signal="timeout" from="Update Timer" to="." method="calculate_separation_vectors"]
+[connection signal="timeout" from="Update Timer" to="." method="recalculate_values"]

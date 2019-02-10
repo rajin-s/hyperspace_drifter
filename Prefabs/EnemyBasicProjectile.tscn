@@ -36,5 +36,4 @@ script = ExtResource( 6 )
 script = ExtResource( 7 )
 effect_name = "Player Fire Basic"
 
-[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Shoot Effect" method="play"]
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Trail" method="reset_trail"]

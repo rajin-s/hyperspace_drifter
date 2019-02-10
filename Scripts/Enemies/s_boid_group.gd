@@ -23,6 +23,8 @@ func add_boid(boid : Node) -> void:
 	boids.append(boid)
 	separation_vectors[boid] = Vector2.ZERO
 	reposition_on_z()
+	recalculate_values()
+	
 
 # Remove a member from the local group
 func remove_boid(boid : Node) -> void:
@@ -37,12 +39,19 @@ func reposition_on_z() -> void:
 		b.object.transform.origin.z = lerp(min_z_position, max_z_position, float(i) / float(count))
 		i += 1
 
+# Recalculate all values
+func recalculate_values():
+	calculate_average_position()
+	calculate_average_direction()
+	calculate_separation_vectors()
+
 # Calculate group values and cache (called on a timer since they're pretty expensive)
 func calculate_average_position() -> void:
 	average_position = Vector2.ZERO
 	for b in boids:
 		average_position += b.get_position()
 	average_position /= boids.size()
+	# print("%d boids" % boids.size())
 
 func calculate_average_direction() -> void:
 	average_direction = Vector2.ZERO

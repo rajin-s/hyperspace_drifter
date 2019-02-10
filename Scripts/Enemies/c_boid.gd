@@ -55,6 +55,9 @@ func update_velocity(delta : float) -> void:
 	var to_target		   : Vector2 = (group.get_target_position() - get_position()).normalized() * target_influence
 	var reference_velocity : Vector2 = group.get_reference_velocity()
 	
+	# if Input.is_action_just_pressed("ui_accept"):
+	# print("adir: %s | apos: %s | cen: %s | sep: %s | tar: %s | ref %s" % [ average_direction, average_position, to_group_center, separation, to_target, reference_velocity ])
+	
 	var target_velocity : Vector2 = (average_direction + to_group_center + separation + to_target).clamped(1) * speed #.clamped(speed)
 	# var target_velocity : Vector2 = (average_direction + to_group_center + separation + to_target).clamped(1) * speed #.clamped(speed)
 	target_velocity += reference_velocity

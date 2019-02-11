@@ -1,0 +1,96 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scripts/s_effect.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Components/c_object_pool_info.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Materials/MAT_ExplosionSpike.tres" type="Material" id=3]
+[ext_resource path="res://Assets/ParticlePlane.obj" type="ArrayMesh" id=4]
+[ext_resource path="res://Assets/Materials/MAT_ExplosionSpike2.tres" type="Material" id=5]
+
+[sub_resource type="AudioStreamRandomPitch" id=5]
+
+random_pitch = 5.6
+
+[sub_resource type="Curve" id=6]
+
+_data = [ Vector2( 0.00150264, 1 ), 0.0, -1.0015, 0, 1, Vector2( 1, 0 ), -1.0015, 0.0, 1, 0 ]
+
+[sub_resource type="CurveTexture" id=7]
+
+curve = SubResource( 6 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+
+flag_align_y = true
+spread = 12.66
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 2.0
+scale_random = 0.42
+scale_curve = SubResource( 7 )
+color = Color( 0.541176, 0.956863, 1, 1 )
+
+[node name="Enemy Die" type="Spatial"]
+script = ExtResource( 1 )
+more_particles_paths = [ NodePath("Explosion Parts/Top"), NodePath("Explosion Parts/Top2"), NodePath("Explosion Parts/Bottom"), NodePath("Explosion Parts/Bottom2") ]
+screen_shake = 250.0
+
+[node name="ObjectPoolInfo" type="Node" parent="."]
+editor/display_folded = true
+script = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="ObjectPoolInfo"]
+one_shot = true
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+visible = false
+stream = SubResource( 5 )
+attenuation_model = 2
+autoplay = true
+
+[node name="Explosion Parts" type="Spatial" parent="."]
+transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0 )
+
+[node name="Top" type="Particles" parent="Explosion Parts"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, 0, 0 )
+material_override = ExtResource( 3 )
+emitting = false
+amount = 1
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 8 )
+draw_pass_1 = ExtResource( 4 )
+
+[node name="Top2" type="Particles" parent="Explosion Parts"]
+transform = Transform( 0.315857, 0, 0.948807, 0.948807, -4.37114e-008, -0.315857, 4.14737e-008, 1, -1.38065e-008, 0, 0, 0 )
+material_override = ExtResource( 5 )
+emitting = false
+amount = 1
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 8 )
+draw_pass_1 = ExtResource( 4 )
+
+[node name="Bottom" type="Particles" parent="Explosion Parts"]
+transform = Transform( -1, 0, -8.74228e-008, -8.74228e-008, -4.37114e-008, 1, -3.82137e-015, 1, 4.37114e-008, 0, 0, 0 )
+material_override = ExtResource( 3 )
+emitting = false
+amount = 1
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 8 )
+draw_pass_1 = ExtResource( 4 )
+
+[node name="Bottom2" type="Particles" parent="Explosion Parts"]
+transform = Transform( -0.123344, 0, -0.992364, -0.992364, -4.37114e-008, 0.123344, -4.33776e-008, 1, 5.39153e-009, 0, 0, 0 )
+material_override = ExtResource( 5 )
+emitting = false
+amount = 1
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 8 )
+draw_pass_1 = ExtResource( 4 )
+

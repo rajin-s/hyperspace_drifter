@@ -17,6 +17,14 @@ onready var movement := get_component("movement_base")
 var objects_to_avoid : Array = []
 var direction : Vector2 = Vector2.DOWN
 
+var enabled : bool = true
+func enable() -> void:
+	set_process(true)
+	enabled = true
+func disable() -> void:
+	set_process(false)
+	enabled = false
+
 # Enter/leave local group
 func _ready() -> void:
 	group = object.get_parent()

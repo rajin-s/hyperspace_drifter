@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Components/c_object_pool_info.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Materials/MAT_Trail.tres" type="Material" id=2]
@@ -7,6 +7,11 @@
 [ext_resource path="res://Assets/Curves/g_player_trail.tres" type="Gradient" id=5]
 [ext_resource path="res://Scripts/Components/c_movement_base.gd" type="Script" id=6]
 [ext_resource path="res://Scripts/Components/c_effect_player.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/Components/c_hurtbox.gd" type="Script" id=8]
+
+[sub_resource type="SphereShape" id=1]
+
+radius = 0.225347
 
 [node name="Basic Projectile" type="Spatial"]
 
@@ -36,6 +41,16 @@ internal_velocity = Vector2( 0, 40 )
 [node name="Shoot Effect" type="Node" parent="."]
 script = ExtResource( 7 )
 effect_name = "Player Fire Basic"
+
+[node name="Hurtbox" type="Area" parent="."]
+collision_layer = 1032
+collision_mask = 2050
+
+[node name="CollisionShape" type="CollisionShape" parent="Hurtbox"]
+shape = SubResource( 1 )
+
+[node name="Damage" type="Node" parent="Hurtbox"]
+script = ExtResource( 8 )
 
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Trail" method="reset_trail"]
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Shoot Effect" method="play" flags=3]

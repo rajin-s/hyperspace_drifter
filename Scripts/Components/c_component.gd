@@ -4,6 +4,12 @@ extends Node
 # The target object is always the node's parent
 onready var object : Node = $".."
 
+func enable() -> void:
+	set_process(true)
+
+func disable() -> void:
+	set_process(false)
+
 # Reattach this component to another node
 func attach_to(target : Node) -> void:
 	target.add_child(self)
@@ -11,10 +17,13 @@ func attach_to(target : Node) -> void:
 
 # Get a sibling node that has a script with file name c_[script_name].gd
 func get_component(component_name : String, fail_hard : bool = true) -> Node:
+	return get_component_on(object, component_name, fail_hard)
+	
+func get_component_on(parent : Node, component_name : String, fail_hard : bool = true) -> Node:
 	# Iterate over all children (by number)
-	for i in object.get_child_count():
+	for i in parent.get_child_count():
 		# Get child node and attached script (might be null)
-		var child : Node = object.get_child(i)
+		var child : Node = parent.get_child(i)
 		var child_script = child.get_script()
 		
 		# Continue to next child if no script is attached
@@ -41,6 +50,7 @@ func get_component(component_name : String, fail_hard : bool = true) -> Node:
 		
 	# Return null if no matches are found
 	return null
+	
 	
 # Set up signal handlers
 func use_on_ready() -> void:

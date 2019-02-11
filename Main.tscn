@@ -72,8 +72,8 @@ pause_mode = 2
 script = ExtResource( 11 )
 
 [node name="Level Creator" parent="." instance=ExtResource( 12 )]
-path_width_min = 24.0
-path_width_max = 48.0
+path_width_min = 16.0
+path_width_max = 32.0
 
 [node name="Test Orbitals" type="Node" parent="."]
 script = ExtResource( 13 )

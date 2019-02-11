@@ -5,8 +5,8 @@ export var max_separation_distance : float = 4.0
 export var min_separation_distance : float = 0.1
 export var max_separation_value : float = 8.0
 
-export var min_z_position : float = -2.0
-export var max_z_position : float = 2.0
+export var min_z_position : float = 0
+export var max_z_position : float = 0
 
 # Group info
 var boids : Array = []
@@ -48,30 +48,39 @@ func recalculate_values():
 # Calculate group values and cache (called on a timer since they're pretty expensive)
 func calculate_average_position() -> void:
 	average_position = Vector2.ZERO
+	var count : int = 0
 	for b in boids:
-		average_position += b.get_position()
-	average_position /= boids.size()
+		if b.enabled:
+			average_position += b.get_position()
+			count += 1
+	average_position /= max(1, count)
 	# print("%d boids" % boids.size())
 
 func calculate_average_direction() -> void:
 	average_direction = Vector2.ZERO
 	for b in boids:
-		average_direction = (average_direction + b.get_direction()).normalized()
+		if b.enabled:
+			average_direction = (average_direction + b.get_direction()).normalized()
 		
 func calculate_separation_vectors() -> void:
 	if boids.size() <= 1: return
 	
-	var other_count = boids.size() - 1
 	for b1 in boids:
+		if not b1.enabled: continue
+		
 		var separation : Vector2 = Vector2.ZERO
+		var other_count : int = 0
 		for b2 in boids:
 			if b1 == b2: continue # Ignore self when calculating direction
+			if not b2.enabled: continue
+			
 			var delta : Vector2 = b2.get_position() - b1.get_position()
 			var length_squared = max(delta.length_squared(), min_separation_distance * min_separation_distance)
 			if (length_squared > max_separation_distance * max_separation_distance): continue # Ignore boids that are too far away
 			delta = -delta / length_squared / length_squared # length = (1 / length)
 			separation += delta
-		separation /= other_count
+			other_count += 1
+		separation /= max(1, other_count)
 		# separation = separation.clamped(max_separation_value)
 		separation_vectors[b1] = separation * max_separation_value
 

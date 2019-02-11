@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Assets/Models/ship8.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Assets/Materials/MAT_Enemy.tres" type="Material" id=2]
@@ -10,16 +10,28 @@
 [ext_resource path="res://Assets/Curves/g_dark.tres" type="Gradient" id=8]
 [ext_resource path="res://Assets/Materials/MAT_SolidMedium.tres" type="Material" id=9]
 [ext_resource path="res://Assets/Curves/g_medium.tres" type="Gradient" id=10]
-[ext_resource path="res://Scripts/Components/c_movement_base.gd" type="Script" id=11]
-[ext_resource path="res://Scripts/Enemies/c_boid.gd" type="Script" id=12]
-[ext_resource path="res://Scripts/Enemies/c_aim_at_player.gd" type="Script" id=13]
-[ext_resource path="res://Scripts/Components/c_object_pool_info.gd" type="Script" id=14]
-[ext_resource path="res://Scripts/Components/c_velocity_angle.gd" type="Script" id=15]
-[ext_resource path="res://Scripts/Enemies/c_projectile_fire.gd" type="Script" id=16]
+[ext_resource path="res://Scripts/Components/c_health.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/Components/c_movement_base.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/Enemies/c_boid.gd" type="Script" id=13]
+[ext_resource path="res://Scripts/Enemies/c_aim_at_player.gd" type="Script" id=14]
+[ext_resource path="res://Scripts/Components/c_object_pool_info.gd" type="Script" id=15]
+[ext_resource path="res://Scripts/Components/c_velocity_angle.gd" type="Script" id=16]
+[ext_resource path="res://Scripts/Enemies/c_projectile_fire.gd" type="Script" id=17]
+[ext_resource path="res://Scripts/Enemies/c_enemy_effects.gd" type="Script" id=18]
+[ext_resource path="res://Scripts/Components/c_effect_player.gd" type="Script" id=19]
+[ext_resource path="res://Assets/Curves/g_player_burn.tres" type="Gradient" id=20]
 
-[sub_resource type="SphereShape" id=1]
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 1.14817, 0.835797, 0.747278 )
+
+[sub_resource type="SphereShape" id=2]
 
 radius = 7.0
+
+[sub_resource type="SphereShape" id=3]
+
+radius = 0.53932
 
 [node name="Enemy" type="Spatial"]
 
@@ -58,19 +70,31 @@ width_noise_scale = 0.7
 offset_noise_scale = 0.4
 noise_seed = 942
 
+[node name="Hitbox" type="Area" parent="Model" groups=[
+"enemies",
+]]
+collision_layer = 32
+collision_mask = 8
+
+[node name="CollisionShape" type="CollisionShape" parent="Model/Hitbox"]
+shape = SubResource( 1 )
+
+[node name="Health" type="Node" parent="Model/Hitbox"]
+script = ExtResource( 11 )
+
 [node name="Obstacle Detection" type="Area" parent="."]
 editor/display_folded = true
 collision_layer = 32
 collision_mask = 2
 
 [node name="CollisionShape" type="CollisionShape" parent="Obstacle Detection"]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="Movement" type="Node" parent="."]
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 
 [node name="Boid" type="Node" parent="."]
-script = ExtResource( 12 )
+script = ExtResource( 13 )
 speed = 8.0
 acceleration = 1.5
 separation_influence = 10.0
@@ -80,26 +104,67 @@ avoidance_speed = 8.0
 avoidance_acceleration = 2.0
 
 [node name="Aiming" type="Node" parent="."]
-script = ExtResource( 13 )
+script = ExtResource( 14 )
 rotation_speed = 1.0
 
 [node name="ObjectPoolInfo" type="Node" parent="."]
-script = ExtResource( 14 )
+script = ExtResource( 15 )
 
 [node name="Rotation Effects" type="Node" parent="."]
-script = ExtResource( 15 )
+script = ExtResource( 16 )
 max_roll = -28.0
 do_pitch = false
 
 [node name="Projectiles" type="Node" parent="."]
-script = ExtResource( 16 )
+script = ExtResource( 17 )
 spawn_reference_path = NodePath("../Model")
 projectile_scene_name = "EnemyBasicProjectile"
+shot_speed = 20.0
 
 [node name="Timer" type="Timer" parent="Projectiles"]
-wait_time = 0.5
+wait_time = 0.75
 autostart = true
 
+[node name="Effects" type="Spatial" parent="."]
+script = ExtResource( 18 )
+internal_velocity_scale = Vector2( 1.2, 1 )
+external_velocity_add = Vector2( 20, 3 )
+
+[node name="Crash Area" type="Area" parent="Effects"]
+editor/display_folded = true
+monitoring = false
+monitorable = false
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Effects/Crash Area"]
+shape = SubResource( 3 )
+
+[node name="Damage Effect" type="Node" parent="Effects"]
+script = ExtResource( 19 )
+
+[node name="Death Effect" type="Node" parent="Effects"]
+script = ExtResource( 19 )
+effect_name = "Enemy Die"
+
+[node name="Crash Effect" type="Node" parent="Effects"]
+script = ExtResource( 19 )
+effect_name = "Enemy Die"
+
+[node name="Death Trail" type="ImmediateGeometry" parent="Effects"]
+script = ExtResource( 6 )
+shape = ExtResource( 7 )
+gradient = ExtResource( 20 )
+noise_size = 4.0
+random_seed = true
+emitting = false
+
+[node name="Done Timer" type="Timer" parent="Effects"]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="die" from="Model/Hitbox/Health" to="Effects" method="on_death"]
 [connection signal="area_entered" from="Obstacle Detection" to="Boid" method="on_detect_collision"]
 [connection signal="area_exited" from="Obstacle Detection" to="Boid" method="on_clear_collision"]
-[connection signal="timeout" from="Projectiles/Timer" to="Projectiles" method="fire_projectile"]
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Effects" method="reset"]
+[connection signal="timeout" from="Effects/Done Timer" to="." method="queue_free"]
+[connection signal="timeout" from="Effects/Done Timer" to="ObjectPoolInfo" method="set_pool_available"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Assets/unit_cube.tres" type="CubeMesh" id=1]
 [ext_resource path="res://Assets/Materials/MAT_Dark.tres" type="Material" id=2]
@@ -8,6 +8,12 @@
 [ext_resource path="res://Assets/Curves/v_trail.tres" type="Curve" id=6]
 [ext_resource path="res://Assets/Curves/g_medium.tres" type="Gradient" id=7]
 [ext_resource path="res://Scripts/Player/c_player_combat.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/Components/c_effect_player.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/Components/c_health.gd" type="Script" id=10]
+
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 0.376976, 0.319532, 1.42119 )
 
 [node name="Orbital" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 )
@@ -44,3 +50,22 @@ random_seed = true
 [node name="Test Combat" type="Node" parent="."]
 script = ExtResource( 8 )
 
+[node name="Die Effect" type="Node" parent="."]
+script = ExtResource( 9 )
+effect_name = "Enemy Die"
+
+[node name="Hitbox" type="Area" parent="." groups=[
+"player",
+]]
+collision_layer = 1024
+collision_mask = 2048
+
+[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.231713, 0 )
+shape = SubResource( 1 )
+
+[node name="Health" type="Node" parent="Hitbox"]
+script = ExtResource( 10 )
+
+[connection signal="die" from="Hitbox/Health" to="Die Effect" method="play"]
+[connection signal="die" from="Hitbox/Health" to="." method="queue_free"]

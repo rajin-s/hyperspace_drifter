@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Assets/Models/spaceCraft1.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Assets/Materials/MAT_Red.tres" type="Material" id=2]
@@ -14,25 +14,31 @@
 [ext_resource path="res://Assets/Curves/g_player_burn.tres" type="Gradient" id=12]
 [ext_resource path="res://Prefabs/TrailEngine.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Assets/Curves/g_white.tres" type="Gradient" id=14]
-[ext_resource path="res://Assets/Materials/MAT_Star.tres" type="Material" id=15]
-[ext_resource path="res://Scripts/Player/c_player_globals.gd" type="Script" id=16]
-[ext_resource path="res://Scripts/Components/c_movement_base.gd" type="Script" id=17]
-[ext_resource path="res://Scripts/Player/c_player_input.gd" type="Script" id=18]
-[ext_resource path="res://Scripts/Player/c_player_combat.gd" type="Script" id=19]
-[ext_resource path="res://Scripts/Components/c_velocity_angle.gd" type="Script" id=20]
-[ext_resource path="res://Scripts/Player/c_player_trail_controller.gd" type="Script" id=21]
-[ext_resource path="res://Scripts/Player/s_orbital_container.gd" type="Script" id=22]
+[ext_resource path="res://Scripts/Components/c_health.gd" type="Script" id=15]
+[ext_resource path="res://Assets/Materials/MAT_Star.tres" type="Material" id=16]
+[ext_resource path="res://Scripts/Player/c_player_globals.gd" type="Script" id=17]
+[ext_resource path="res://Scripts/Components/c_movement_base.gd" type="Script" id=18]
+[ext_resource path="res://Scripts/Player/c_player_input.gd" type="Script" id=19]
+[ext_resource path="res://Scripts/Player/c_player_combat.gd" type="Script" id=20]
+[ext_resource path="res://Scripts/Components/c_velocity_angle.gd" type="Script" id=21]
+[ext_resource path="res://Scripts/Player/c_player_trail_controller.gd" type="Script" id=22]
+[ext_resource path="res://Scripts/Player/s_orbital_container.gd" type="Script" id=23]
+[ext_resource path="res://Scripts/Components/c_effect_player.gd" type="Script" id=24]
 
-[sub_resource type="Gradient" id=1]
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 1, 0.422853, 0.466512 )
+
+[sub_resource type="Gradient" id=2]
 
 offsets = PoolRealArray( 0, 0.492823, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
 
-[sub_resource type="GradientTexture" id=2]
+[sub_resource type="GradientTexture" id=3]
 
-gradient = SubResource( 1 )
+gradient = SubResource( 2 )
 
-[sub_resource type="ParticlesMaterial" id=3]
+[sub_resource type="ParticlesMaterial" id=4]
 
 emission_shape = 2
 emission_box_extents = Vector3( 15, 20, 20 )
@@ -43,13 +49,13 @@ angular_velocity = 1.82169e-043
 angle_random = 1.0
 scale = 0.1
 scale_random = 0.05
-color_ramp = SubResource( 2 )
+color_ramp = SubResource( 3 )
 hue_variation = 0.17
 hue_variation_random = 1.0
 
-[sub_resource type="SphereMesh" id=4]
+[sub_resource type="SphereMesh" id=5]
 
-material = ExtResource( 15 )
+material = ExtResource( 16 )
 radial_segments = 16
 rings = 8
 
@@ -65,6 +71,7 @@ material/1 = ExtResource( 3 )
 material/2 = ExtResource( 4 )
 
 [node name="Rotator" type="Spatial" parent="Model"]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.607316, -0.151454 )
 script = ExtResource( 5 )
 speed = Vector3( 0, 720, 0 )
@@ -113,6 +120,19 @@ noise_size = 2.2
 width_noise_scale = 0.3
 offset_noise_scale = 0.15
 
+[node name="Hitbox" type="Area" parent="Model" groups=[
+"player",
+]]
+collision_layer = 1024
+collision_mask = 2050
+
+[node name="CollisionShape" type="CollisionShape" parent="Model/Hitbox"]
+shape = SubResource( 1 )
+
+[node name="Health" type="Node" parent="Model/Hitbox"]
+script = ExtResource( 15 )
+max_health = 6
+
 [node name="Background Particles" type="Particles" parent="."]
 transform = Transform( -0.749958, 0, 0, 0, -0.749958, 0, 0, 0, -0.749958, 0, 15, 0 )
 amount = 128
@@ -120,26 +140,26 @@ lifetime = 5.0
 preprocess = 100.0
 visibility_aabb = AABB( -4, -4, -4, 8, 20, 8 )
 local_coords = false
-process_material = SubResource( 3 )
-draw_pass_1 = SubResource( 4 )
+process_material = SubResource( 4 )
+draw_pass_1 = SubResource( 5 )
 
 [node name="Global Info" type="Node" parent="."]
-script = ExtResource( 16 )
-
-[node name="Movement" type="Node" parent="."]
 script = ExtResource( 17 )
 
-[node name="Input" type="Node" parent="."]
+[node name="Movement" type="Node" parent="."]
 script = ExtResource( 18 )
+
+[node name="Input" type="Node" parent="."]
+script = ExtResource( 19 )
 max_speed_x = 8.0
 min_speed_y = 6.0
 max_speed_y = 16.0
 
 [node name="Combat Input" type="Node" parent="."]
-script = ExtResource( 19 )
+script = ExtResource( 20 )
 
 [node name="Angle" type="Node" parent="."]
-script = ExtResource( 20 )
+script = ExtResource( 21 )
 roll_speed = 1.0
 max_roll = 20.0
 yaw_speed = 0.5
@@ -150,7 +170,7 @@ min_pitch = 15.0
 max_speed_x = 6.0
 
 [node name="Smoke Trail Controller" type="Node" parent="."]
-script = ExtResource( 21 )
+script = ExtResource( 22 )
 rotator_path = NodePath("../Model/Rotator")
 trail_path = NodePath("../Model/Rotator/TrailSmoke")
 min_rotation_speed = 200.0
@@ -160,10 +180,21 @@ min_speed = 6.0
 max_speed = 16.0
 
 [node name="Orbital Container" type="Spatial" parent="."]
-script = ExtResource( 22 )
+script = ExtResource( 23 )
 radius = 2.5
 speed = 180.0
 
 [node name="Enemy Target" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0846, 0 )
 
+[node name="Test Die Effect" type="Node" parent="."]
+script = ExtResource( 24 )
+effect_name = "Enemy Die"
+
+[connection signal="die" from="Model/Hitbox/Health" to="Model" method="queue_free"]
+[connection signal="die" from="Model/Hitbox/Health" to="Test Die Effect" method="play"]
+[connection signal="die" from="Model/Hitbox/Health" to="Combat Input" method="disable"]
+[connection signal="die" from="Model/Hitbox/Health" to="Angle" method="disable"]
+[connection signal="die" from="Model/Hitbox/Health" to="Movement" method="disable"]
+[connection signal="die" from="Model/Hitbox/Health" to="Smoke Trail Controller" method="disable"]
+[connection signal="take_damage" from="Model/Hitbox/Health" to="Test Die Effect" method="play"]

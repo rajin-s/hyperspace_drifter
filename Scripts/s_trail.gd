@@ -21,6 +21,8 @@ export var offset_noise_scale : float = 0.25
 export var noise_seed : int = 10002
 export var random_seed : bool = false
 
+export var emitting : bool = true
+
 # Private
 class point_info:
 	var lifetime    : float
@@ -50,6 +52,8 @@ class point_info:
 var current_index : int = 0    # Index at which the next point will be added
 var points        : Array = [] # Array of point_info items
 
+var live_points   : int  = 1
+
 var noise   := OpenSimplexNoise.new()
 
 func _create_noise() -> void:
@@ -71,13 +75,17 @@ func _ready() -> void:
 
 func reset_trail() -> void:
 	current_index = 0
+	live_points = 1
 	for i in points.size():
 		points[i].reset()
 
 func _process(delta : float) -> void:
-	add_point()
-	update_trail(delta)
-	draw_trail()
+	if emitting:
+		add_point()
+	
+	if live_points > 0:
+		update_trail(delta)
+		draw_trail()
 
 func add_point() -> void:
 	var last_point : point_info = points[current_index - 1]
@@ -113,12 +121,14 @@ func update_trail(delta : float) -> void:
 		var index : int = current_index - 1 - i
 		
 		if points[index].lifetime <= 0.0:
+			live_points = i
 			break
 		
 		points[index].lifetime -= delta / lifetime
-		var t : float = max(0.0, 1.0 - points[index].lifetime)
+		var t : float = clamp(1.0 - points[index].lifetime, 0.0, 1.0)
 		
-		var shape_value : float = shape.interpolate_baked(t)
+#		var shape_value : float = shape.interpolate_baked(t)
+		var shape_value : float = shape.interpolate_baked(float(i) / float(live_points))
 		points[index].position += points[index].velocity * delta
 		points[index].width     = points[index].base_width * shape_value
 		points[index].offset    = points[index].base_offset * shape_value

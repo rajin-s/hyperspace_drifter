@@ -1,0 +1,7 @@
+[gd_resource type="Curve" format=2]
+
+[resource]
+
+bake_resolution = 256
+_data = [ Vector2( 0, 0 ), 3.63001, 8.19191, 0, 0, Vector2( 0.343394, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.748727, 0 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+

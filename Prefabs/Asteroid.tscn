@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Assets/Materials/MAT_Asteroid.tres" type="Material" id=1]
 [ext_resource path="res://Scripts/s_random_color.gd" type="Script" id=2]
-[ext_resource path="res://Scripts/Components/c_randomize_transform.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Components/c_health.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/Components/c_hurtbox.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Components/c_randomize_transform.gd" type="Script" id=5]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -22,19 +24,30 @@ material/0 = ExtResource( 1 )
 script = ExtResource( 2 )
 gradient = SubResource( 2 )
 
-[node name="Area" type="Area" parent="MeshInstance"]
-monitoring = false
-collision_layer = 2
-collision_mask = 0
+[node name="Area" type="Area" parent="MeshInstance" groups=[
+"enemies",
+"player",
+]]
+collision_layer = 3
+collision_mask = 1032
 
 [node name="CollisionShape" type="CollisionShape" parent="MeshInstance/Area"]
 shape = SubResource( 3 )
 
-[node name="Randomizer" type="Node" parent="."]
+[node name="Health" type="Node" parent="MeshInstance/Area"]
 script = ExtResource( 3 )
+max_health = 999
+
+[node name="Hutbox" type="Node" parent="MeshInstance/Area"]
+script = ExtResource( 4 )
+damage_group = "player"
+
+[node name="Randomizer" type="Node" parent="."]
+script = ExtResource( 5 )
 scale_max = 2.0
 translation_min = -2.0
 translation_max = 2.0
 translate_x = false
 translate_z = false
 
+[connection signal="die" from="MeshInstance/Area/Health" to="MeshInstance/Area/Health" method="reset"]

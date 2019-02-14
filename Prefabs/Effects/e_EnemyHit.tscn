@@ -15,7 +15,7 @@
 
 
 [node name="Enemy Hit" type="Spatial"]
-transform = Transform( 0.509578, 0.860425, 0, -0.860425, 0.509578, 0, 0, 0, 1, 0, 0, 0 )
+transform = Transform( -0.932555, -0.361029, 0, 0.361029, -0.932555, 0, 0, 0, 1, 0, 0, 0 )
 script = ExtResource( 1 )
 random_rotation = true
 screen_shake_intensity = 500.0
@@ -31,7 +31,6 @@ script = ExtResource( 2 )
 one_shot = true
 
 [node name="Particles" type="Spatial" parent="."]
-editor/display_folded = true
 transform = Transform( 1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 0, 0, 0 )
 
 [node name="Bottom" type="Particles" parent="Particles"]
@@ -100,6 +99,7 @@ transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0 )
 stream = ExtResource( 10 )
 unit_db = 8.0
 unit_size = 100.0
+pitch_scale = 1.96104
 bus = "SFX"
 attenuation_filter_cutoff_hz = 10000.0
 

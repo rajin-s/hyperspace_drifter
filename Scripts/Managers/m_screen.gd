@@ -58,6 +58,10 @@ func _update_shake_targets(delta : float) -> void:
 	for target in shake_targets:
 		target.set_offset(shake_offset.x, shake_offset.y, shake_offset.z)
 
+func reset() -> void:
+	shake_targets.clear()
+	shake_sources.clear()
+
 func _process(delta : float) -> void:
 	_update_shake_sources(delta)
 	_update_shake(delta)

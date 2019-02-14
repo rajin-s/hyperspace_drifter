@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Assets/Models/spaceCraft1.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Assets/Materials/MAT_Red.tres" type="Material" id=2]
@@ -24,6 +24,8 @@
 [ext_resource path="res://Scripts/Player/c_player_trail_controller.gd" type="Script" id=22]
 [ext_resource path="res://Scripts/Player/s_orbital_container.gd" type="Script" id=23]
 [ext_resource path="res://Scripts/Components/c_effect_player.gd" type="Script" id=24]
+[ext_resource path="res://Assets/Materials/MAT_GlowLine.tres" type="Material" id=25]
+[ext_resource path="res://Scripts/s_health_circle.gd" type="Script" id=26]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -58,6 +60,11 @@ hue_variation_random = 1.0
 material = ExtResource( 16 )
 radial_segments = 16
 rings = 8
+
+[sub_resource type="Gradient" id=6]
+
+offsets = PoolRealArray( 0.2625, 0.48, 0.7375, 1 )
+colors = PoolColorArray( 0.816406, 0, 0, 1, 1, 0.670588, 0.101961, 0.819608, 0.243137, 0.992157, 0.25098, 0.407843, 0.172549, 0.980392, 1, 0.462745 )
 
 [node name="Player Ship" type="Spatial"]
 
@@ -131,13 +138,16 @@ shape = SubResource( 1 )
 
 [node name="Health" type="Node" parent="Model/Hitbox"]
 script = ExtResource( 15 )
-max_health = 5
+max_health = 6
+
+[node name="IFrame Timer" type="Timer" parent="Model/Hitbox/Health"]
+wait_time = 0.5
+one_shot = true
 
 [node name="Background Particles" type="Particles" parent="."]
 transform = Transform( -0.749958, 0, 0, 0, -0.749958, 0, 0, 0, -0.749958, 0, 15, 0 )
 amount = 128
 lifetime = 5.0
-preprocess = 100.0
 visibility_aabb = AABB( -4, -4, -4, 8, 20, 8 )
 local_coords = false
 process_material = SubResource( 4 )
@@ -202,11 +212,21 @@ effect_name = "Enemy Die"
 script = ExtResource( 24 )
 effect_name = "Enemy Hit"
 
-[connection signal="die" from="Model/Hitbox/Health" to="Combat Input" method="disable"]
-[connection signal="die" from="Model/Hitbox/Health" to="Movement" method="disable"]
-[connection signal="die" from="Model/Hitbox/Health" to="Angle" method="disable"]
-[connection signal="die" from="Model/Hitbox/Health" to="Effects/Die Effect" method="play"]
-[connection signal="die" from="Model/Hitbox/Health" to="Smoke Trail Controller" method="disable"]
+[node name="Health Ring" type="ImmediateGeometry" parent="."]
+transform = Transform( -1, 8.74228e-008, 0, -8.74228e-008, -1, 0, 0, 0, 1, 0, 0, -0.21271 )
+material_override = ExtResource( 25 )
+script = ExtResource( 26 )
+inner_radius = 1.27
+outer_radius = 1.46
+gradient = SubResource( 6 )
+health_path = NodePath("../Model/Hitbox/Health")
+
 [connection signal="die" from="Model/Hitbox/Health" to="Orbital Container" method="destory_all"]
 [connection signal="die" from="Model/Hitbox/Health" to="Model" method="queue_free"]
+[connection signal="die" from="Model/Hitbox/Health" to="Smoke Trail Controller" method="disable"]
+[connection signal="die" from="Model/Hitbox/Health" to="Input" method="test_on_death"]
+[connection signal="die" from="Model/Hitbox/Health" to="Movement" method="disable"]
+[connection signal="die" from="Model/Hitbox/Health" to="Combat Input" method="disable"]
+[connection signal="die" from="Model/Hitbox/Health" to="Angle" method="disable"]
+[connection signal="die" from="Model/Hitbox/Health" to="Effects/Die Effect" method="play"]
 [connection signal="take_damage" from="Model/Hitbox/Health" to="Effects/Damage Effect" method="play_under"]

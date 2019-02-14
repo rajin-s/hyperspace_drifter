@@ -38,3 +38,6 @@ func _process(delta) -> void:
 	else:
 		m_globals.time_scale = 1.0
 		slow_time_active = false
+		
+func test_on_death():
+	m_globals.restart()

@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/Materials/MAT_ExplosionCenter.tres" type="Material" id=4]
 [ext_resource path="res://Assets/Effects/pm_SmallBits.tres" type="Material" id=5]
 
-[sub_resource type="SphereMesh" id=7]
+[sub_resource type="SphereMesh" id=1]
 
 radial_segments = 16
 rings = 16
@@ -56,5 +56,5 @@ one_shot = true
 explosiveness = 1.0
 local_coords = false
 process_material = ExtResource( 5 )
-draw_pass_1 = SubResource( 7 )
+draw_pass_1 = SubResource( 1 )
 

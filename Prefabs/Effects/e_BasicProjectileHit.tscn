@@ -1,8 +1,8 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/s_effect.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Components/c_object_pool_info.gd" type="Script" id=2]
-[ext_resource path="res://Assets/Audio/Shoot_4.wav" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Audio/Hurt_3.wav" type="AudioStream" id=3]
 [ext_resource path="res://Assets/Materials/MAT_ExplosionSpike.tres" type="Material" id=4]
 [ext_resource path="res://Assets/ParticlePlane.obj" type="ArrayMesh" id=5]
 [ext_resource path="res://Assets/Materials/MAT_ExplosionSpike2.tres" type="Material" id=6]
@@ -26,52 +26,41 @@ initial_velocity = 2.0
 angular_velocity = 1.82169e-043
 scale_random = 0.42
 scale_curve = SubResource( 2 )
-color = Color( 1, 0.419608, 0.137255, 1 )
-hue_variation = 0.09
+color = Color( 1, 0.137255, 0.419608, 1 )
+hue_variation = 0.31
 hue_variation_random = 1.0
 
-[sub_resource type="ParticlesMaterial" id=4]
-
-flag_align_y = true
-spread = 79.25
-flatness = 1.0
-gravity = Vector3( 0, 0, 0 )
-initial_velocity = 2.0
-angular_velocity = 1.82169e-043
-scale_random = 0.42
-scale_curve = SubResource( 2 )
-color = Color( 1, 0.129412, 0.498039, 1 )
-hue_variation = 0.09
-hue_variation_random = 1.0
-
-[sub_resource type="Curve" id=5]
+[sub_resource type="Curve" id=4]
 
 _data = [ Vector2( 0, 1 ), 0.0, -0.669227, 0, 0, Vector2( 1, 0 ), 0.0806514, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=6]
+[sub_resource type="CurveTexture" id=5]
 
-curve = SubResource( 5 )
+curve = SubResource( 4 )
 
-[sub_resource type="ParticlesMaterial" id=7]
+[sub_resource type="ParticlesMaterial" id=6]
 
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 10.0
 initial_velocity_random = 1.0
+angular_velocity = 0.333744
 damping = 5.8
 scale = 0.3
-scale_curve = SubResource( 6 )
+scale_curve = SubResource( 5 )
 color = Color( 1, 0.313726, 0.313726, 1 )
 hue_variation = 0.21
 hue_variation_random = 1.0
 
-[sub_resource type="SphereMesh" id=8]
+[sub_resource type="SphereMesh" id=7]
 
 radial_segments = 16
 rings = 16
 
-[node name="Player Fire Basic" type="Spatial"]
+[node name="Basic Projectile Hit" type="Spatial"]
+transform = Transform( -0.872896, 0.487907, 0, -0.487907, -0.872896, 0, 0, 0, 1, 0, 0, 0 )
 script = ExtResource( 1 )
+random_rotation = true
 screen_shake_duration = 0.15
 pitch_min = 0.75
 pitch_max = 1.5
@@ -88,14 +77,14 @@ one_shot = true
 stream = ExtResource( 3 )
 unit_db = -7.407
 unit_size = 100.0
-pitch_scale = 0.796405
+pitch_scale = 1.06661
 max_distance = 493.0
 bus = "SFX"
 
 [node name="Particles" type="Spatial" parent="."]
 
 [node name="top" type="Particles" parent="Particles"]
-transform = Transform( -1, 8.74228e-008, -4.37114e-008, -4.37114e-008, 1.91069e-015, 1, 8.74228e-008, 1, 1.91069e-015, 0, 0.357975, 0 )
+transform = Transform( -1, 8.74228e-008, -4.37114e-008, -4.37114e-008, 1.91069e-015, 1, 8.74228e-008, 1, 1.91069e-015, 0, 0, 0 )
 material_override = ExtResource( 4 )
 emitting = false
 amount = 1
@@ -105,26 +94,37 @@ explosiveness = 1.0
 process_material = SubResource( 3 )
 draw_pass_1 = ExtResource( 5 )
 
-[node name="top2" type="Particles" parent="Particles"]
-transform = Transform( -0.7, 6.11959e-008, -3.0598e-008, -3.0598e-008, 1.33748e-015, 0.7, 6.11959e-008, 0.7, 1.33748e-015, 0, 0.357975, 0 )
+[node name="right" type="Particles" parent="Particles"]
+transform = Transform( 0.606162, -5.29924e-008, 0.795341, 0.795341, -6.9531e-008, -0.606162, 8.74228e-008, 1, 1.91069e-015, 0, 0, 0 )
 material_override = ExtResource( 6 )
 emitting = false
 amount = 1
 lifetime = 0.1
 one_shot = true
 explosiveness = 1.0
-process_material = SubResource( 4 )
+process_material = SubResource( 3 )
+draw_pass_1 = ExtResource( 5 )
+
+[node name="left" type="Particles" parent="Particles"]
+transform = Transform( 0.526128, -4.59955e-008, -0.850406, -0.850406, 7.43448e-008, -0.526128, 8.74228e-008, 1, 1.91069e-015, 0, 0, 0 )
+material_override = ExtResource( 4 )
+emitting = false
+amount = 1
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource( 3 )
 draw_pass_1 = ExtResource( 5 )
 
 [node name="bits" type="Particles" parent="Particles"]
-transform = Transform( -0.390368, -1.42394e-008, -0.920659, -0.920659, 6.95078e-008, 0.390368, 5.84344e-008, 1, -4.02433e-008, 0, 0.291249, 0 )
+transform = Transform( -0.390368, -1.42394e-008, -0.920659, -0.920659, 6.95078e-008, 0.390368, 5.84344e-008, 1, -4.02433e-008, 0, 0, 0 )
 material_override = ExtResource( 7 )
 emitting = false
-amount = 5
+amount = 3
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 local_coords = false
-process_material = SubResource( 7 )
-draw_pass_1 = SubResource( 8 )
+process_material = SubResource( 6 )
+draw_pass_1 = SubResource( 7 )
 

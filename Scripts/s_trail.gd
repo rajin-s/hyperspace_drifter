@@ -22,6 +22,10 @@ export var noise_seed : int = 10002
 export var random_seed : bool = false
 
 export var emitting : bool = true
+func stop_emitting() -> void:
+	emitting = false
+func start_emitting() -> void:
+	emitting = true
 
 # Private
 class point_info:
@@ -76,8 +80,10 @@ func _ready() -> void:
 func reset_trail() -> void:
 	current_index = 0
 	live_points = 1
-	for i in points.size():
+	for i in range(-1, 1):
 		points[i].reset()
+#	for i in points.size():
+#		points[i].reset()
 
 func _process(delta : float) -> void:
 	if emitting:

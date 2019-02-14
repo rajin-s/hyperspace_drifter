@@ -10,11 +10,15 @@ onready var death_effect  : Node = get_node("./Death Effect")
 onready var death_trail   : Node = get_node("./Death Trail")
 onready var crash_area    : Area = get_node("./Crash Area")
 onready var crash_effect  : Node = get_node("./Crash Effect")
+onready var mesh : MeshInstance  = get_node("../Model/Mesh")
 
 onready var done_timer : Timer = get_node("Done Timer")
 
 export var internal_velocity_scale := Vector2(1.2, 0.6)
 export var external_velocity_add   := Vector2(4, 12)
+
+var dead    : bool = false
+var crashed : bool = false
 
 func _ready() -> void:
 	crash_area.connect("area_entered", self, "on_crash")
@@ -26,35 +30,47 @@ func reset() -> void:
 	crash_area.monitoring = false
 	
 	boid.enable()
-	aiming.enable()
+	aiming.auto_spin = false
 	projectiles.enable()
 	
 	movement.internal_velocity = Vector2.ZERO
 	movement.external_velocity = Vector2.ZERO
 	
+	mesh.visible = true
+	dead = false
+	crashed = false
+	
 func on_death() -> void:
-	death_effect.play()
-	
-	death_trail.emitting = true
-	
-	crash_area.monitoring = true
-	
-	boid.disable()
-	aiming.disable()
-	projectiles.disable()
-	
-	movement.internal_velocity.x *= internal_velocity_scale.x
-	movement.internal_velocity.y *= internal_velocity_scale.y
-	
-	movement.external_velocity.y += external_velocity_add.y
-	movement.external_velocity.x += external_velocity_add.x * sign(movement.internal_velocity.x)
+	if not dead:
+		death_effect.play()
+		
+		death_trail.emitting = true
+		
+		crash_area.monitoring = true
+		
+		boid.disable()
+		aiming.auto_spin = true
+		projectiles.disable()
+		
+		movement.internal_velocity.x  = external_velocity_add.x * sign(movement.internal_velocity.x)
+		movement.internal_velocity.y *= internal_velocity_scale.y
+		
+		movement.external_velocity.y += external_velocity_add.y
+		movement.external_velocity.x += external_velocity_add.x * sign(movement.internal_velocity.x)
+		
+		dead = true
 	
 func on_damage() -> void:
-	damage_effect.play()
+	damage_effect.play_under()
+	movement.external_velocity.y = 10
 
 func on_crash(other_area : Area) -> void:
-	crash_effect.play()
-	movement.internal_velocity = Vector2.ZERO
-	movement.external_velocity = Vector2.ZERO
-	death_trail.emitting = false
-	done_timer.start()
+	if not crashed:
+		crash_effect.play()
+		movement.internal_velocity = Vector2.ZERO
+		movement.external_velocity = Vector2.ZERO
+		death_trail.emitting = false
+		mesh.visible = false
+		done_timer.start()
+		
+		crashed = true

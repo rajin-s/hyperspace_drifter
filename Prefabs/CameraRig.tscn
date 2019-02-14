@@ -6,6 +6,7 @@
 
 [node name="Camera Rig" type="Spatial"]
 script = ExtResource( 1 )
+speed = Vector2( 5, 3 )
 target_path = NodePath("../Player Ship")
 
 [node name="Main Camera" type="Camera" parent="."]

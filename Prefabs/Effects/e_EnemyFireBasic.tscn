@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/s_effect.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Components/c_object_pool_info.gd" type="Script" id=2]
+[ext_resource path="res://Assets/Audio/Shoot_4.wav" type="AudioStream" id=3]
+[ext_resource path="res://Prefabs/Effects/ec_SpikesAndBits.tscn" type="PackedScene" id=4]
+
+[node name="Enemy Fire Basic" type="Spatial"]
+transform = Transform( 0.489208, 0.872167, 0, -0.872167, 0.489208, 0, 0, 0, 1, 0, 0, 0 )
+script = ExtResource( 1 )
+random_rotation = true
+screen_shake_duration = 0.15
+pitch_min = 0.6
+pitch_max = 1.0
+
+[node name="ObjectPoolInfo" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="ObjectPoolInfo"]
+one_shot = true
+
+[node name="Sounds" type="Spatial" parent="."]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Sounds"]
+stream = ExtResource( 3 )
+unit_db = -7.407
+unit_size = 100.0
+max_distance = 493.0
+bus = "SFX"
+
+[node name="Particles" parent="." instance=ExtResource( 4 )]
+
+
+[editable path="Particles"]

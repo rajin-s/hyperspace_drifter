@@ -67,5 +67,5 @@ shape = SubResource( 1 )
 [node name="Health" type="Node" parent="Hitbox"]
 script = ExtResource( 10 )
 
-[connection signal="die" from="Hitbox/Health" to="Die Effect" method="play"]
 [connection signal="die" from="Hitbox/Health" to="." method="queue_free"]
+[connection signal="die" from="Hitbox/Health" to="Die Effect" method="play"]

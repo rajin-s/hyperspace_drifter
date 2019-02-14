@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Assets/Materials/MAT_ExplosionSpike.tres" type="Material" id=1]
+[ext_resource path="res://Assets/Effects/pm_EnemyHitSpike1.tres" type="Material" id=2]
+[ext_resource path="res://Assets/ParticlePlane.obj" type="ArrayMesh" id=3]
+[ext_resource path="res://Assets/Materials/MAT_ExplosionCenter.tres" type="Material" id=4]
+[ext_resource path="res://Assets/Effects/pm_SmallBits.tres" type="Material" id=5]
+
+[sub_resource type="SphereMesh" id=7]
+
+radial_segments = 16
+rings = 16
+
+[node name="Particles" type="Spatial"]
+
+[node name="top" type="Particles" parent="."]
+transform = Transform( 1.5, 0, 0, 0, -6.55671e-008, -1.5, 0, 1.5, -6.55671e-008, 0.0457026, 0.293878, 0 )
+material_override = ExtResource( 1 )
+emitting = false
+amount = 1
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource( 2 )
+draw_pass_1 = ExtResource( 3 )
+
+[node name="left" type="Particles" parent="."]
+transform = Transform( -0.968198, -7.52984e-009, 1.14568, 1.14568, 8.64968e-008, 0.968198, -7.09256e-008, 1.5, -5.00794e-008, -0.304469, -0.110848, 0 )
+material_override = ExtResource( 1 )
+emitting = false
+amount = 1
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource( 2 )
+draw_pass_1 = ExtResource( 3 )
+
+[node name="right" type="Particles" parent="."]
+transform = Transform( -0.585553, -2.13591e-008, -1.38099, -1.38099, 1.04262e-007, 0.585553, 8.76515e-008, 1.5, -6.03649e-008, 0.237206, -0.0952727, 0 )
+material_override = ExtResource( 1 )
+emitting = false
+amount = 1
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+process_material = ExtResource( 2 )
+draw_pass_1 = ExtResource( 3 )
+
+[node name="bits" type="Particles" parent="."]
+transform = Transform( -0.585553, -2.13591e-008, -1.38099, -1.38099, 1.04262e-007, 0.585553, 8.76515e-008, 1.5, -6.03649e-008, 0.237206, -0.0952727, 0 )
+material_override = ExtResource( 4 )
+emitting = false
+amount = 5
+lifetime = 0.3
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+process_material = ExtResource( 5 )
+draw_pass_1 = SubResource( 7 )
+

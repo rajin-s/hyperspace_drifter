@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Assets/Models/spaceCraft1.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Assets/Models/spaceCraft2.obj" type="ArrayMesh" id=2]
@@ -8,11 +8,18 @@
 [ext_resource path="res://Assets/Materials/MAT_Steel.tres" type="Material" id=6]
 [ext_resource path="res://Assets/Materials/MAT_Dark.tres" type="Material" id=7]
 [ext_resource path="res://Prefabs/PlayerShip.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Prefabs/CameraRig.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Prefabs/BoidGroup.tscn" type="PackedScene" id=10]
-[ext_resource path="res://debug_pause.gd" type="Script" id=11]
-[ext_resource path="res://Prefabs/LevelCreator.tscn" type="PackedScene" id=12]
-[ext_resource path="res://debug_orbitals.gd" type="Script" id=13]
+[ext_resource path="res://Scripts/Components/c_health.gd" type="Script" id=9]
+[ext_resource path="res://Prefabs/CameraRig.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Prefabs/BoidGroup.tscn" type="PackedScene" id=11]
+[ext_resource path="res://debug_pause.gd" type="Script" id=12]
+[ext_resource path="res://Prefabs/LevelCreator.tscn" type="PackedScene" id=13]
+[ext_resource path="res://debug_orbitals.gd" type="Script" id=14]
+[ext_resource path="res://Scripts/s_effect.gd" type="Script" id=15]
+[ext_resource path="res://Assets/Audio/Drum_Bass.ogg" type="AudioStream" id=16]
+
+[sub_resource type="BoxShape" id=1]
+
+extents = Vector3( 50.3974, 1, 19.9177 )
 
 [node name="Main" type="Node"]
 pause_mode = 1
@@ -63,18 +70,45 @@ material/3 = ExtResource( 7 )
 
 [node name="Player Ship" parent="." instance=ExtResource( 8 )]
 
-[node name="Camera Rig" parent="." instance=ExtResource( 9 )]
+[node name="Projectile Blocker" type="Area" parent="Player Ship" groups=[
+"enemies",
+]]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.9097, 0 )
+collision_layer = 2048
+collision_mask = 33
 
-[node name="Boid Group" parent="." instance=ExtResource( 10 )]
+[node name="CollisionShape" type="CollisionShape" parent="Player Ship/Projectile Blocker"]
+shape = SubResource( 1 )
+
+[node name="Health" type="Node" parent="Player Ship/Projectile Blocker"]
+script = ExtResource( 9 )
+max_health = 1000
+
+[node name="Camera Rig" parent="." instance=ExtResource( 10 )]
+
+[node name="Boid Group" parent="." instance=ExtResource( 11 )]
 
 [node name="Debug Pause" type="Node" parent="."]
 pause_mode = 2
-script = ExtResource( 11 )
+script = ExtResource( 12 )
 
-[node name="Level Creator" parent="." instance=ExtResource( 12 )]
+[node name="Level Creator" parent="." instance=ExtResource( 13 )]
 path_width_min = 16.0
 path_width_max = 32.0
 
 [node name="Test Orbitals" type="Node" parent="."]
-script = ExtResource( 13 )
+script = ExtResource( 14 )
 
+[node name="Music" type="Spatial" parent="."]
+script = ExtResource( 15 )
+screen_shake_intensity = 0.0
+pitch_min = 1.0
+pitch_max = 1.0
+
+[node name="Sounds" type="Spatial" parent="Music"]
+
+[node name="Music" type="AudioStreamPlayer" parent="Music/Sounds"]
+stream = ExtResource( 16 )
+autoplay = true
+
+[connection signal="die" from="Player Ship/Projectile Blocker/Health" to="Player Ship/Projectile Blocker/Health" method="reset"]

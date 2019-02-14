@@ -3,6 +3,9 @@ extends Component
 export var speed : float = 4.0
 export var acceleration : float = 1.0
 
+export var boost_distance_max : float = 6.0
+export var boost_speed_max : float = 4.0
+
 export var separation_influence : float = 1.0
 export var cohesion_influence   : float = 1.0
 export var alignment_influence  : float = 1.0
@@ -66,8 +69,9 @@ func update_velocity(delta : float) -> void:
 	# if Input.is_action_just_pressed("ui_accept"):
 	# print("adir: %s | apos: %s | cen: %s | sep: %s | tar: %s | ref %s" % [ average_direction, average_position, to_group_center, separation, to_target, reference_velocity ])
 	
-	var target_velocity : Vector2 = (average_direction + to_group_center + separation + to_target).clamped(1) * speed #.clamped(speed)
-	# var target_velocity : Vector2 = (average_direction + to_group_center + separation + to_target).clamped(1) * speed #.clamped(speed)
+	var final_speed = speed * lerp(1.0, boost_speed_max, clamp((get_position() - group.get_target_position()).length_squared() / boost_distance_max / boost_distance_max, 0, 1))
+	var target_velocity : Vector2 = (average_direction + to_group_center + separation + to_target).clamped(1) * final_speed
+	
 	target_velocity += reference_velocity
 	movement.lerp_internal(target_velocity, acceleration * delta)
 	direction = target_velocity.normalized()

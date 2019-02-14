@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=38 format=2]
 
 [ext_resource path="res://Assets/Models/ship8.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Assets/Materials/MAT_Enemy.tres" type="Material" id=2]
@@ -17,9 +17,16 @@
 [ext_resource path="res://Scripts/Components/c_object_pool_info.gd" type="Script" id=15]
 [ext_resource path="res://Scripts/Components/c_velocity_angle.gd" type="Script" id=16]
 [ext_resource path="res://Scripts/Enemies/c_projectile_fire.gd" type="Script" id=17]
-[ext_resource path="res://Scripts/Enemies/c_enemy_effects.gd" type="Script" id=18]
-[ext_resource path="res://Scripts/Components/c_effect_player.gd" type="Script" id=19]
-[ext_resource path="res://Assets/Curves/g_player_burn.tres" type="Gradient" id=20]
+[ext_resource path="res://Scripts/s_effect.gd" type="Script" id=18]
+[ext_resource path="res://Assets/Materials/MAT_ExplosionSpike2.tres" type="Material" id=19]
+[ext_resource path="res://Assets/Effects/pm_EnemyHitSpike1.tres" type="Material" id=20]
+[ext_resource path="res://Assets/ParticlePlane.obj" type="ArrayMesh" id=21]
+[ext_resource path="res://Assets/Materials/MAT_ExplosionSpike.tres" type="Material" id=22]
+[ext_resource path="res://Assets/Materials/MAT_ExplosionCenter.tres" type="Material" id=23]
+[ext_resource path="res://Assets/Audio/Charge_3.wav" type="AudioStream" id=24]
+[ext_resource path="res://Scripts/Enemies/c_enemy_effects.gd" type="Script" id=25]
+[ext_resource path="res://Scripts/Components/c_effect_player.gd" type="Script" id=26]
+[ext_resource path="res://Assets/Curves/g_player_burn.tres" type="Gradient" id=27]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -28,6 +35,51 @@ extents = Vector3( 1.14817, 0.835797, 0.747278 )
 [sub_resource type="SphereShape" id=2]
 
 radius = 7.0
+
+[sub_resource type="Curve" id=9]
+
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.351136, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -0.590537, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=10]
+
+curve = SubResource( 9 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+
+emission_shape = 1
+emission_sphere_radius = 0.58
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = -3.2
+angular_velocity = 0.0
+tangential_accel = -5.45
+damping = 5.31
+scale = 0.12
+scale_curve = SubResource( 10 )
+color = Color( 1, 0.341176, 0.972549, 1 )
+hue_variation = 0.14
+hue_variation_random = 1.0
+
+[sub_resource type="SphereMesh" id=7]
+
+radial_segments = 16
+rings = 16
+
+[sub_resource type="Curve" id=4]
+
+_data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.891551, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -13.0204, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=8]
+
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+angular_velocity = 0.0
+scale = 0.57
+scale_curve = SubResource( 5 )
 
 [sub_resource type="SphereShape" id=3]
 
@@ -81,6 +133,11 @@ shape = SubResource( 1 )
 
 [node name="Health" type="Node" parent="Model/Hitbox"]
 script = ExtResource( 11 )
+max_health = 3
+
+[node name="IFrame Timer" type="Timer" parent="Model/Hitbox/Health"]
+wait_time = 0.25
+one_shot = true
 
 [node name="Obstacle Detection" type="Area" parent="."]
 editor/display_folded = true
@@ -115,18 +172,90 @@ script = ExtResource( 16 )
 max_roll = -28.0
 do_pitch = false
 
-[node name="Projectiles" type="Node" parent="."]
+[node name="Projectiles" type="Spatial" parent="."]
 script = ExtResource( 17 )
 spawn_reference_path = NodePath("../Model")
 projectile_scene_name = "EnemyBasicProjectile"
 shot_speed = 20.0
+shoot_delay = 2.5
+release_delay = 0.9
 
-[node name="Timer" type="Timer" parent="Projectiles"]
-wait_time = 0.75
-autostart = true
+[node name="Charge Effect" type="Spatial" parent="Projectiles"]
+script = ExtResource( 18 )
+pitch_min = 0.7
+pitch_max = 1.2
+
+[node name="Particles" type="Spatial" parent="Projectiles/Charge Effect"]
+editor/display_folded = true
+
+[node name="Bottom" type="Particles" parent="Projectiles/Charge Effect/Particles"]
+transform = Transform( 1, 0, 0, 0, -0.129369, -0.991596, 0, 0.991596, -0.129369, 0, -0.521428, 0.342307 )
+visible = false
+material_override = ExtResource( 19 )
+emitting = false
+amount = 1
+lifetime = 0.2
+process_material = ExtResource( 20 )
+draw_pass_1 = ExtResource( 21 )
+
+[node name="Right" type="Particles" parent="Projectiles/Charge Effect/Particles"]
+transform = Transform( 0.0871558, 1.49012e-008, 0.996195, 0.987823, -0.129369, -0.0864234, 0.128877, 0.991596, -0.0112753, 0, -0.521428, 0.342307 )
+visible = false
+material_override = ExtResource( 22 )
+emitting = false
+amount = 1
+lifetime = 0.2
+process_material = ExtResource( 20 )
+draw_pass_1 = ExtResource( 21 )
+
+[node name="Top" type="Particles" parent="Projectiles/Charge Effect/Particles"]
+transform = Transform( -0.965926, 5.96046e-008, 0.258819, 0.256644, -0.129369, 0.957809, 0.0334833, 0.991596, 0.124961, 0, -0.521428, 0.342307 )
+visible = false
+material_override = ExtResource( 19 )
+emitting = false
+amount = 1
+lifetime = 0.2
+process_material = ExtResource( 20 )
+draw_pass_1 = ExtResource( 21 )
+
+[node name="Left" type="Particles" parent="Projectiles/Charge Effect/Particles"]
+transform = Transform( -1.17167e-007, -5.93681e-008, -1, -0.991596, -0.129369, 1.23862e-007, -0.129369, 0.991596, -4.37114e-008, 0, -0.521428, 0.342307 )
+visible = false
+material_override = ExtResource( 22 )
+emitting = false
+amount = 1
+lifetime = 0.2
+process_material = ExtResource( 20 )
+draw_pass_1 = ExtResource( 21 )
+
+[node name="Particles" type="Particles" parent="Projectiles/Charge Effect/Particles"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, -0.637298, 0.317023 )
+material_override = ExtResource( 23 )
+emitting = false
+amount = 9
+lifetime = 0.5
+process_material = SubResource( 6 )
+draw_pass_1 = SubResource( 7 )
+
+[node name="Particles2" type="Particles" parent="Projectiles/Charge Effect/Particles"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-008, -1, 0, 1, -4.37114e-008, 0, -0.748039, 0.317023 )
+material_override = ExtResource( 23 )
+emitting = false
+amount = 1
+process_material = SubResource( 8 )
+draw_pass_1 = SubResource( 7 )
+
+[node name="Sounds" type="Spatial" parent="Projectiles/Charge Effect"]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Projectiles/Charge Effect/Sounds"]
+stream = ExtResource( 24 )
+unit_db = -20.901
+unit_size = 100.0
+bus = "SFX"
 
 [node name="Effects" type="Spatial" parent="."]
-script = ExtResource( 18 )
+editor/display_folded = true
+script = ExtResource( 25 )
 internal_velocity_scale = Vector2( 1.2, 1 )
 external_velocity_add = Vector2( 20, 3 )
 
@@ -140,20 +269,21 @@ collision_mask = 2
 shape = SubResource( 3 )
 
 [node name="Damage Effect" type="Node" parent="Effects"]
-script = ExtResource( 19 )
+script = ExtResource( 26 )
+effect_name = "Enemy Hit"
 
 [node name="Death Effect" type="Node" parent="Effects"]
-script = ExtResource( 19 )
+script = ExtResource( 26 )
 effect_name = "Enemy Die"
 
 [node name="Crash Effect" type="Node" parent="Effects"]
-script = ExtResource( 19 )
-effect_name = "Enemy Die"
+script = ExtResource( 26 )
+effect_name = "Enemy Crash"
 
 [node name="Death Trail" type="ImmediateGeometry" parent="Effects"]
 script = ExtResource( 6 )
 shape = ExtResource( 7 )
-gradient = ExtResource( 20 )
+gradient = ExtResource( 27 )
 noise_size = 4.0
 random_seed = true
 emitting = false
@@ -163,8 +293,11 @@ wait_time = 2.0
 one_shot = true
 
 [connection signal="die" from="Model/Hitbox/Health" to="Effects" method="on_death"]
+[connection signal="take_damage" from="Model/Hitbox/Health" to="Effects" method="on_damage"]
 [connection signal="area_entered" from="Obstacle Detection" to="Boid" method="on_detect_collision"]
 [connection signal="area_exited" from="Obstacle Detection" to="Boid" method="on_clear_collision"]
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Model/Trail" method="reset_trail"]
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Model/Burn" method="reset_trail"]
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Model/Hitbox/Health" method="reset"]
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Effects" method="reset"]
-[connection signal="timeout" from="Effects/Done Timer" to="." method="queue_free"]
 [connection signal="timeout" from="Effects/Done Timer" to="ObjectPoolInfo" method="set_pool_available"]

@@ -16,6 +16,7 @@ var average_direction : Vector2
 
 # Cached values for average calculation
 var reference_velocity : Vector2
+var reference_position : Vector2
 var target_position : Vector2
 
 # Add a member to the local group
@@ -24,7 +25,6 @@ func add_boid(boid : Node) -> void:
 	separation_vectors[boid] = Vector2.ZERO
 	reposition_on_z()
 	recalculate_values()
-	
 
 # Remove a member from the local group
 func remove_boid(boid : Node) -> void:
@@ -88,10 +88,12 @@ func _process(delta : float) -> void:
 	# Get player / group reference values
 	target_position = m_globals.player.enemy_target
 	reference_velocity = m_globals.player.velocity.y * Vector2(0, 1)
+	reference_position = m_globals.player.position
 
 # Called by c_boid
 func get_separation(target : Node) -> Vector2: return separation_vectors[target]
 func get_average_position() 	   -> Vector2: return average_position
 func get_average_direction()       -> Vector2: return average_direction
-func get_reference_velocity()      -> Vector2: return reference_velocity
 func get_target_position()         -> Vector2: return target_position
+func get_reference_position()      -> Vector2: return reference_position
+func get_reference_velocity()      -> Vector2: return reference_velocity

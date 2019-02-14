@@ -39,7 +39,7 @@ script = ExtResource( 6 )
 
 [node name="Shoot Effect" type="Node" parent="."]
 script = ExtResource( 7 )
-effect_name = "Test Effect"
+effect_name = "Enemy Fire Basic"
 
 [node name="Hurtbox" type="Area" parent="."]
 collision_layer = 2056
@@ -50,7 +50,9 @@ shape = SubResource( 1 )
 
 [node name="Damage" type="Node" parent="Hurtbox"]
 script = ExtResource( 8 )
+oneshot = true
 damage_group = "player"
 
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Trail" method="reset_trail"]
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Shoot Effect" method="play" flags=3]
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Hurtbox/Damage" method="reset"]

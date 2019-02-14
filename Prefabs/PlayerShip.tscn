@@ -27,7 +27,7 @@
 
 [sub_resource type="BoxShape" id=1]
 
-extents = Vector3( 1, 0.422853, 0.466512 )
+extents = Vector3( 0.402867, 0.422853, 0.466512 )
 
 [sub_resource type="Gradient" id=2]
 
@@ -131,7 +131,7 @@ shape = SubResource( 1 )
 
 [node name="Health" type="Node" parent="Model/Hitbox"]
 script = ExtResource( 15 )
-max_health = 6
+max_health = 5
 
 [node name="Background Particles" type="Particles" parent="."]
 transform = Transform( -0.749958, 0, 0, 0, -0.749958, 0, 0, 0, -0.749958, 0, 15, 0 )
@@ -153,10 +153,12 @@ script = ExtResource( 18 )
 script = ExtResource( 19 )
 max_speed_x = 8.0
 min_speed_y = 6.0
-max_speed_y = 16.0
+max_speed_y = 24.0
+slow_time_scale = 0.1
 
 [node name="Combat Input" type="Node" parent="."]
 script = ExtResource( 20 )
+fire_offset = Vector2( 0, 1 )
 
 [node name="Angle" type="Node" parent="."]
 script = ExtResource( 21 )
@@ -187,14 +189,24 @@ speed = 180.0
 [node name="Enemy Target" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0846, 0 )
 
-[node name="Test Die Effect" type="Node" parent="."]
+[node name="Listener" type="Listener" parent="."]
+current = true
+
+[node name="Effects" type="Spatial" parent="."]
+
+[node name="Die Effect" type="Node" parent="Effects"]
 script = ExtResource( 24 )
 effect_name = "Enemy Die"
 
-[connection signal="die" from="Model/Hitbox/Health" to="Model" method="queue_free"]
-[connection signal="die" from="Model/Hitbox/Health" to="Test Die Effect" method="play"]
+[node name="Damage Effect" type="Node" parent="Effects"]
+script = ExtResource( 24 )
+effect_name = "Enemy Hit"
+
 [connection signal="die" from="Model/Hitbox/Health" to="Combat Input" method="disable"]
-[connection signal="die" from="Model/Hitbox/Health" to="Angle" method="disable"]
 [connection signal="die" from="Model/Hitbox/Health" to="Movement" method="disable"]
+[connection signal="die" from="Model/Hitbox/Health" to="Angle" method="disable"]
+[connection signal="die" from="Model/Hitbox/Health" to="Effects/Die Effect" method="play"]
 [connection signal="die" from="Model/Hitbox/Health" to="Smoke Trail Controller" method="disable"]
-[connection signal="take_damage" from="Model/Hitbox/Health" to="Test Die Effect" method="play"]
+[connection signal="die" from="Model/Hitbox/Health" to="Orbital Container" method="destory_all"]
+[connection signal="die" from="Model/Hitbox/Health" to="Model" method="queue_free"]
+[connection signal="take_damage" from="Model/Hitbox/Health" to="Effects/Damage Effect" method="play_under"]

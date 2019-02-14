@@ -51,6 +51,9 @@ shape = SubResource( 1 )
 
 [node name="Damage" type="Node" parent="Hurtbox"]
 script = ExtResource( 8 )
+oneshot = true
 
-[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Trail" method="reset_trail"]
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Shoot Effect" method="play" flags=3]
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Hurtbox/Damage" method="reset"]
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Trail" method="reset_trail"]
+[connection signal="deal_damage" from="Hurtbox/Damage" to="Trail" method="stop_emitting"]

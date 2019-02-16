@@ -7,6 +7,8 @@ var projectil_pool = object_pool.new()
 
 onready var scene_root = get_tree().root.get_children()[-1]
 
+signal fire_projectile
+
 func _ready():
 	projectil_pool.set_pooled_object(basic_projectile)
 
@@ -17,3 +19,4 @@ func _process(delta):
 		position.x += fire_offset.x
 		position.y += fire_offset.y
 		new_projectile.global_transform.origin = position
+		emit_signal("fire_projectile")

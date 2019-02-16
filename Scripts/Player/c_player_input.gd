@@ -7,6 +7,7 @@ export var max_speed_y : float = 8
 var slow_time_active : bool = false
 export var slow_time_scale : float = 0.25
 export var slow_time_speed_scale : float = 2.0
+onready var slow_time_active_timer : Timer = get_node("./Slow Time Active Timer")
 
 onready var c_movement := get_component("movement_base")
 
@@ -35,9 +36,14 @@ func _process(delta) -> void:
 	if Input.is_action_pressed("player_slow_time"):
 		m_globals.time_scale = slow_time_scale
 		slow_time_active = true
+		if slow_time_active_timer.is_stopped():
+			slow_time_active_timer.start()
 	else:
+		if not slow_time_active_timer.is_stopped():
+			slow_time_active_timer.stop()
 		m_globals.time_scale = 1.0
 		slow_time_active = false
 		
+# TODO: Move this somewhere else
 func test_on_death():
 	m_globals.restart()

@@ -30,6 +30,7 @@ func reset() -> void:
 	pools.clear()
 
 func restart() -> void:
+	print("Call restart")
 	get_node("../Main/Transition").exit()
 	
 var music_exists : bool = false

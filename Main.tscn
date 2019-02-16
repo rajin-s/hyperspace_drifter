@@ -30,7 +30,7 @@ extents = Vector3( 50.3974, 1, 19.9177 )
 resource_local_to_scene = true
 shader = ExtResource( 18 )
 shader_param/color = Color( 0.0117647, 0, 0.2, 1 )
-shader_param/t = 1.0
+shader_param/t = 0.0
 
 [sub_resource type="Animation" id=3]
 
@@ -127,6 +127,7 @@ material/2 = ExtResource( 5 )
 material/3 = ExtResource( 7 )
 
 [node name="Player Ship" parent="." instance=ExtResource( 8 )]
+editor/display_folded = true
 
 [node name="Projectile Blocker" type="Area" parent="Player Ship" groups=[
 "enemies",
@@ -158,6 +159,7 @@ path_width_max = 32.0
 script = ExtResource( 14 )
 
 [node name="Music" type="Spatial" parent="."]
+editor/display_folded = true
 script = ExtResource( 15 )
 screen_shake_intensity = 0.0
 pitch_min = 1.0
@@ -178,6 +180,7 @@ position = Vector2( 250, 400 )
 rotation = 5.51003
 texture = ExtResource( 19 )
 script = ExtResource( 20 )
+t = 0.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Transition"]
 anims/enter = SubResource( 3 )

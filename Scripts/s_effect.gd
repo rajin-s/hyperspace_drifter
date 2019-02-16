@@ -48,7 +48,8 @@ func _process(delta : float) -> void:
 			get_node("Timer").start()
 	
 	if current_parent != null:
-		global_transform.origin = current_parent.global_transform.origin
+		var target_position = current_parent.global_transform.origin
+		global_transform.origin = target_position
 	
 	if sfx_parent != null:
 		for i in sfx_parent.get_child_count():
@@ -76,8 +77,15 @@ func play_at(position : Vector3) -> void:
 	global_transform.origin = position
 	play()
 
-func play_under(parent : Spatial) -> void:
+func set_parent(parent : Spatial) -> void:
 	current_parent = parent
+	parent.connect("tree_exiting", self, "clear_parent")
+
+func clear_parent() -> void:
+	current_parent = null
+
+func play_under(parent : Spatial) -> void:
+	set_parent(parent)
 	play_at(parent.global_transform.origin)
 
 func stop() -> void:

@@ -17,10 +17,13 @@ func _read() -> void:
 		iframe_timer = get_node("IFrame Timer")
 		iframe_timer.connect("timeout", self, "enable_damage")
 
-func damage(amount : int) -> void:
+func damage(amount : int, notify : bool = true) -> void:
 	if not dead and damage_enabled:
 		current_health -= amount
-		emit_signal("take_damage")
+		if current_health > max_health:
+			current_health = max_health
+		if notify:
+			emit_signal("take_damage")
 		if current_health <= 0 and not dead:
 			die()
 

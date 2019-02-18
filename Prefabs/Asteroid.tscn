@@ -37,6 +37,7 @@ shape = SubResource( 3 )
 [node name="Health" type="Node" parent="MeshInstance/Area"]
 script = ExtResource( 3 )
 max_health = 999
+emit_signals = false
 
 [node name="Hutbox" type="Node" parent="MeshInstance/Area"]
 script = ExtResource( 4 )

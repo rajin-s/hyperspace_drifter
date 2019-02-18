@@ -11,5 +11,4 @@ path_width_max = 24.0
 path_width_segments = 5
 path_range_x = 10.0
 max_active_path_segments = 5
-player_node_path = NodePath("../Player Ship")
 

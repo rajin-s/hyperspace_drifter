@@ -65,3 +65,7 @@ func get_instance_as_child_at(parent : Node, position : Vector3) -> Node:
 	instance_info[0].global_transform.origin = position
 	instance_info[1].emit_signal("pool_instantiate")
 	return instance_info[0]
+
+func free_instances() -> void:
+	for instance in instances:
+		instance.queue_free()

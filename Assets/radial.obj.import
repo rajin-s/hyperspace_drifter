@@ -1,0 +1,18 @@
+[remap]
+
+importer="wavefront_obj"
+type="Mesh"
+path="res://.import/radial.obj-c339ca16e2db7a920a0bd03e0c0a43a5.mesh"
+
+[deps]
+
+files=[ "res://.import/radial.obj-c339ca16e2db7a920a0bd03e0c0a43a5.mesh" ]
+
+source_file="res://Assets/radial.obj"
+dest_files=[ "res://.import/radial.obj-c339ca16e2db7a920a0bd03e0c0a43a5.mesh", "res://.import/radial.obj-c339ca16e2db7a920a0bd03e0c0a43a5.mesh" ]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3( 1, 1, 1 )
+optimize_mesh=true

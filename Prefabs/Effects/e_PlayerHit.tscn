@@ -1,21 +1,22 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/s_effect.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/Components/c_object_pool_info.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Materials/MAT_ExplosionSpike.tres" type="Material" id=3]
-[ext_resource path="res://Assets/Effects/pm_EnemyHitSpike1.tres" type="Material" id=4]
+[ext_resource path="res://Assets/Effects/pm_PlayerHitSpike1.tres" type="Material" id=4]
 [ext_resource path="res://Assets/ParticlePlane.obj" type="ArrayMesh" id=5]
 [ext_resource path="res://Assets/Materials/MAT_ExplosionSpike2.tres" type="Material" id=6]
 [ext_resource path="res://Assets/Materials/MAT_ParticleSmoke.tres" type="Material" id=7]
 [ext_resource path="res://Assets/Effects/pm_EnemyHitSmoke1.tres" type="Material" id=8]
 [ext_resource path="res://Assets/Effects/pm_EnemyHitSmoke2.tres" type="Material" id=9]
 [ext_resource path="res://Assets/Audio/Explode_1.wav" type="AudioStream" id=10]
+[ext_resource path="res://Assets/Audio/Explode_Low_1.wav" type="AudioStream" id=11]
 
-[sub_resource type="SphereMesh" id=1]
+[sub_resource type="SphereMesh" id=4]
 
 
-[node name="Enemy Hit" type="Spatial"]
-transform = Transform( 0.989833, 0.142237, 0, -0.142237, 0.989833, 0, 0, 0, 1, 0, 0, 0 )
+[node name="Player Hit" type="Spatial"]
+transform = Transform( -0.581467, -0.813571, 0, 0.813571, -0.581467, 0, 0, 0, 1, 0, 0, 0 )
 script = ExtResource( 1 )
 random_rotation = true
 screen_shake_intensity = 500.0
@@ -77,7 +78,7 @@ explosiveness = 0.89
 randomness = 1.0
 local_coords = false
 process_material = ExtResource( 8 )
-draw_pass_1 = SubResource( 1 )
+draw_pass_1 = SubResource( 4 )
 
 [node name="Smoke2" type="Particles" parent="Particles"]
 transform = Transform( 0.666667, 0, 0, 0, 0.666667, 0, 0, 0, 0.666667, 0, 0, 0 )
@@ -88,8 +89,9 @@ lifetime = 0.35
 one_shot = true
 explosiveness = 1.0
 randomness = 1.0
+local_coords = false
 process_material = ExtResource( 9 )
-draw_pass_1 = SubResource( 1 )
+draw_pass_1 = SubResource( 4 )
 
 [node name="Sounds" type="Spatial" parent="."]
 
@@ -98,7 +100,16 @@ transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0 )
 stream = ExtResource( 10 )
 unit_db = 8.0
 unit_size = 100.0
-pitch_scale = 1.65424
+pitch_scale = 0.978027
+bus = "SFX"
+attenuation_filter_cutoff_hz = 10000.0
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="Sounds"]
+transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0 )
+stream = ExtResource( 11 )
+unit_db = 8.0
+unit_size = 100.0
+pitch_scale = 0.978027
 bus = "SFX"
 attenuation_filter_cutoff_hz = 10000.0
 

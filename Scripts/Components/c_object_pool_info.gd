@@ -26,3 +26,6 @@ func set_pool_unavailable() -> void:
 	if reset_timer != null:
 		# print("Start timer on %s" % (object.name if object != null else name))
 		reset_timer.start()
+
+func remove_from_scene() -> void:
+	object.get_parent().remove_child(object)

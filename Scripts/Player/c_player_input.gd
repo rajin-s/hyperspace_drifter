@@ -47,3 +47,5 @@ func _process(delta) -> void:
 # TODO: Move this somewhere else
 func test_on_death():
 	m_globals.restart()
+func test_on_damage():
+	print("Player damaged %d" % get_component_on($"../Model/Hitbox", "health").current_health)

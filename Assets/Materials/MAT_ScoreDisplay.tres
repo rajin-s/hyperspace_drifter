@@ -1,0 +1,12 @@
+[gd_resource type="SpatialMaterial" load_steps=2 format=2]
+
+[sub_resource type="ViewportTexture" id=1]
+
+
+[resource]
+
+flags_unshaded = true
+flags_do_not_receive_shadows = true
+params_blend_mode = 1
+albedo_texture = SubResource( 1 )
+

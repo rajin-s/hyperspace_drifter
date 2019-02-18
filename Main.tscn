@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Assets/Models/spaceCraft1.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Assets/Models/spaceCraft2.obj" type="ArrayMesh" id=2]
@@ -17,67 +17,11 @@
 [ext_resource path="res://Scripts/s_effect.gd" type="Script" id=15]
 [ext_resource path="res://Assets/Audio/Drum_Bass.ogg" type="AudioStream" id=16]
 [ext_resource path="res://Scripts/Components/c_music.gd" type="Script" id=17]
-[ext_resource path="res://Assets/Materials/sh_transition.shader" type="Shader" id=18]
-[ext_resource path="res://Assets/Textures/transition.png" type="Texture" id=19]
-[ext_resource path="res://Scripts/s_transition.gd" type="Script" id=20]
+[ext_resource path="res://Prefabs/Transition.tscn" type="PackedScene" id=18]
 
 [sub_resource type="BoxShape" id=1]
 
 extents = Vector3( 50.3974, 1, 19.9177 )
-
-[sub_resource type="ShaderMaterial" id=2]
-
-resource_local_to_scene = true
-shader = ExtResource( 18 )
-shader_param/color = Color( 0.0117647, 0, 0.2, 1 )
-shader_param/t = 0.0
-
-[sub_resource type="Animation" id=3]
-
-resource_name = "enter"
-step = 0.01
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:t")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 0.217638 ),
-"update": 0,
-"values": [ 0.0, 1.0 ]
-}
-
-[sub_resource type="Animation" id=4]
-
-resource_name = "exit"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:t")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 0.406126 ),
-"update": 0,
-"values": [ 1.0, 0.0 ]
-}
-tracks/1/type = "method"
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 1 ),
-"transitions": PoolRealArray( 1 ),
-"values": [ {
-"args": [  ],
-"method": "restart_scene"
-} ]
-}
 
 [node name="Main" type="Node"]
 pause_mode = 1
@@ -127,11 +71,12 @@ material/2 = ExtResource( 5 )
 material/3 = ExtResource( 7 )
 
 [node name="Player Ship" parent="." instance=ExtResource( 8 )]
-editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.54189, 0 )
 
 [node name="Projectile Blocker" type="Area" parent="Player Ship" groups=[
 "enemies",
 ]]
+editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.6179, 0 )
 collision_layer = 2048
 collision_mask = 33
@@ -142,6 +87,7 @@ shape = SubResource( 1 )
 [node name="Health" type="Node" parent="Player Ship/Projectile Blocker"]
 script = ExtResource( 9 )
 max_health = 1000
+emit_signals = false
 
 [node name="Camera Rig" parent="." instance=ExtResource( 10 )]
 
@@ -174,18 +120,7 @@ autoplay = true
 [node name="BGM" type="Node" parent="Music"]
 script = ExtResource( 17 )
 
-[node name="Transition" type="Sprite" parent="."]
-material = SubResource( 2 )
-position = Vector2( 250, 400 )
-rotation = 5.51003
-texture = ExtResource( 19 )
-script = ExtResource( 20 )
-t = 0.0
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Transition"]
-anims/enter = SubResource( 3 )
-anims/exit = SubResource( 4 )
-
-[node name="Node" type="Node" parent="."]
+[node name="Transition" parent="." instance=ExtResource( 18 )]
+t = 1.0
 
 [connection signal="die" from="Player Ship/Projectile Blocker/Health" to="Player Ship/Projectile Blocker/Health" method="reset"]

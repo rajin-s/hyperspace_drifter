@@ -1,6 +1,7 @@
 extends Component
 
 export var max_health : int = 1
+export var emit_signals : bool = true
 onready var current_health : int = max_health
 var dead : bool = false
 var damage_enabled : bool = true
@@ -22,15 +23,23 @@ func damage(amount : int, notify : bool = true) -> void:
 		current_health -= amount
 		if current_health > max_health:
 			current_health = max_health
-		if notify:
+		if notify and emit_signals:
 			emit_signal("take_damage")
 		if current_health <= 0 and not dead:
 			die()
 
+func damage_with_min(amount : int, minimum : int, notify : bool = true) -> void:
+	var new_health = current_health - amount
+	if new_health < minimum:
+		amount = current_health - minimum
+	if amount != 0:
+		damage(amount, notify)
+
 func die() -> void:
 	if not dead:
 		dead = true
-		emit_signal("die")
+		if emit_signals:
+			emit_signal("die")
 	
 func reset() -> void:
 	current_health = max_health

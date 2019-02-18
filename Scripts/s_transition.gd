@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 tool
 
 export var t : float = 1.0
@@ -18,4 +18,4 @@ func restart_scene() -> void:
 	get_tree().reload_current_scene()
 
 func _process(delta : float) -> void:
-	 material.set_shader_param("t", t)
+	 $"Screen Fill".material.set_shader_param("t", t)

@@ -49,6 +49,14 @@ func play(name : String, position : Vector3) -> void:
 	else:
 		print("Effect named %s not registered with m_effects!" % name)
 
+func play_muted(name : String, position : Vector3) -> void:
+	if _all_effects.has(name):
+		var effect_instance : Node = _all_effects[name].get_instance_as_child_at(self, position)
+		effect_instance.effect_name = name
+		effect_instance.play(true)
+	else:
+		print("Effect named %s not registered with m_effects!" % name)
+
 func play_under(name : String, parent : Spatial) -> void:
 	if _all_effects.has(name):
 		var effect_instance : Node = _all_effects[name].get_instance_as_child_at(self, parent.global_transform.origin)

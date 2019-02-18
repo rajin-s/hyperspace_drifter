@@ -55,7 +55,7 @@ func _process(delta : float) -> void:
 		for i in sfx_parent.get_child_count():
 			sfx_parent.get_child(i).pitch_scale = max(min_time_pitch, Engine.time_scale * current_pitch)
 
-func play() -> void:
+func play(muted : bool = false) -> void:
 	#print("Playing effect %s" % name)
 	if random_rotation:
 		rotation_degrees.z = rand_range(0, 360)
@@ -65,7 +65,7 @@ func play() -> void:
 			particles_parent.get_child(i).emitting = true
 			particles_parent.get_child(i).restart()
 	
-	if sfx_parent != null:
+	if not muted and sfx_parent != null:
 		current_pitch = rand_range(pitch_min, pitch_max)
 		for i in sfx_parent.get_child_count():
 			sfx_parent.get_child(i).play()

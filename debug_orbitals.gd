@@ -7,7 +7,7 @@ onready var enemy_parent := get_node(enemy_parent_path)
 #onready var orbital_parent := get_node(orbital_parent_path)
 
 #var orbital_prefab : PackedScene = preload("res://Prefabs/Orbital.tscn")
-var enemy_prefab : PackedScene = preload("res://Prefabs/EnemyBasic.tscn")
+var enemy_prefab : PackedScene = preload("res://Prefabs/EnemyHeavy.tscn")
 
 var enemy_pool : object_pool
 

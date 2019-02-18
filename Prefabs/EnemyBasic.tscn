@@ -30,29 +30,23 @@
 [ext_resource path="res://Scripts/Components/c_score_giver.gd" type="Script" id=28]
 
 [sub_resource type="BoxShape" id=1]
-
 extents = Vector3( 1.14817, 0.835797, 0.747278 )
 
 [sub_resource type="SphereShape" id=2]
-
 radius = 7.0
 
 [sub_resource type="Curve" id=3]
-
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.351136, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -0.590537, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=4]
-
 curve = SubResource( 3 )
 
 [sub_resource type="ParticlesMaterial" id=5]
-
 emission_shape = 1
 emission_sphere_radius = 0.58
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = -3.2
-angular_velocity = 0.0
 tangential_accel = -5.45
 damping = 5.31
 scale = 0.12
@@ -62,28 +56,22 @@ hue_variation = 0.14
 hue_variation_random = 1.0
 
 [sub_resource type="SphereMesh" id=6]
-
 radial_segments = 16
 rings = 16
 
 [sub_resource type="Curve" id=7]
-
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.891551, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -13.0204, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=8]
-
 curve = SubResource( 7 )
 
 [sub_resource type="ParticlesMaterial" id=9]
-
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
-angular_velocity = 0.0
 scale = 0.57
 scale_curve = SubResource( 8 )
 
 [sub_resource type="SphereShape" id=10]
-
 radius = 0.53932
 
 [node name="Enemy" type="Spatial"]
@@ -135,10 +123,6 @@ shape = SubResource( 1 )
 [node name="Health" type="Node" parent="Model/Hitbox"]
 script = ExtResource( 11 )
 max_health = 3
-
-[node name="IFrame Timer" type="Timer" parent="Model/Hitbox/Health"]
-wait_time = 0.25
-one_shot = true
 
 [node name="Obstacle Detection" type="Area" parent="."]
 editor/display_folded = true
@@ -296,13 +280,13 @@ one_shot = true
 [node name="Add Score" type="Node" parent="."]
 script = ExtResource( 28 )
 
-[connection signal="die" from="Model/Hitbox/Health" to="Add Score" method="give_score"]
 [connection signal="die" from="Model/Hitbox/Health" to="Effects" method="on_death"]
+[connection signal="die" from="Model/Hitbox/Health" to="Add Score" method="give_score"]
 [connection signal="take_damage" from="Model/Hitbox/Health" to="Effects" method="on_damage"]
 [connection signal="area_entered" from="Obstacle Detection" to="Boid" method="on_detect_collision"]
 [connection signal="area_exited" from="Obstacle Detection" to="Boid" method="on_clear_collision"]
-[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Model/Hitbox/Health" method="reset"]
-[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Model/Trail" method="reset_trail"]
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Effects" method="reset"]
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Model/Burn" method="reset_trail"]
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Model/Trail" method="reset_trail"]
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Model/Hitbox/Health" method="reset"]
 [connection signal="timeout" from="Effects/Done Timer" to="ObjectPoolInfo" method="set_pool_available"]

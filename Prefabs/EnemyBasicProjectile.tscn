@@ -10,7 +10,6 @@
 [ext_resource path="res://Scripts/Components/c_hurtbox.gd" type="Script" id=8]
 
 [sub_resource type="SphereShape" id=1]
-
 radius = 0.478844
 
 [node name="Basic Projectile" type="Spatial"]
@@ -53,12 +52,12 @@ shape = SubResource( 1 )
 
 [node name="Damage" type="Node" parent="Hurtbox"]
 script = ExtResource( 8 )
-damage = 300
+damage = 200
 oneshot = true
 damage_group = "player"
 
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Trail" method="reset_trail"]
-[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Shoot Effect" method="play" flags=3]
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Hurtbox/Damage" method="reset"]
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Shoot Effect" method="play" flags=3]
 [connection signal="deal_damage" from="Hurtbox/Damage" to="Trail" method="stop_emitting"]
 [connection signal="deal_damage" from="Hurtbox/Damage" to="Hit Effect" method="play"]

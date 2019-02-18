@@ -32,7 +32,7 @@ func damage_with_min(amount : int, minimum : int, notify : bool = true) -> void:
 	var new_health = current_health - amount
 	if new_health < minimum:
 		amount = current_health - minimum
-	if amount != 0:
+	if amount > 0:
 		damage(amount, notify)
 
 func die() -> void:

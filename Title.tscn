@@ -1,0 +1,127 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://Prefabs/PlayerShip.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Prefabs/CameraRig.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/s_effect.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Audio/Drum_Bass.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Scripts/Components/c_music.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Textures/VerticalGradient.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Materials/sh_glitch_image.shader" type="Shader" id=7]
+[ext_resource path="res://Assets/glitch.png" type="Texture" id=8]
+[ext_resource path="res://Assets/noise.png" type="Texture" id=9]
+[ext_resource path="res://Assets/HSD_Logo_Tall_hyper.png" type="Texture" id=10]
+[ext_resource path="res://Assets/HSD_Logo_Tall_space.png" type="Texture" id=11]
+[ext_resource path="res://Assets/HSD_Logo_Tall_drifter.png" type="Texture" id=12]
+[ext_resource path="res://Scripts/s_title_controller.gd" type="Script" id=13]
+[ext_resource path="res://Prefabs/Transition.tscn" type="PackedScene" id=14]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 7 )
+shader_param/params = Plane( 3, 2, 100, 0 )
+shader_param/glitch = ExtResource( 8 )
+shader_param/noise = ExtResource( 9 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 7 )
+shader_param/params = Plane( 5, 2, 300, 0 )
+shader_param/glitch = ExtResource( 8 )
+shader_param/noise = ExtResource( 9 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 7 )
+shader_param/params = Plane( 2.1, 10, 321, 0 )
+shader_param/glitch = ExtResource( 8 )
+shader_param/noise = ExtResource( 9 )
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 7 )
+shader_param/params = Plane( 3, 2, 274, 0 )
+shader_param/glitch = ExtResource( 8 )
+shader_param/noise = ExtResource( 9 )
+
+[node name="Main" type="Node"]
+pause_mode = 1
+
+[node name="Player Ship" parent="." instance=ExtResource( 1 )]
+editor/display_folded = true
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.54189, 0 )
+
+[node name="Input" parent="Player Ship" index="4"]
+min_speed_y = 14.0
+max_speed_y = 17.0
+
+[node name="Score Display" parent="Player Ship/Health Ring" index="0"]
+visible = false
+
+[node name="State Controller" parent="Player Ship" index="15"]
+use_lives = false
+
+[node name="Camera Rig" parent="." instance=ExtResource( 2 )]
+
+[node name="Main Camera" parent="Camera Rig" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.86351, 10.9403 )
+
+[node name="Music" type="Spatial" parent="."]
+editor/display_folded = true
+script = ExtResource( 3 )
+screen_shake_intensity = 0.0
+pitch_min = 1.0
+pitch_max = 1.0
+
+[node name="Sounds" type="Spatial" parent="Music"]
+
+[node name="Music" type="AudioStreamPlayer" parent="Music/Sounds"]
+stream = ExtResource( 4 )
+autoplay = true
+
+[node name="BGM" type="Node" parent="Music"]
+script = ExtResource( 5 )
+
+[node name="BG" type="TextureRect" parent="."]
+modulate = Color( 0.0745098, 0.0196078, 0.211765, 0.94902 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 6 )
+expand = true
+
+[node name="Logo" type="Control" parent="."]
+editor/display_folded = true
+material = SubResource( 1 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -208.0
+margin_top = 33.0
+margin_right = 207.0
+margin_bottom = 456.0
+
+[node name="HYPER" type="TextureRect" parent="Logo"]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 10 )
+expand = true
+
+[node name="SPACE" type="TextureRect" parent="Logo"]
+material = SubResource( 3 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 11 )
+expand = true
+
+[node name="DRIFTER" type="TextureRect" parent="Logo"]
+material = SubResource( 4 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 12 )
+expand = true
+
+[node name="Title Controller" type="Node" parent="."]
+script = ExtResource( 13 )
+
+[node name="Transition" parent="." instance=ExtResource( 14 )]
+t = 0.0
+
+
+[editable path="Player Ship"]
+
+[editable path="Camera Rig"]

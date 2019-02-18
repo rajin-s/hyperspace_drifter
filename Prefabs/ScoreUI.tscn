@@ -6,21 +6,17 @@
 [ext_resource path="res://Scripts/s_lives_label.gd" type="Script" id=4]
 
 [sub_resource type="Gradient" id=1]
-
 colors = PoolColorArray( 0.550711, 0.00228973, 0.0146543, 1, 0.013473, 0.106636, 0.682471, 1 )
 
 [sub_resource type="GradientTexture" id=2]
-
 gradient = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
-
 size = 2000
 use_filter = true
 font_data = ExtResource( 2 )
 
 [sub_resource type="Animation" id=4]
-
 resource_name = "blip"
 step = 0.05
 tracks/0/type = "value"
@@ -37,18 +33,15 @@ tracks/0/keys = {
 }
 
 [sub_resource type="DynamicFont" id=5]
-
 size = 2500
 use_filter = true
 font_data = ExtResource( 2 )
 
 [sub_resource type="Gradient" id=6]
-
 offsets = PoolRealArray( 0, 0.372024, 0.702381, 1 )
 colors = PoolColorArray( 1, 0, 0, 1, 1, 0.718018, 0.179688, 1, 0.319824, 1, 0.222656, 1, 0.445313, 0.791992, 1, 1 )
 
 [sub_resource type="Animation" id=7]
-
 resource_name = "fade out"
 length = 3.2
 tracks/0/type = "value"
@@ -111,7 +104,6 @@ format = "_%d_"
 anims/blip = SubResource( 4 )
 
 [node name="Lives" type="CenterContainer" parent="."]
-modulate = Color( 1, 1, 1, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

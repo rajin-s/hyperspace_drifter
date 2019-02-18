@@ -11,11 +11,12 @@ func enter() -> void:
 
 func exit() -> void:
 	$AnimationPlayer.play("exit")
+
+func exit_last_life() -> void:
+	$AnimationPlayer.play("exit_last_life")
 	
 func restart_scene() -> void:
-	m_screen.reset()
-	m_globals.reset()
-	get_tree().reload_current_scene()
+	m_globals.restart_scene()
 
 func _process(delta : float) -> void:
 	 $"Screen Fill".material.set_shader_param("t", t)

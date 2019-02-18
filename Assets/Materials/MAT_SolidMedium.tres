@@ -1,7 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=2]
 
 [sub_resource type="Shader" id=1]
-
 code = "shader_type spatial;
 render_mode unshaded;
 
@@ -19,7 +18,6 @@ void fragment()
 }"
 
 [resource]
-
 shader = SubResource( 1 )
 shader_param/color = Color( 0.294118, 0.286275, 0.403922, 1 )
 shader_param/offset = 0.069

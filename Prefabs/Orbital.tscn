@@ -13,7 +13,6 @@
 [ext_resource path="res://Scripts/Player/c_orbital_combat.gd" type="Script" id=11]
 
 [sub_resource type="BoxShape" id=1]
-
 extents = Vector3( 0.376976, 0.319532, 1.42119 )
 
 [node name="Orbital" type="Spatial"]
@@ -75,9 +74,9 @@ script = ExtResource( 10 )
 [node name="Combat" type="Node" parent="."]
 script = ExtResource( 11 )
 
-[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Trail" method="reset_trail"]
-[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Hitbox/Health" method="reset"]
 [connection signal="pool_instantiate" from="ObjectPoolInfo" to="Spawn Effect" method="play_under"]
-[connection signal="die" from="Hitbox/Health" to="ObjectPoolInfo" method="set_pool_available"]
-[connection signal="die" from="Hitbox/Health" to="ObjectPoolInfo" method="remove_from_scene" flags=3]
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Hitbox/Health" method="reset"]
+[connection signal="pool_instantiate" from="ObjectPoolInfo" to="Trail" method="reset_trail"]
 [connection signal="die" from="Hitbox/Health" to="Die Effect" method="play"]
+[connection signal="die" from="Hitbox/Health" to="ObjectPoolInfo" method="remove_from_scene" flags=3]
+[connection signal="die" from="Hitbox/Health" to="ObjectPoolInfo" method="set_pool_available"]

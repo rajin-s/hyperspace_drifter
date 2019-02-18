@@ -33,7 +33,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Rajin Shankar's SHMUP"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://Title.tscn"
 boot_splash/image="res://Icon-1.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.921569, 0.921569, 0.921569, 1 )
@@ -53,8 +53,9 @@ gdscript/warnings/return_value_discarded=false
 
 [display]
 
-window/size/width=480
+window/size/width=500
 window/size/height=800
+window/size/resizable=false
 
 [input]
 
@@ -72,6 +73,11 @@ player_spawn_orbital={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"unicode":0,"echo":false,"script":null)
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"unicode":0,"echo":false,"script":null)
+ ]
+}
+debug_pause={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":80,"unicode":0,"echo":false,"script":null)
  ]
 }
 

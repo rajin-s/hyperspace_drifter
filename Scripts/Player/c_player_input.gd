@@ -9,7 +9,8 @@ export var slow_time_scale : float = 0.25
 export var slow_time_speed_scale : float = 2.0
 onready var slow_time_active_timer : Timer = get_node("./Slow Time Active Timer")
 
-onready var c_movement := get_component("movement_base")
+onready var health := get_component_on($"../Model/Hitbox", "health")
+onready var movement := get_component("movement_base")
 
 func _process(delta) -> void:
 	var viewport : Viewport = get_viewport()
@@ -30,10 +31,10 @@ func _process(delta) -> void:
 		speed_scale = 1.0 / Engine.time_scale / slow_time_speed_scale
 	
 	# Set internal velocity of player movement component
-	c_movement.internal_velocity.x = max_speed_x * mouse_input.x * speed_scale
-	c_movement.internal_velocity.y = lerp(min_speed_y, max_speed_y, mouse_input.y)
+	movement.internal_velocity.x = max_speed_x * mouse_input.x * speed_scale
+	movement.internal_velocity.y = lerp(min_speed_y, max_speed_y, mouse_input.y)
 	
-	if Input.is_action_pressed("player_slow_time"):
+	if Input.is_action_pressed("player_slow_time") and not health.dead:
 		m_globals.time_scale = slow_time_scale
 		slow_time_active = true
 		if slow_time_active_timer.is_stopped():
@@ -43,9 +44,3 @@ func _process(delta) -> void:
 			slow_time_active_timer.stop()
 		m_globals.time_scale = 1.0
 		slow_time_active = false
-		
-# TODO: Move this somewhere else
-func test_on_death():
-	m_globals.restart()
-func test_on_damage():
-	print("Player damaged %d" % get_component_on($"../Model/Hitbox", "health").current_health)

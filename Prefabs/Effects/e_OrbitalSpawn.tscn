@@ -15,15 +15,12 @@
 [ext_resource path="res://Assets/Audio/Explode_Low_1.wav" type="AudioStream" id=13]
 
 [sub_resource type="Curve" id=1]
-
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.19033, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=2]
-
 curve = SubResource( 1 )
 
 [sub_resource type="ParticlesMaterial" id=3]
-
 flag_align_y = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
@@ -34,7 +31,6 @@ scale = 1.2
 scale_curve = SubResource( 2 )
 
 [sub_resource type="ParticlesMaterial" id=4]
-
 flag_align_y = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
@@ -45,7 +41,6 @@ scale = 0.7
 scale_curve = SubResource( 2 )
 
 [sub_resource type="CubeMesh" id=5]
-
 
 [node name="Orbital Spawn" type="Spatial"]
 transform = Transform( 0.575367, 0.817895, 0, -0.817895, 0.575367, 0, 0, 0, 1, 0, 0, 0 )
@@ -152,7 +147,6 @@ draw_pass_1 = SubResource( 5 )
 transform = Transform( 1, -2.98023e-008, 0, 2.98023e-008, 1, 0, 0, 0, 1, 0, 0, 0 )
 stream = ExtResource( 11 )
 unit_size = 100.0
-pitch_scale = 1.86999
 bus = "SFX"
 attenuation_filter_cutoff_hz = 10000.0
 
@@ -160,7 +154,6 @@ attenuation_filter_cutoff_hz = 10000.0
 transform = Transform( 1, -2.98023e-008, 0, 2.98023e-008, 1, 0, 0, 0, 1, 0, 0, 0 )
 stream = ExtResource( 12 )
 unit_size = 100.0
-pitch_scale = 1.86999
 bus = "SFX"
 attenuation_filter_cutoff_hz = 10000.0
 
@@ -168,7 +161,6 @@ attenuation_filter_cutoff_hz = 10000.0
 transform = Transform( 1, -2.98023e-008, 0, 2.98023e-008, 1, 0, 0, 0, 1, 0, 0, 0 )
 stream = ExtResource( 13 )
 unit_size = 100.0
-pitch_scale = 1.86999
 bus = "SFX"
 attenuation_filter_cutoff_hz = 10000.0
 

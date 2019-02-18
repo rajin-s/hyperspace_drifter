@@ -42,6 +42,8 @@ func _ready() -> void:
 	release_timer.connect("timeout", self, "fire_projectile")
 	add_child(release_timer)
 	
+	m_globals.connect("game_over", self, "disable")
+	
 	enable()
 
 func ready_projectile() -> void:

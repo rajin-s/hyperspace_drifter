@@ -1,24 +1,19 @@
 [gd_resource type="ParticlesMaterial" load_steps=5 format=2]
 
 [sub_resource type="Curve" id=1]
-
 max_value = 100.0
 _data = [ Vector2( 0, 76.18 ), 0.0, 0.0, 0, 0, Vector2( 0.597316, 0 ), -226.089, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=2]
-
 curve = SubResource( 1 )
 
 [sub_resource type="Curve" id=3]
-
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.19033, 0.0, 0, 0 ]
 
 [sub_resource type="CurveTexture" id=4]
-
 curve = SubResource( 3 )
 
 [resource]
-
 flag_align_y = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )

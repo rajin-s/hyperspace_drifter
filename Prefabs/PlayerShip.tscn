@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://Assets/Models/spaceCraft1.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Assets/Materials/MAT_Red.tres" type="Material" id=2]
@@ -28,26 +28,23 @@
 [ext_resource path="res://Scripts/s_health_circle.gd" type="Script" id=26]
 [ext_resource path="res://Assets/Materials/MAT_ScoreDisplay.tres" type="Material" id=27]
 [ext_resource path="res://Assets/radial.obj" type="ArrayMesh" id=28]
-[ext_resource path="res://Scripts/Components/c_score_giver.gd" type="Script" id=29]
-[ext_resource path="res://Scripts/Player/c_player_score_multiplier.gd" type="Script" id=30]
-[ext_resource path="res://Scripts/Components/c_viewport_to_material.gd" type="Script" id=31]
-[ext_resource path="res://Prefabs/ScoreUI.tscn" type="PackedScene" id=32]
+[ext_resource path="res://Scripts/Player/c_player_score_multiplier.gd" type="Script" id=29]
+[ext_resource path="res://Scripts/Components/c_score_giver.gd" type="Script" id=30]
+[ext_resource path="res://Scripts/Player/c_state_controller.gd" type="Script" id=31]
+[ext_resource path="res://Scripts/Components/c_viewport_to_material.gd" type="Script" id=32]
+[ext_resource path="res://Prefabs/ScoreUI.tscn" type="PackedScene" id=33]
 
 [sub_resource type="BoxShape" id=1]
-
 extents = Vector3( 0.402867, 0.422853, 0.466512 )
 
 [sub_resource type="Gradient" id=2]
-
 offsets = PoolRealArray( 0, 0.492823, 1 )
 colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="GradientTexture" id=3]
-
 gradient = SubResource( 2 )
 
 [sub_resource type="ParticlesMaterial" id=4]
-
 emission_shape = 2
 emission_box_extents = Vector3( 15, 20, 20 )
 spread = 113.03
@@ -62,19 +59,16 @@ hue_variation = 0.17
 hue_variation_random = 1.0
 
 [sub_resource type="SphereMesh" id=5]
-
 material = ExtResource( 16 )
 radial_segments = 4
 rings = 4
 
 [sub_resource type="Curve" id=6]
-
-_data = [ Vector2( 0, 0 ), 0.0, 0.0358258, 0, 0, Vector2( 0.0633916, 0.0688 ), 0.0681341, 0.0681341, 0, 0, Vector2( 1, 1 ), 1.69377, 0.0, 0, 0 ]
+_data = [ Vector2( 0, 0 ), 0.0, 0.0358258, 0, 0, Vector2( 1, 1 ), 1.69377, 0.0, 0, 0 ]
 
 [sub_resource type="Gradient" id=7]
-
-offsets = PoolRealArray( 0.0208333, 0.0357143, 0.215278, 0.454861, 0.732639, 1 )
-colors = PoolColorArray( 0, 0, 0, 1, 0.59375, 0, 0, 1, 1, 0.1875, 0, 1, 1, 0.562927, 0.0976563, 1, 0.172549, 1, 0.864246, 1, 0.214844, 0.429535, 1, 1 )
+offsets = PoolRealArray( 0, 0.215278, 0.454861, 0.732639, 1 )
+colors = PoolColorArray( 0.59375, 0, 0, 1, 1, 0.1875, 0, 1, 1, 0.562927, 0.0976563, 1, 0.172549, 1, 0.864246, 1, 0.214844, 0.429535, 1, 1 )
 
 [node name="Player Ship" type="Spatial"]
 
@@ -147,13 +141,8 @@ collision_mask = 2050
 shape = SubResource( 1 )
 
 [node name="Health" type="Node" parent="Model/Hitbox"]
-editor/display_folded = true
 script = ExtResource( 15 )
 max_health = 1000
-
-[node name="IFrame Timer" type="Timer" parent="Model/Hitbox/Health"]
-wait_time = 0.5
-one_shot = true
 
 [node name="Regen Timer" type="Timer" parent="Model/Hitbox/Health"]
 wait_time = 0.08
@@ -177,19 +166,26 @@ script = ExtResource( 18 )
 [node name="Input" type="Node" parent="."]
 editor/display_folded = true
 script = ExtResource( 19 )
-max_speed_x = 8.0
+max_speed_x = 10.0
 min_speed_y = 6.0
 max_speed_y = 24.0
 slow_time_scale = 0.1
 
 [node name="Slow Time Active Timer" type="Timer" parent="Input"]
-wait_time = 0.05
+wait_time = 0.01
 
 [node name="Combat Input" type="Node" parent="."]
+editor/display_folded = true
 script = ExtResource( 20 )
 fire_offset = Vector2( 0, 1 )
-damage_on_projectile = 50
-damage_on_orbital = 700
+damage_on_projectile = 35
+projectile_health_min = -1
+damage_on_orbital = 480
+score_on_orbital = 800
+
+[node name="Shot Timer" type="Timer" parent="Combat Input"]
+wait_time = 0.12
+one_shot = true
 
 [node name="Angle" type="Node" parent="."]
 script = ExtResource( 21 )
@@ -251,18 +247,23 @@ material_override = ExtResource( 27 )
 mesh = ExtResource( 28 )
 material/0 = null
 
-[node name="Score Adder" type="Node" parent="."]
+[node name="Score Multiplier" type="Node" parent="."]
 script = ExtResource( 29 )
+
+[node name="Score Adder" type="Node" parent="."]
+editor/display_folded = true
+script = ExtResource( 30 )
 score = 1
 
 [node name="Timer" type="Timer" parent="Score Adder"]
 wait_time = 0.1
 autostart = true
 
-[node name="Score Multiplier" type="Node" parent="."]
-script = ExtResource( 30 )
+[node name="State Controller" type="Node" parent="."]
+script = ExtResource( 31 )
 
 [node name="Viewport" type="Viewport" parent="."]
+editor/display_folded = true
 size = Vector2( 5120, 2048 )
 transparent_bg = true
 handle_input_locally = false
@@ -272,23 +273,23 @@ render_target_v_flip = true
 gui_disable_input = true
 
 [node name="To Material" type="Node" parent="Viewport"]
-script = ExtResource( 31 )
+script = ExtResource( 32 )
 target_path = NodePath("../../Health Ring/Score Display")
 
-[node name="Score UI" parent="Viewport" instance=ExtResource( 32 )]
+[node name="Score UI" parent="Viewport" instance=ExtResource( 33 )]
 
-[connection signal="die" from="Model/Hitbox/Health" to="Orbital Container" method="destory_all"]
-[connection signal="die" from="Model/Hitbox/Health" to="Model" method="queue_free"]
 [connection signal="die" from="Model/Hitbox/Health" to="Health Ring" method="set_visible" binds= [ false ]]
+[connection signal="die" from="Model/Hitbox/Health" to="Score Adder/Timer" method="stop"]
+[connection signal="die" from="Model/Hitbox/Health" to="Orbital Container" method="destory_all"]
+[connection signal="die" from="Model/Hitbox/Health" to="Model" method="set_visible" binds= [ false ]]
 [connection signal="die" from="Model/Hitbox/Health" to="Angle" method="disable"]
-[connection signal="die" from="Model/Hitbox/Health" to="Effects/Die Effect" method="play"]
-[connection signal="die" from="Model/Hitbox/Health" to="Input" method="test_on_death"]
-[connection signal="die" from="Model/Hitbox/Health" to="Combat Input" method="disable"]
 [connection signal="die" from="Model/Hitbox/Health" to="Smoke Trail Controller" method="disable"]
+[connection signal="die" from="Model/Hitbox/Health" to="State Controller" method="on_player_death"]
 [connection signal="die" from="Model/Hitbox/Health" to="Movement" method="disable"]
-[connection signal="take_damage" from="Model/Hitbox/Health" to="Input" method="test_on_damage"]
+[connection signal="die" from="Model/Hitbox/Health" to="Combat Input" method="disable"]
+[connection signal="die" from="Model/Hitbox/Health" to="Effects/Die Effect" method="play"]
 [connection signal="take_damage" from="Model/Hitbox/Health" to="Effects/Damage Effect" method="play_under"]
 [connection signal="timeout" from="Model/Hitbox/Health/Regen Timer" to="Model/Hitbox/Health" method="damage" binds= [ -10, false ]]
-[connection signal="timeout" from="Input/Slow Time Active Timer" to="Model/Hitbox/Health" method="damage" binds= [ 30, false ]]
+[connection signal="timeout" from="Input/Slow Time Active Timer" to="Model/Hitbox/Health" method="damage_with_min" binds= [ 10, 50, false ]]
 [connection signal="fire_projectile" from="Combat Input" to="Orbital Container" method="fire_all"]
 [connection signal="timeout" from="Score Adder/Timer" to="Score Adder" method="give_score"]

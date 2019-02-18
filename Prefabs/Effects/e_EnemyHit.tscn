@@ -13,7 +13,6 @@
 
 [sub_resource type="SphereMesh" id=1]
 
-
 [node name="Enemy Hit" type="Spatial"]
 transform = Transform( 0.989833, 0.142237, 0, -0.142237, 0.989833, 0, 0, 0, 1, 0, 0, 0 )
 script = ExtResource( 1 )
@@ -98,7 +97,6 @@ transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 1, 0, 0, 0 )
 stream = ExtResource( 10 )
 unit_db = 8.0
 unit_size = 100.0
-pitch_scale = 1.65424
 bus = "SFX"
 attenuation_filter_cutoff_hz = 10000.0
 

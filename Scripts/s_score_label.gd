@@ -8,5 +8,5 @@ func _ready() -> void:
 
 func update_label(score_change : int) -> void:
 	text = format % m_globals.current_score
-	if score_change > 100:
+	if score_change > 100 and has_node("AnimationPlayer"):
 		$AnimationPlayer.play("blip")

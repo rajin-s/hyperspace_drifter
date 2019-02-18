@@ -1,47 +1,43 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/s_transition.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Materials/sh_transition.shader" type="Shader" id=2]
 [ext_resource path="res://Assets/Textures/transition.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Textures/circle.png" type="Texture" id=4]
-[ext_resource path="res://SourceCodePro-Black.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://Assets/Materials/sh_gradient_text.shader" type="Shader" id=6]
+[ext_resource path="res://SourceCodePro-Black.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/Materials/sh_gradient_text.shader" type="Shader" id=5]
+[ext_resource path="res://Scripts/s_score_label.gd" type="Script" id=6]
 
-[sub_resource type="ShaderMaterial" id=9]
-
+[sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
 shader_param/color = Color( 0, 0.0117647, 0.203922, 1 )
-shader_param/t = 0.0
+shader_param/t = 1.0
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=2]
+size = 71
+font_data = ExtResource( 4 )
 
+[sub_resource type="DynamicFont" id=3]
 size = 43
-font_data = ExtResource( 5 )
+font_data = ExtResource( 4 )
 
-[sub_resource type="Gradient" id=7]
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.237342, 0.518987, 0.762658, 1 )
+colors = PoolColorArray( 1, 0.541176, 0.713726, 1, 0.847088, 0.78416, 0.63512, 1, 0.449219, 0.741822, 1, 1, 0.829407, 1, 0.492188, 1, 1, 0.541176, 0.713726, 1 )
 
-offsets = PoolRealArray( 0, 0.291139, 0.506329, 0.791139, 1 )
-colors = PoolColorArray( 1, 0, 0.376471, 1, 0.203125, 0.626465, 1, 1, 1, 0.766541, 0.402344, 1, 1, 0.431993, 0.339047, 1, 1, 0, 0.376471, 1 )
-
-[sub_resource type="GradientTexture" id=8]
-
-gradient = SubResource( 7 )
+[sub_resource type="GradientTexture" id=5]
+gradient = SubResource( 4 )
 
 [sub_resource type="ShaderMaterial" id=6]
+shader = ExtResource( 5 )
+shader_param/tex = SubResource( 5 )
 
-shader = ExtResource( 6 )
-shader_param/tex = SubResource( 8 )
-
-[sub_resource type="DynamicFont" id=5]
-
+[sub_resource type="DynamicFont" id=7]
 size = 79
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 5 )
+font_data = ExtResource( 4 )
 
-[sub_resource type="Animation" id=10]
-
-resource_name = "enter"
+[sub_resource type="Animation" id=8]
 length = 1.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:t")
@@ -68,9 +64,7 @@ tracks/1/keys = {
 "values": [ -45.0 ]
 }
 
-[sub_resource type="Animation" id=11]
-
-resource_name = "exit"
+[sub_resource type="Animation" id=9]
 length = 1.1
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:t")
@@ -111,76 +105,185 @@ tracks/2/keys = {
 "values": [ 135.0 ]
 }
 
+[sub_resource type="Animation" id=10]
+resource_name = "exit without reload"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:t")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 0.517632 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Screen Fill:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 135.0 ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 2.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:t")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 0.378929 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Restart Message:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.5, 1.9 ),
+"transitions": PoolRealArray( 0.210224, 0.241484 ),
+"update": 0,
+"values": [ Vector2( 220, -800 ), Vector2( 220, 330.362 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Restart Message/Restart:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.5, 2 ),
+"transitions": PoolRealArray( 0.25, 1 ),
+"update": 0,
+"values": [ Vector2( -136.458, -137.676 ), Vector2( -136.458, -22.536 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Restart Message/Score:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.5, 1.7 ),
+"transitions": PoolRealArray( 0.307786, 1 ),
+"update": 0,
+"values": [ Vector2( -136.269, -38.264 ), Vector2( -136.269, 163.756 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Restart Message/Game Over:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0.5, 2 ),
+"transitions": PoolRealArray( 0.378929, 1 ),
+"update": 0,
+"values": [ Vector2( -156.158, -233.979 ), Vector2( -156.158, -189.579 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Restart Message/Number:rect_position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.5, 1.9 ),
+"transitions": PoolRealArray( 0.34151, 1 ),
+"update": 0,
+"values": [ Vector2( -238.194, 282.907 ), Vector2( -238.194, 220.247 ) ]
+}
+
 [node name="Transition" type="Node"]
 script = ExtResource( 1 )
-t = 0.0
 
 [node name="Screen Fill" type="Sprite" parent="."]
-material = SubResource( 9 )
+material = SubResource( 1 )
 position = Vector2( 235.931, 124.402 )
-rotation = 2.35619
+rotation = -0.785398
 texture = ExtResource( 3 )
 
-[node name="Control" type="Control" parent="."]
+[node name="Restart Message" type="Control" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -20.0
-margin_top = -69.6376
-margin_right = 20.0
-margin_bottom = -29.6376
+margin_top = -1200.0
+margin_right = -20.0
+margin_bottom = -1200.0
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
-visible = false
-modulate = Color( 0.345098, 0.32549, 1, 1 )
-margin_left = -320.388
-margin_top = -222.918
-margin_right = 703.612
-margin_bottom = 801.082
-rect_scale = Vector2( 0.376235, 0.376235 )
-texture = ExtResource( 4 )
+[node name="Game Over" type="Label" parent="Restart Message"]
+margin_left = -156.158
+margin_top = -233.979
+margin_right = 230.842
+margin_bottom = -143.979
+rect_rotation = 3.88343
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 0.227451, 0.388235, 1 )
+text = "GAME OVER"
+align = 1
 
-[node name="TextureRect2" type="TextureRect" parent="Control"]
-visible = false
-modulate = Color( 1, 0.32549, 0.498039, 1 )
-margin_left = -189.525
-margin_top = -157.035
-margin_right = 834.475
-margin_bottom = 866.965
-rect_scale = Vector2( 0.655513, 0.655513 )
-texture = ExtResource( 4 )
+[node name="Restart" type="Label" parent="Restart Message"]
+margin_left = -136.458
+margin_top = -137.676
+margin_right = 201.542
+margin_bottom = -24.676
+rect_rotation = -2.3538
+custom_fonts/font = SubResource( 3 )
+text = "Press [Enter]
+to restart"
+align = 1
 
-[node name="Best" type="Label" parent="Control"]
-margin_left = 109.247
-margin_top = -53.3428
-margin_right = 213.247
-margin_bottom = 1.65723
-rect_rotation = 7.84719
-custom_fonts/font = SubResource( 4 )
-text = "best"
+[node name="Score" type="Label" parent="Restart Message"]
+margin_left = -136.269
+margin_top = -38.264
+margin_right = 19.7314
+margin_bottom = 16.736
+rect_rotation = 2.43171
+custom_fonts/font = SubResource( 3 )
+text = "score:"
+align = 1
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Number" type="Label" parent="Restart Message"]
 material = SubResource( 6 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -243.78
-margin_top = -82.4849
-margin_right = 251.22
-margin_bottom = 17.5151
-rect_rotation = 7.35538
-custom_fonts/font = SubResource( 5 )
+margin_left = -238.194
+margin_top = 282.907
+margin_right = 256.806
+margin_bottom = 382.907
+rect_rotation = -4.02117
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_offset_x = 5
 custom_constants/shadow_offset_y = 5
-text = "9,999,999"
+text = "[42352]"
 align = 1
 valign = 1
+script = ExtResource( 6 )
+format = "[%d]"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/enter = SubResource( 10 )
-anims/exit = SubResource( 11 )
+anims/enter = SubResource( 8 )
+anims/exit = SubResource( 9 )
+"anims/exit without reload" = SubResource( 10 )
+anims/exit_last_life = SubResource( 11 )
 

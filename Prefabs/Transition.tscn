@@ -1,11 +1,12 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Scripts/s_transition.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Materials/sh_transition.shader" type="Shader" id=2]
 [ext_resource path="res://Assets/Textures/transition.png" type="Texture" id=3]
-[ext_resource path="res://SourceCodePro-Black.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://Assets/Materials/sh_gradient_text.shader" type="Shader" id=5]
-[ext_resource path="res://Scripts/s_score_label.gd" type="Script" id=6]
+[ext_resource path="res://Prefabs/test_screen_fill.gd" type="Script" id=4]
+[ext_resource path="res://SourceCodePro-Black.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Assets/Materials/sh_gradient_text.shader" type="Shader" id=6]
+[ext_resource path="res://Scripts/s_score_label.gd" type="Script" id=7]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
@@ -14,11 +15,11 @@ shader_param/t = 1.0
 
 [sub_resource type="DynamicFont" id=2]
 size = 71
-font_data = ExtResource( 4 )
+font_data = ExtResource( 5 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 43
-font_data = ExtResource( 4 )
+font_data = ExtResource( 5 )
 
 [sub_resource type="Gradient" id=4]
 offsets = PoolRealArray( 0, 0.237342, 0.518987, 0.762658, 1 )
@@ -28,14 +29,14 @@ colors = PoolColorArray( 1, 0.541176, 0.713726, 1, 0.847088, 0.78416, 0.63512, 1
 gradient = SubResource( 4 )
 
 [sub_resource type="ShaderMaterial" id=6]
-shader = ExtResource( 5 )
+shader = ExtResource( 6 )
 shader_param/tex = SubResource( 5 )
 
 [sub_resource type="DynamicFont" id=7]
 size = 79
 outline_size = 2
 outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 4 )
+font_data = ExtResource( 5 )
 
 [sub_resource type="Animation" id=8]
 length = 1.1
@@ -216,6 +217,7 @@ material = SubResource( 1 )
 position = Vector2( 235.931, 124.402 )
 rotation = -0.785398
 texture = ExtResource( 3 )
+script = ExtResource( 4 )
 
 [node name="Restart Message" type="Control" parent="."]
 anchor_left = 0.5
@@ -278,7 +280,7 @@ custom_constants/shadow_offset_y = 5
 text = "[42352]"
 align = 1
 valign = 1
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 format = "[%d]"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

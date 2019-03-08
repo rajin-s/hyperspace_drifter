@@ -64,9 +64,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.86351, 10.9403 )
 [node name="Music" type="Spatial" parent="."]
 editor/display_folded = true
 script = ExtResource( 3 )
+random_rotation = false
 screen_shake_intensity = 0.0
+screen_shake_duration = 1.0
 pitch_min = 1.0
 pitch_max = 1.0
+editor_play = false
 
 [node name="Sounds" type="Spatial" parent="Music"]
 
@@ -119,7 +122,6 @@ expand = true
 script = ExtResource( 13 )
 
 [node name="Transition" parent="." instance=ExtResource( 14 )]
-t = 0.0
 
 
 [editable path="Player Ship"]

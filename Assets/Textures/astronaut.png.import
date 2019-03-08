@@ -3,6 +3,9 @@
 importer="texture"
 type="StreamTexture"
 path="res://.import/astronaut.png-5bbb37486c79b762832718b7df7fe32a.stex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 

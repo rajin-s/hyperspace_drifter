@@ -55,7 +55,7 @@ gdscript/warnings/return_value_discarded=false
 
 window/size/width=500
 window/size/height=800
-window/size/resizable=false
+window/size/fullscreen=true
 
 [input]
 

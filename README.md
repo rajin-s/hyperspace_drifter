@@ -2,10 +2,14 @@
 Godot SHMUP Project - Rajin Shankar : February 2019
 
 # Credits
-Music: "Drum & Bass" by Andrew Huang
+## Music
+"Drum & Bass" by Andrew Huang
 
-Ship models: Kenney.nl & Lokesh Mehra
+## Ship models
+Kenney.nl & Lokesh Mehra
 
-Fonts: Paul D. Hunt, Skylar Park
+## Fonts
+Source Code Pro: Paul D. Hunt (licensed under the [Open Font License](http://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=OFL_web))
+Pixelated: Skylar Park (see pixelated_readme.txt and pixelated_license.txt)
 
 Game: Rajin Shankar

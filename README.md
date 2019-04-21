@@ -1,2 +1,2 @@
-# shmup
-C220 Project 1
+# Hyperspace Drifter
+Godot SHMUP Project - Rajin Shankar : February 2019

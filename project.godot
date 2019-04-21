@@ -32,12 +32,12 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Rajin Shankar's SHMUP"
+config/name="Hyperspace Drifter"
 run/main_scene="res://Title.tscn"
 boot_splash/image="res://Icon-1.png"
 boot_splash/fullsize=false
 boot_splash/bg_color=Color( 0.921569, 0.921569, 0.921569, 1 )
-config/icon="res://Icon-1.png"
+config/icon="res://Assets/hsd_icon.png"
 
 [autoload]
 
@@ -53,9 +53,8 @@ gdscript/warnings/return_value_discarded=false
 
 [display]
 
-window/size/width=500
-window/size/height=800
-window/size/fullscreen=true
+window/size/width=600
+window/size/height=1000
 
 [input]
 

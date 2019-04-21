@@ -150,9 +150,12 @@ script = ExtResource( 18 )
 [node name="Music" type="Spatial" parent="."]
 editor/display_folded = true
 script = ExtResource( 19 )
+random_rotation = false
 screen_shake_intensity = 0.0
+screen_shake_duration = 1.0
 pitch_min = 1.0
 pitch_max = 1.0
+editor_play = false
 
 [node name="Sounds" type="Spatial" parent="Music"]
 
@@ -164,7 +167,6 @@ autoplay = true
 script = ExtResource( 21 )
 
 [node name="Transition" parent="." instance=ExtResource( 22 )]
-t = 0.0
 
 [connection signal="die" from="Player Ship/Projectile Blocker/Health" to="Player Ship/Projectile Blocker/Health" method="reset"]
 [connection signal="timeout" from="Boid Group/Spawner/First Enemy" to="Boid Group/Spawner" method="spawn_one"]

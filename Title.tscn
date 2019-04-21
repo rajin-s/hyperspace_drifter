@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Prefabs/PlayerShip.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Prefabs/CameraRig.tscn" type="PackedScene" id=2]
@@ -12,8 +12,9 @@
 [ext_resource path="res://Assets/HSD_Logo_Tall_hyper.png" type="Texture" id=10]
 [ext_resource path="res://Assets/HSD_Logo_Tall_space.png" type="Texture" id=11]
 [ext_resource path="res://Assets/HSD_Logo_Tall_drifter.png" type="Texture" id=12]
-[ext_resource path="res://Scripts/s_title_controller.gd" type="Script" id=13]
-[ext_resource path="res://Prefabs/Transition.tscn" type="PackedScene" id=14]
+[ext_resource path="res://SourceCodePro-Black.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://Scripts/s_title_controller.gd" type="Script" id=14]
+[ext_resource path="res://Prefabs/Transition.tscn" type="PackedScene" id=15]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 7 )
@@ -39,6 +40,10 @@ shader_param/params = Plane( 3, 2, 274, 0 )
 shader_param/glitch = ExtResource( 8 )
 shader_param/noise = ExtResource( 9 )
 
+[sub_resource type="DynamicFont" id=5]
+size = 29
+font_data = ExtResource( 13 )
+
 [node name="Main" type="Node"]
 pause_mode = 1
 
@@ -62,7 +67,6 @@ use_lives = false
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.86351, 10.9403 )
 
 [node name="Music" type="Spatial" parent="."]
-editor/display_folded = true
 script = ExtResource( 3 )
 random_rotation = false
 screen_shake_intensity = 0.0
@@ -88,7 +92,6 @@ texture = ExtResource( 6 )
 expand = true
 
 [node name="Logo" type="Control" parent="."]
-editor/display_folded = true
 material = SubResource( 1 )
 anchor_left = 0.5
 anchor_right = 0.5
@@ -118,10 +121,40 @@ anchor_bottom = 1.0
 texture = ExtResource( 12 )
 expand = true
 
-[node name="Title Controller" type="Node" parent="."]
-script = ExtResource( 13 )
+[node name="Start" type="Label" parent="Logo"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -225.229
+margin_top = -4.05527
+margin_right = 227.911
+margin_bottom = 41.9447
+rect_rotation = 2.34361
+custom_fonts/font = SubResource( 5 )
+text = "Press [SPACE] to start"
+align = 1
+valign = 1
 
-[node name="Transition" parent="." instance=ExtResource( 14 )]
+[node name="Rajin" type="Label" parent="Logo"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -227.445
+margin_top = -35.0804
+margin_right = 225.695
+margin_bottom = 10.9196
+rect_rotation = -2.54463
+custom_fonts/font = SubResource( 5 )
+text = "a game by @RajinShankar"
+align = 1
+valign = 1
+
+[node name="Title Controller" type="Node" parent="."]
+script = ExtResource( 14 )
+
+[node name="Transition" parent="." instance=ExtResource( 15 )]
 
 
 [editable path="Player Ship"]

@@ -1,27 +1,20 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=22 format=2]
 
-[ext_resource path="res://Assets/Models/spaceCraft1.obj" type="ArrayMesh" id=1]
-[ext_resource path="res://Assets/Models/spaceCraft2.obj" type="ArrayMesh" id=2]
-[ext_resource path="res://Assets/Models/spaceCraft5.obj" type="ArrayMesh" id=3]
-[ext_resource path="res://Assets/Models/spaceCraft6.obj" type="ArrayMesh" id=4]
-[ext_resource path="res://Assets/Materials/MAT_Red.tres" type="Material" id=5]
-[ext_resource path="res://Assets/Materials/MAT_Steel.tres" type="Material" id=6]
-[ext_resource path="res://Assets/Materials/MAT_Dark.tres" type="Material" id=7]
-[ext_resource path="res://Prefabs/PlayerShip.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scripts/Components/c_health.gd" type="Script" id=9]
-[ext_resource path="res://Prefabs/CameraRig.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Prefabs/BoidGroup.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scripts/Enemies/c_enemy_spawner.gd" type="Script" id=12]
-[ext_resource path="res://Prefabs/EnemyBasic.tscn" type="PackedScene" id=13]
-[ext_resource path="res://Prefabs/EnemyFastShot.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Prefabs/EnemyHeavy.tscn" type="PackedScene" id=15]
-[ext_resource path="res://debug_pause.gd" type="Script" id=16]
-[ext_resource path="res://Prefabs/LevelCreator.tscn" type="PackedScene" id=17]
-[ext_resource path="res://debug_orbitals.gd" type="Script" id=18]
-[ext_resource path="res://Scripts/s_effect.gd" type="Script" id=19]
-[ext_resource path="res://Assets/Audio/Drum_Bass.ogg" type="AudioStream" id=20]
-[ext_resource path="res://Scripts/Components/c_music.gd" type="Script" id=21]
-[ext_resource path="res://Prefabs/Transition.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Prefabs/PlayerShip.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Components/c_health.gd" type="Script" id=2]
+[ext_resource path="res://Prefabs/CameraRig.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/BoidGroup.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/Enemies/c_enemy_spawner.gd" type="Script" id=5]
+[ext_resource path="res://Prefabs/EnemyBasic.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Prefabs/EnemyFastShot.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Prefabs/EnemyHeavy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://debug_pause.gd" type="Script" id=9]
+[ext_resource path="res://Prefabs/LevelCreator.tscn" type="PackedScene" id=10]
+[ext_resource path="res://debug_orbitals.gd" type="Script" id=11]
+[ext_resource path="res://Scripts/s_effect.gd" type="Script" id=12]
+[ext_resource path="res://Assets/Audio/Drum_Bass.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Scripts/Components/c_music.gd" type="Script" id=14]
+[ext_resource path="res://Prefabs/Transition.tscn" type="PackedScene" id=15]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 50.3974, 1, 19.9177 )
@@ -44,51 +37,7 @@ _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 1, Vector2( 0.302052, 0 ), 0.0, 0.0, 0, 
 [node name="Main" type="Node"]
 pause_mode = 1
 
-[node name="Ship Sample" type="Spatial" parent="."]
-editor/display_folded = true
-transform = Transform( 1, 7.15116e-009, 2.5717e-009, 2.5717e-009, -5.22437e-008, -1, -7.15116e-009, 1, -5.22437e-008, 0, 0, 0 )
-visible = false
-
-[node name="spaceCraft1" type="MeshInstance" parent="Ship Sample"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.40539, 0, 0 )
-mesh = ExtResource( 1 )
-material/0 = null
-material/1 = null
-material/2 = null
-
-[node name="spaceCraft2" type="MeshInstance" parent="Ship Sample"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.97677, 0, 0 )
-mesh = ExtResource( 2 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
-
-[node name="spaceCraft5" type="MeshInstance" parent="Ship Sample"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.30597, 0, 0 )
-mesh = ExtResource( 3 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
-
-[node name="spaceCraft6" type="MeshInstance" parent="Ship Sample"]
-mesh = ExtResource( 4 )
-material/0 = null
-material/1 = null
-material/2 = null
-material/3 = null
-
-[node name="MeshInstance" type="MeshInstance" parent="Ship Sample"]
-transform = Transform( -1, 8.02716e-008, -4.11397e-008, 8.02716e-008, 1, -5.22437e-008, 4.11397e-008, -5.22437e-008, -1, 3.5061e-008, -7.12259e-007, -13.6334 )
-visible = false
-mesh = ExtResource( 4 )
-material/0 = ExtResource( 5 )
-material/1 = ExtResource( 6 )
-material/2 = ExtResource( 5 )
-material/3 = ExtResource( 7 )
-
-[node name="Player Ship" parent="." instance=ExtResource( 8 )]
+[node name="Player Ship" parent="." instance=ExtResource( 1 )]
 editor/display_folded = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.54189, 0 )
 
@@ -104,20 +53,20 @@ collision_mask = 33
 shape = SubResource( 1 )
 
 [node name="Health" type="Node" parent="Player Ship/Projectile Blocker"]
-script = ExtResource( 9 )
+script = ExtResource( 2 )
 max_health = 1000
 emit_signals = false
 
-[node name="Camera Rig" parent="." instance=ExtResource( 10 )]
+[node name="Camera Rig" parent="." instance=ExtResource( 3 )]
 
-[node name="Boid Group" parent="." instance=ExtResource( 11 )]
+[node name="Boid Group" parent="." instance=ExtResource( 4 )]
 
 [node name="Spawner" type="Node" parent="Boid Group"]
-script = ExtResource( 12 )
+script = ExtResource( 5 )
 max_time = 300.0
 difficulty_over_time = SubResource( 2 )
 count_over_difficulty = SubResource( 3 )
-enemy_prefabs = [ ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ]
+enemy_prefabs = [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ]
 enemy_spawn_chances = [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ) ]
 
 [node name="Spawn Timer" type="Timer" parent="Boid Group/Spawner"]
@@ -138,18 +87,18 @@ autostart = true
 
 [node name="Debug Pause" type="Node" parent="."]
 pause_mode = 2
-script = ExtResource( 16 )
+script = ExtResource( 9 )
 
-[node name="Level Creator" parent="." instance=ExtResource( 17 )]
+[node name="Level Creator" parent="." instance=ExtResource( 10 )]
 path_width_min = 16.0
 path_width_max = 32.0
 
-[node name="Test Orbitals" type="Node" parent="."]
-script = ExtResource( 18 )
+[node name="Debug Controls" type="Node" parent="."]
+script = ExtResource( 11 )
 
 [node name="Music" type="Spatial" parent="."]
 editor/display_folded = true
-script = ExtResource( 19 )
+script = ExtResource( 12 )
 random_rotation = false
 screen_shake_intensity = 0.0
 screen_shake_duration = 1.0
@@ -160,13 +109,13 @@ editor_play = false
 [node name="Sounds" type="Spatial" parent="Music"]
 
 [node name="Music" type="AudioStreamPlayer" parent="Music/Sounds"]
-stream = ExtResource( 20 )
+stream = ExtResource( 13 )
 autoplay = true
 
 [node name="BGM" type="Node" parent="Music"]
-script = ExtResource( 21 )
+script = ExtResource( 14 )
 
-[node name="Transition" parent="." instance=ExtResource( 22 )]
+[node name="Transition" parent="." instance=ExtResource( 15 )]
 
 [connection signal="die" from="Player Ship/Projectile Blocker/Health" to="Player Ship/Projectile Blocker/Health" method="reset"]
 [connection signal="timeout" from="Boid Group/Spawner/First Enemy" to="Boid Group/Spawner" method="spawn_one"]

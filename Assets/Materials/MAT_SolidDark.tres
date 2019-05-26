@@ -21,4 +21,3 @@ void fragment()
 shader = SubResource( 1 )
 shader_param/color = Color( 0.2, 0.156863, 0.298039, 1 )
 shader_param/offset = 0.07
-

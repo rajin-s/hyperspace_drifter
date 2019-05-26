@@ -16,4 +16,3 @@ angular_velocity = 1.82169e-043
 scale_random = 0.42
 scale_curve = SubResource( 2 )
 color = Color( 0.541176, 0.956863, 1, 1 )
-

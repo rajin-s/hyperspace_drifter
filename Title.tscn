@@ -155,7 +155,7 @@ valign = 1
 script = ExtResource( 14 )
 
 [node name="Transition" parent="." instance=ExtResource( 15 )]
-
+t = 1.0
 
 [editable path="Player Ship"]
 

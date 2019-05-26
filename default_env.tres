@@ -29,4 +29,3 @@ glow_bicubic_upscale = true
 adjustment_enabled = true
 adjustment_brightness = 1.1
 adjustment_saturation = 2.4
-

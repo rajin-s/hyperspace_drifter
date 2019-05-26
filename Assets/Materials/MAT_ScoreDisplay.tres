@@ -7,4 +7,3 @@ flags_unshaded = true
 flags_do_not_receive_shadows = true
 params_blend_mode = 1
 albedo_texture = SubResource( 1 )
-
